@@ -1,7 +1,7 @@
 
 # Go ile Basit Hesap Makinesi
 
-Bu proje, **Go programlama diliyle yazılmış bir basit hesap makinesi** uygulamasıdır. Kullanıcıdan iki sayı alarak toplama, çıkarma, çarpma ve bölme işlemlerini gerçekleştirir. Ayrıca sıfıra bölme gibi hataları yönetir.
+Bu proje, **Go programlama diliyle yazılmış bir basit hesap makinesi** uygulamasıdır. Proje, özellikle **tek seferde birden fazla değer döndürebilen fonksiyonlar oluşturma** amacıyla geliştirilmiştir. Kullanıcıdan iki sayı alarak toplama, çıkarma, çarpma ve bölme işlemlerini gerçekleştirir. Ayrıca sıfıra bölme gibi hataları yönetir.
 
 ---
 
@@ -67,6 +67,7 @@ Sum: 12, Subtraction: 8, Multiplication: 20, Division: 5.00
 
 ### `calculate` Fonksiyonu
 - Toplama, çıkarma, çarpma ve bölme işlemlerini gerçekleştirir.
+- **Birden fazla değer döndürebilen fonksiyonların kullanımını sergiler.**
 - Sıfıra bölme durumunu kontrol eder.
 - İşlem sonuçlarını ve oluşabilecek hataları döner.
 
