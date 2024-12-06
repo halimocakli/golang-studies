@@ -1,56 +1,56 @@
 
-# Go Program: Calculate Distance Between Two Points
+# Go Programı: İki Nokta Arasındaki Mesafeyi Hesaplama
 
-## Description
-This program calculates the Euclidean distance between two points in a 2D plane using Go.
+## Açıklama
+Bu program, 2D düzlemdeki iki nokta arasındaki Öklid mesafesini Go kullanarak hesaplar.
 
-## Features
-- Accepts two points as input from the user.
-- Calculates the distance between the points using the formula:
+## Özellikler
+- Kullanıcıdan iki noktanın koordinatlarını alır.
+- Aşağıdaki formülü kullanarak noktalar arasındaki mesafeyi hesaplar:
   \[
-  	ext{distance} = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
+  	ext{mesafe} = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
   \]
-- Provides error handling for invalid inputs.
+- Geçersiz girişler için hata yönetimi sağlar.
 
-## Usage
+## Kullanım
 
-### Prerequisites
-- Go programming language installed. [Install Go](https://go.dev/doc/install)
+### Gereksinimler
+- Go programlama dili yüklü olmalıdır. [Go Yükleme Kılavuzu](https://go.dev/doc/install)
 
-### How to Run
-1. Clone or download this repository.
-2. Open a terminal in the directory containing the `main.go` file.
-3. Run the following commands:
+### Çalıştırma Adımları
+1. Bu depoyu klonlayın veya indirin.
+2. `main.go` dosyasının bulunduğu dizinde bir terminal açın.
+3. Aşağıdaki komutu çalıştırın:
    ```bash
    go run main.go
    ```
 
-### Input Format
-- The program will prompt you to enter the coordinates of two points in the format:
+### Giriş Formatı
+- Program, aşağıdaki formatta iki noktanın koordinatlarını girmenizi isteyecektir:
   ```
   x1 y1
   x2 y2
   ```
 
-### Example
-#### Input:
+### Örnek
+#### Girdi:
 ```
-Enter coordinates for 1st point [x1 y1]: 3 4
-Enter coordinates for 2nd point [x2 y2]: 6 8
-```
-
-#### Output:
-```
-The distance between the points is: 5.00
+1. noktanın koordinatlarını girin [x1 y1]: 3 4
+2. noktanın koordinatlarını girin [x2 y2]: 6 8
 ```
 
-## Code Structure
-- **Point Struct**: Represents a point in 2D space with `x` and `y` coordinates.
-- **main Function**: Handles input, validates it, and computes the distance.
+#### Çıktı:
+```
+Noktalar arasındaki mesafe: 5.00
+```
 
-## Error Handling
-- Invalid inputs are handled with appropriate error messages.
-- The program terminates if inputs are not in the expected format.
+## Kod Yapısı
+- **Point Yapısı (Struct)**: `x` ve `y` koordinatlarına sahip bir noktayı temsil eder.
+- **main Fonksiyonu**: Giriş alır, doğrular ve mesafeyi hesaplar.
 
-## License
-This project is licensed under the MIT License.
+## Hata Yönetimi
+- Beklenmeyen formatta girişler için uygun hata mesajları verir.
+- Girişler doğru formatta değilse program sonlanır.
+
+## Lisans
+Bu proje MIT Lisansı ile lisanslanmıştır.
