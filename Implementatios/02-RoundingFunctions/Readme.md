@@ -1,62 +1,62 @@
 
-# Golang Application
+# Golang Uygulaması
 
-This project demonstrates basic mathematical operations in Golang, including rounding, flooring, and ceiling of a floating-point number inputted by the user.
+Bu proje, kullanıcının girdiği bir ondalık sayının yuvarlama, aşağı yuvarlama (floor) ve yukarı yuvarlama (ceil) işlemlerini gerçekleştiren temel matematiksel işlemleri Golang ile göstermektedir.
 
-## 📘 **Project Overview**
-This simple command-line application takes a floating-point number as input and outputs its rounded, floored, and ceiled values using Golang's standard `math` package.
+## 📘 **Proje Genel Bakış**
+Bu basit komut satırı uygulaması, kullanıcının girdiği bir ondalık sayıyı alır ve Golang'in standart `math` paketini kullanarak bu sayının yuvarlanmış, aşağı yuvarlanmış ve yukarı yuvarlanmış değerlerini ekrana yazdırır.
 
 ---
 
-## 🚀 **How to Run**
+## 🚀 **Nasıl Çalıştırılır**
 
-To run this application, follow these steps:
+Bu uygulamayı çalıştırmak için şu adımları izleyin:
 
-1. **Ensure Golang is installed** on your system. To verify, run:
+1. **Golang'in yüklü olduğundan emin olun**. Doğrulamak için şu komutu çalıştırın:
    ```bash
    go version
    ```
 
-2. **Run the application** with the following command:
+2. **Uygulamayı çalıştırın**:
    ```bash
    go run main.go
    ```
 
-3. **Input a floating-point number** when prompted (e.g., `3.14`).
+3. **Ondalık bir sayı girin** (örneğin, `3.14`) ve çıktı değerlerini inceleyin.
 
 ---
 
-## 🔧 **Requirements**
+## 🔧 **Gereksinimler**
 
-- Golang (version 1.18 or higher is recommended)
+- Golang (1.18 veya daha yüksek sürüm önerilir)
 
 ---
 
-## 🛠️ **Code Explanation**
+## 🛠️ **Kod Açıklaması**
 
-The application follows these steps:
+Uygulama şu adımları izler:
 
-1. **Input Handling**: 
-   - Prompts the user to input a floating-point number.
-   - Reads the input and checks for any input errors.
+1. **Girdi İşleme**: 
+   - Kullanıcıdan bir ondalık sayı girmesini ister.
+   - Girdiyi okur ve herhangi bir hata olup olmadığını kontrol eder.
    
-2. **Mathematical Operations**:
-   - **Original**: Displays the original input number.
-   - **Rounded**: Rounds the input to the nearest whole number using `math.Round()`.
-   - **Floored**: Returns the largest whole number less than or equal to the input using `math.Floor()`.
-   - **Ceiled**: Returns the smallest whole number greater than or equal to the input using `math.Ceil()`.
+2. **Matematiksel İşlemler**:
+   - **Original**: Girdi olarak alınan sayıyı olduğu gibi gösterir.
+   - **Rounded**: Girdiyi en yakın tam sayıya yuvarlar (`math.Round()`).
+   - **Floored**: Girdiden küçük veya ona eşit olan en büyük tam sayıyı döndürür (`math.Floor()`).
+   - **Ceiled**: Girdiden büyük veya ona eşit olan en küçük tam sayıyı döndürür (`math.Ceil()`).
 
 ---
 
-## 📂 **Project Structure**
+## 📂 **Proje Yapısı**
 
 ```
-├── main.go       # Main Golang application file
+├── main.go       # Ana Golang uygulama dosyası
 ```
 
 ---
 
-## 📘 **Example Usage**
+## 📘 **Örnek Kullanım**
 
 ```bash
 $ go run main.go
@@ -70,20 +70,20 @@ Ceiled: 4.00
 
 ---
 
-## ❗ **Error Handling**
+## ❗ **Hata Yönetimi**
 
-- If the user inputs an invalid number (like a string), the application will exit with an error message.
-
----
-
-## 📚 **Golang Concepts Used**
-
-- **Package `fmt`**: For input and output operations.
-- **Package `math`**: For rounding, flooring, and ceiling calculations.
-- **Package `log`**: For error handling and application termination on invalid input.
+- Kullanıcı geçersiz bir giriş (örneğin bir metin) girerse, uygulama bir hata mesajıyla çıkış yapar.
 
 ---
 
-## 📜 **License**
+## 📚 **Kullanılan Golang Kavramları**
 
-This project is open-source and can be used freely for educational purposes.
+- **`fmt` Paketi**: Girdi ve çıktı işlemleri için kullanılır.
+- **`math` Paketi**: Yuvarlama, aşağı yuvarlama ve yukarı yuvarlama işlemleri için kullanılır.
+- **`log` Paketi**: Hataların yakalanması ve hatalı girişlerde uygulamanın sonlandırılması için kullanılır.
+
+---
+
+## 📜 **Lisans**
+
+Bu proje açık kaynaklıdır ve eğitim amaçlı serbestçe kullanılabilir.
