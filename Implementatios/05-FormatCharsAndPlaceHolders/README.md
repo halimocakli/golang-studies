@@ -1,15 +1,10 @@
 
 # Golang Uygulaması
 
-Bu proje, Golang'de yerleşik biçimlendirme karakterlerini ve bölme işlemlerini öğreten bir uygulamadır. Proje, **NaN (Not-a-Number)**, **Infinity (sonsuzluk)**, **bölme işlemleri** ve **özel durumların kontrolü** gibi kavramları açıklar.
+Bu proje, aşağıdaki işlemleri gerçekleştiren bir Golang uygulamasıdır:
 
 ## 📘 **Proje Genel Bakış**
-Bu uygulama, aşağıdaki konuları ele alır:
-
-- **Floating-point Bölme**: Ondalıklı sayılarla yapılan bölme işlemlerini açıklar.
-- **Integer Bölme**: Tam sayılarla yapılan bölme işlemlerini açıklar.
-- **NaN, Infinity ve Runtime Error**: Bu özel durumların nasıl oluştuğunu ve kontrol edileceğini gösterir.
-- **Biçimlendirme Karakterleri**: Golang'de printf ve benzeri fonksiyonlarda kullanılan biçimlendirme karakterlerini açıklar.
+Bu uygulama, Golang'de bölme işlemleriyle ilgili çeşitli özel durumları ele alır. Kod, bölme işlemlerinin sonucunu analiz eder ve NaN, +Infinity ve -Infinity durumlarını kontrol eder.
 
 ---
 
@@ -27,7 +22,7 @@ Bu uygulamayı çalıştırmak için şu adımları izleyin:
    go run main.go
    ```
 
-3. **Sonuçları inceleyin**. Biçimlendirme karakterlerinin nasıl çalıştığını ve bölme işlemlerinin nasıl özel durumlar oluşturduğunu gözlemleyin.
+3. **Sonuçları inceleyin**. Bölme işlemlerinin nasıl çalıştığını ve özel durumların nasıl tespit edildiğini gözlemleyin.
 
 ---
 
@@ -39,7 +34,7 @@ Bu uygulamayı çalıştırmak için şu adımları izleyin:
 
 ## 🛠️ **Kod Açıklaması**
 
-Uygulama şu adımları izler:
+Bu kod, bölme işlemlerinin farklı durumlarını kontrol etmek için aşağıdaki işlemleri içerir:
 
 1. **Bölme İşlemleri**:
    - Numerator (pay) ve denominator (payda) listelerindeki her bir eleman için **num / denom** işlemi yapılır.
@@ -50,9 +45,47 @@ Uygulama şu adımları izler:
      - **Normal Sonuç**: Diğer durumlarda normal bir sonuç döner.
    - Bu özel durumlar, `math.IsNaN()`, `math.IsInf(result, 1)` ve `math.IsInf(result, -1)` kullanılarak kontrol edilir.
 
-2. **Biçimlendirme Karakterleri**:
-   - `fmt.Printf()` ile biçimlendirme karakterlerinin kullanımı gösterilir.
-   - Bu karakterlerin nasıl çalıştığı açıklanır.
+2. **Kodun Gövdesi**:
+   - Aşağıda, projenin `main.go` dosyasındaki tam kod bulunmaktadır:
+   
+```go
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	// Tamsayılar
+	fmt.Printf("%%d: %d\n", 42)
+	fmt.Printf("%%b: %b\n", 42)
+	fmt.Printf("%%o: %o\n", 42)
+	fmt.Printf("%%x: %x\n", 42)
+	fmt.Printf("%%X: %X\n", 42)
+	fmt.Printf("%%c: %c\n", 65)
+	fmt.Printf("%%q: %q\n", 65)
+
+	// Gerçek Sayılar
+	fmt.Printf("%%f: %f\n", 3.14159)
+	fmt.Printf("%%e: %e\n", 1234.5678)
+	fmt.Printf("%%g: %g\n", 1234.5678)
+
+	// Dizgeler
+	fmt.Printf("%%s: %s\n", "hello")
+	fmt.Printf("%%q: %q\n", "hello")
+	fmt.Printf("%%x: %x\n", "hello")
+
+	// Pointer
+	x := 42
+	fmt.Printf("%%p: %p\n", &x)
+
+	// Genel Yer Tutucular
+	fmt.Printf("%%v: %v\n", []int{1, 2, 3})
+	fmt.Printf("%%+v: %+v\n", struct{ Name string }{"Go"})
+	fmt.Printf("%%T: %T\n", x)
+}
+
+```
 
 ---
 
@@ -69,54 +102,7 @@ Uygulama şu adımları izler:
 ```bash
 $ go run main.go
 ```
-Komutun çıktısı, bölme işlemlerinin sonuçlarını ve biçimlendirme karakterlerinin kullanımını gösterecektir.
-
----
-
-## 🔍 **Kullanılan Golang Matematik Fonksiyonları**
-
-| **İşlem**                | **Kullanılan Fonksiyon**  | **Açıklama**                                      |
-|------------------------|--------------------------|-------------------------------------------------|
-| Bölme (Ondalıklı)       | `num / denom`             | Ondalıklı sayılarla bölme işlemi.                 |
-| NaN Kontrolü            | `math.IsNaN(x)`           | Değerin NaN (Not-a-Number) olup olmadığını kontrol eder |
-| Pozitif Sonsuzluk Kontrolü | `math.IsInf(x, 1)`      | Değerin +Infinity (sonsuz) olup olmadığını kontrol eder |
-| Negatif Sonsuzluk Kontrolü| `math.IsInf(x, -1)`     | Değerin -Infinity (sonsuz) olup olmadığını kontrol eder |
-
----
-
-## 📚 **Golang Biçimlendirme Karakterleri**
-
-### 1. Genel Yer Tutucular
-
-| **Yer Tutucu** | **Açıklama**                   | **Örnek**                |
-|----------------|---------------------------------|--------------------------|
-| `%v`           | Varsayılan biçimlendirme        | `[1 2 3]`, `42`           |
-| `%+v`          | Struct alanlarını yazdırır     | `{Name: Go}`              |
-| `%#v`          | Go sözdiziminde biçimlendirir  | `[]int{1, 2, 3}`          |
-| `%T`           | Değişkenin türünü yazdırır     | `int`, `string`           |
-| `%%`           | `%` sembolünü yazdırır         | `%`                      |
-
-### 2. Tamsayılar (Integers)
-
-| **Yer Tutucu** | **Açıklama**                   | **Örnek**                |
-|----------------|---------------------------------|--------------------------|
-| `%d`           | Ondalık sayı (decimal)         | `42`                      |
-| `%b`           | İkilik sayı (binary)           | `101010`                  |
-| `%o`           | Sekizlik sayı (octal)          | `52`                      |
-| `%x`           | Onaltılık sayı (hex) (küçük)   | `2a`                      |
-| `%X`           | Onaltılık sayı (hex) (büyük)   | `2A`                      |
-| `%c`           | ASCII karakteri                | `A`                       |
-| `%q`           | ASCII karakterini tırnak içinde| `'A'`                     |
-
-### 3. Gerçek Sayılar (Floats)
-
-| **Yer Tutucu** | **Açıklama**                   | **Örnek**                |
-|----------------|---------------------------------|--------------------------|
-| `%f`           | Ondalık gösterim (float)       | `3.141590`                |
-| `%e`           | Bilimsel gösterim (e)          | `1.234568e+03`            |
-| `%E`           | Bilimsel gösterim (E)          | `1.234568E+03`            |
-| `%g`           | `%f` veya `%e`'den kısa olanı  | `1234.57`                 |
-| `%G`           | `%f` veya `%E`'den kısa olanı  | `1234.57`                 |
+Komutun çıktısı, bölme işlemlerinin sonuçlarını gösterecektir. Özel durumlar (NaN, +Infinity, -Infinity) hakkında bilgi sağlayacaktır.
 
 ---
 
