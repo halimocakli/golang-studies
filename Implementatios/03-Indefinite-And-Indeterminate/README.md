@@ -1,14 +1,14 @@
 
 # Golang Uygulaması
 
-Bu proje, **NaN (Not-a-Number)** kavramını açıklayan ve çeşitli durumlarda NaN değerinin nasıl ortaya çıktığını gösteren bir Golang uygulamasıdır. Ayrıca, NaN değerlerinin nasıl kontrol edileceğini de öğretir.
+Bu proje, **NaN (Not-a-Number)**, **Infinity (sonsuzluk)** ve **log(0)** kavramlarını açıklayan bir Golang uygulamasıdır. Uygulama, bu durumların nasıl oluştuğunu ve nasıl kontrol edileceğini öğretir.
 
 ## 📘 **Proje Genel Bakış**
-Bu uygulama, aşağıdaki durumlarda NaN (Not-a-Number) değerlerini nasıl üretebileceğinizi ve bunları nasıl kontrol edebileceğinizi göstermektedir:
+Bu uygulama, aşağıdaki işlemleri ele alır ve açıklar:
 
-- **Karekök alma işlemi**: Negatif bir sayının karekökü alındığında (√-1), NaN oluşur.
-- **Infinity işlemleri**: Sonsuzluk ile yapılan belirli işlemler NaN değerini üretir. Örnek: (+∞) - (+∞) = NaN.
-- **Negatif sayıların logaritması**: Negatif bir sayının logaritması tanımlı değildir, bu nedenle NaN döner.
+- **NaN (Not-a-Number) Değerleri**: Negatif bir sayının karekökü, (∞ - ∞) ve negatif bir sayının logaritması tanımsız olduğu için `NaN` (Not-a-Number) değerini üretir.
+- **Infinity Değerleri**: `math.Log(0)` işlemi negatif sonsuzluk (-∞) döndürür.
+- **Kontroller**: Bu NaN ve Infinity değerlerinin nasıl kontrol edileceği gösterilir.
 
 ---
 
@@ -26,7 +26,7 @@ Bu uygulamayı çalıştırmak için şu adımları izleyin:
    go run main.go
    ```
 
-3. **Sonuçları inceleyin**. NaN değerlerinin nasıl ortaya çıktığını ve nasıl kontrol edildiğini göreceksiniz.
+3. **Sonuçları inceleyin**. NaN, Infinity ve log(0) durumlarının nasıl oluştuğunu ve nasıl kontrol edildiğini göreceksiniz.
 
 ---
 
@@ -51,9 +51,12 @@ Uygulama şu adımları izler:
    - Bu değerin NaN olup olmadığı `math.IsNaN(x)` ile kontrol edilir.
 
 3. **Logaritma İşlemi**:
-   - `math.Log(-10)` ifadesi, -10'un doğal logaritmasını hesaplamaya çalışır.
-   - Negatif bir sayının logaritması tanımsız olduğu için `NaN` döner.
-   - Bu değerin NaN olup olmadığı `math.IsNaN(x)` ile kontrol edilir.
+   - **Negatif Sayı**: `math.Log(-10)` ifadesi, -10'un doğal logaritmasını hesaplamaya çalışır.
+     - Negatif bir sayının logaritması tanımsız olduğu için `NaN` döner.
+     - Bu değerin NaN olup olmadığı `math.IsNaN(x)` ile kontrol edilir.
+   - **Log(0)**: `math.Log(0)` ifadesi, 0'ın doğal logaritmasını hesaplamaya çalışır.
+     - 0'ın logaritması, negatif sonsuzluk (-∞) olarak tanımlanır.
+     - `math.IsInf(x, 0)` fonksiyonu ile bu değerin sonsuz olup olmadığı kontrol edilir.
 
 ---
 
@@ -78,6 +81,9 @@ infMinusInf is NaN (Not-a-Number)!
 
 math.Log(-10) = NaN
 logNeg is NaN (Not-a-Number)!
+
+math.Log(0) = -Inf
+logZero is negative Infinity!
 ```
 
 ---
@@ -91,14 +97,17 @@ logNeg is NaN (Not-a-Number)!
 | Sonsuzluk (-Infinity)   | `math.Inf(-1)`            | Negatif sonsuzluk oluşturur (-∞)                |
 | Sonsuzluk İşlemi        | `inf - inf`               | Sonsuzluk ile işlem yapar, NaN döner.           |
 | Logaritma (Negatif Sayı)| `math.Log(x)`             | Negatif bir sayının logaritması NaN döner.      |
+| Logaritma (0)           | `math.Log(0)`             | 0'ın logaritması negatif sonsuzluk (-∞) döner.   |
 | NaN Kontrolü            | `math.IsNaN(x)`           | Değerin NaN (Not-a-Number) olup olmadığını kontrol eder |
+| Infinity Kontrolü       | `math.IsInf(x, 0)`        | Değerin sonsuz olup olmadığını kontrol eder (pozitif ya da negatif) |
 
 ---
 
 ## ❗ **Hata Yönetimi**
 
 - NaN (Not-a-Number) değerlerini tespit etmek için `math.IsNaN(x)` fonksiyonu kullanılır.
-- Kareköklü, logaritmalı veya infinity işlemleri ile oluşan NaN değerleri kullanıcıya bildirir.
+- Infinity değerlerini tespit etmek için `math.IsInf(x, 0)` fonksiyonu kullanılır.
+- Kareköklü, logaritmalı veya infinity işlemleri ile oluşan NaN ve sonsuzluk değerleri kullanıcıya bildirir.
 
 ---
 

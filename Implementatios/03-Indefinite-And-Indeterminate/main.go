@@ -27,4 +27,11 @@ func main() {
 	if math.IsNaN(logNeg) {
 		fmt.Println("logNeg is NaN (Not-a-Number)!")
 	}
+
+	logZero := math.Log(0)
+	fmt.Printf("math.Log(0) = %v\n", logZero)
+
+	if math.IsInf(logZero, 0) {
+		fmt.Println("logZero is negative Infinity!")
+	}
 }
