@@ -1,111 +1,98 @@
+# Go Format Specifiers Example
 
-# Golang Uygulaması
+Bu proje, Go programlama dilinde `fmt.Printf` fonksiyonunu kullanarak farklı biçimlendirme (format) karakterlerinin nasıl kullanılacağını gösterir.
 
-Bu proje, aşağıdaki işlemleri gerçekleştiren bir Golang uygulamasıdır:
+## 📘 Amaç
 
-## 📘 **Proje Genel Bakış**
-Bu uygulama, Golang'de bölme işlemleriyle ilgili çeşitli özel durumları ele alır. Kod, bölme işlemlerinin sonucunu analiz eder ve NaN, +Infinity ve -Infinity durumlarını kontrol eder.
+Bu proje, tamsayılar, gerçek sayılar ve dizgeler (string) için kullanılabilecek format karakterlerinin örneklerini sunar. Kodun amacı, bu karakterlerin Go'da nasıl çalıştığını anlamaktır.
 
----
-
-## 🚀 **Nasıl Çalıştırılır**
-
-Bu uygulamayı çalıştırmak için şu adımları izleyin:
-
-1. **Golang'in yüklü olduğundan emin olun**. Doğrulamak için şu komutu çalıştırın:
-   ```bash
-   go version
-   ```
-
-2. **Uygulamayı çalıştırın**:
-   ```bash
-   go run main.go
-   ```
-
-3. **Sonuçları inceleyin**. Bölme işlemlerinin nasıl çalıştığını ve özel durumların nasıl tespit edildiğini gözlemleyin.
-
----
-
-## 🔧 **Gereksinimler**
-
-- Golang (1.18 veya daha yüksek sürüm önerilir)
-
----
-
-## 🛠️ **Kod Açıklaması**
-
-Bu kod, bölme işlemlerinin farklı durumlarını kontrol etmek için aşağıdaki işlemleri içerir:
-
-1. **Bölme İşlemleri**:
-   - Numerator (pay) ve denominator (payda) listelerindeki her bir eleman için **num / denom** işlemi yapılır.
-   - Bölme işleminin sonucunda aşağıdaki özel durumlar kontrol edilir:
-     - **NaN**: Eğer pay ve payda sıfırsa `(0.0 / 0.0)`, sonuç NaN olur.
-     - **Pozitif Sonsuzluk**: Eğer pozitif bir sayı 0.0'a bölünürse `(10.0 / 0.0)`, sonuç +Infinity olur.
-     - **Negatif Sonsuzluk**: Eğer negatif bir sayı 0.0'a bölünürse `(-5.0 / 0.0)`, sonuç -Infinity olur.
-     - **Normal Sonuç**: Diğer durumlarda normal bir sonuç döner.
-   - Bu özel durumlar, `math.IsNaN()`, `math.IsInf(result, 1)` ve `math.IsInf(result, -1)` kullanılarak kontrol edilir.
-
-2. **Kodun Gövdesi**:
-   - Aşağıda, projenin `main.go` dosyasındaki tam kod bulunmaktadır:
-   
-```go
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	// Tamsayılar
-	fmt.Printf("%%d: %d\n", 42)
-	fmt.Printf("%%b: %b\n", 42)
-	fmt.Printf("%%o: %o\n", 42)
-	fmt.Printf("%%x: %x\n", 42)
-	fmt.Printf("%%X: %X\n", 42)
-	fmt.Printf("%%c: %c\n", 65)
-	fmt.Printf("%%q: %q\n", 65)
-
-	// Gerçek Sayılar
-	fmt.Printf("%%f: %f\n", 3.14159)
-	fmt.Printf("%%e: %e\n", 1234.5678)
-	fmt.Printf("%%g: %g\n", 1234.5678)
-
-	// Dizgeler
-	fmt.Printf("%%s: %s\n", "hello")
-	fmt.Printf("%%q: %q\n", "hello")
-	fmt.Printf("%%x: %x\n", "hello")
-
-	// Pointer
-	x := 42
-	fmt.Printf("%%p: %p\n", &x)
-
-	// Genel Yer Tutucular
-	fmt.Printf("%%v: %v\n", []int{1, 2, 3})
-	fmt.Printf("%%+v: %+v\n", struct{ Name string }{"Go"})
-	fmt.Printf("%%T: %T\n", x)
-}
+## 📂 Dosya Yapısı
 
 ```
-
----
-
-## 📂 **Proje Yapısı**
-
-```
-├── main.go       # Ana Golang uygulama dosyası
+📁 main.go - Format karakterlerini örneklerle açıklayan ana Go dosyası
 ```
 
----
+## 🚀 Kullanım
 
-## 📘 **Örnek Kullanım**
+Bu programı çalıştırmak için aşağıdaki adımları takip edebilirsiniz:
+
+1. Go yüklü olduğundan emin olun. Eğer yüklü değilse, [Go'yu buradan indirin](https://go.dev/doc/install).
+2. Terminal veya komut istemcisinde `main.go` dosyasının bulunduğu dizine gidin.
+3. Aşağıdaki komutu çalıştırın:
 
 ```bash
-$ go run main.go
+go run main.go
 ```
-Komutun çıktısı, bölme işlemlerinin sonuçlarını gösterecektir. Özel durumlar (NaN, +Infinity, -Infinity) hakkında bilgi sağlayacaktır.
+
+Bu komut, programın çıktısını terminalde gösterecektir.
 
 ---
 
-## 📜 **Lisans**
+## 🧑‍💻 Örnek Çıktı
 
-Bu proje açık kaynaklıdır ve eğitim amaçlı serbestçe kullanılabilir.
+Aşağıdaki örnek, programın terminalde ürettiği çıktıya benzer olabilir:
+
+```
+%d: 42
+%b: 101010
+%o: 52
+%x: 2a
+%X: 2A
+%c: A
+%q: 'A'
+%f: 3.141590
+%e: 1.234568e+03
+%g: 1234.57
+%s: hello
+%q: "hello"
+%x: 68656c6c6f
+```
+
+---
+
+## 📝 Format Karakterleri Tablosu
+
+### 1️⃣ Genel Yer Tutucular (General Placeholders)
+
+| Yer Tutucu | Açıklama                         | Örnek            |
+|------------|---------------------------------|------------------|
+| `%v`       | Varsayılan biçimlendirme         | `[1 2 3]`, `42`   |
+| `%+v`      | Struct alanlarını yazdırır       | `{Name: Go}`     |
+| `%#v`      | Go sözdiziminde biçimlendirir   | `[]int{1, 2, 3}`  |
+| `%T`       | Değişkenin türünü yazdırır       | `int`, `string`  |
+| `%%`       | `%` sembolünü yazdırır           | `%`              |
+
+---
+
+### 2️⃣ Tamsayılar (Integers)
+
+| Yer Tutucu | Açıklama                         | Örnek             |
+|------------|---------------------------------|-------------------|
+| `%d`       | Ondalık sayı (decimal)           | `42`              |
+| `%b`       | İkilik sayı (binary)             | `101010`          |
+| `%o`       | Sekizlik sayı (octal)            | `52`              |
+| `%x`       | Onaltılık sayı (hexadecimal) (küçük harf) | `2a`          |
+| `%X`       | Onaltılık sayı (hexadecimal) (büyük harf) | `2A`          |
+| `%c`       | ASCII karakteri olarak yazdırır  | `A`               |
+| `%q`       | ASCII karakterini tırnak içinde yazdırır | `'A'`         |
+
+---
+
+### 3️⃣ Gerçek Sayılar (Floats)
+
+| Yer Tutucu | Açıklama                         | Örnek             |
+|------------|---------------------------------|-------------------|
+| `%f`       | Ondalık gösterim (float)         | `3.141590`        |
+| `%e`       | Bilimsel gösterim (e)            | `1.234568e+03`    |
+| `%E`       | Bilimsel gösterim (E)            | `1.234568E+03`    |
+| `%g`       | `%f` veya `%e`'den kısa olanı seçer | `1234.57`      |
+| `%G`       | `%f` veya `%E`'den kısa olanı seçer | `1234.57`      |
+
+---
+
+Bu `README.md` dosyası, format karakterleri hakkında temel bilgileri ve `main.go` dosyasının nasıl çalıştırılacağını sunmaktadır.
+
+## 📚 Daha Fazla Bilgi
+
+Go'nun `fmt` paketine dair daha fazla bilgiye [Go'nun resmi belgesinden](https://pkg.go.dev/fmt) ulaşabilirsiniz.
+
