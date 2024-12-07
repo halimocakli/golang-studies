@@ -8,8 +8,10 @@ func main() {
 	// Tamsayılar
 	fmt.Printf("%%d: %d\n", 42)
 	fmt.Printf("%%b: %b\n", 42)
+	fmt.Printf("%%b: %016b\n", 42)
 	fmt.Printf("%%o: %o\n", 42)
 	fmt.Printf("%%x: %x\n", 42)
+	fmt.Printf("%%x: %08x\n", 42)
 	fmt.Printf("%%X: %X\n", 42)
 	fmt.Printf("%%c: %c\n", 65)
 	fmt.Printf("%%q: %q\n", 65)
