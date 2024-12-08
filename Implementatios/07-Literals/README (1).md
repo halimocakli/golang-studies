@@ -15,39 +15,9 @@ Go'daki sabit türleri aşağıdaki gibidir:
 - **Floating Point Literals (Gerçek sayı sabitleri)**: Ondalık sayılar (`3.14`, `-0.5` vb.).
 - **Complex Literals (Karmaşık sayı sabitleri)**: Karmaşık sayılar (`3+4i`, `(1.1 + 2.2i)` vb.).
 - **Boolean Literals (Boolean sabitleri)**: `true` ve `false` sabitleridir.
-- **Rune Literals (Rune sabitleri)**: Tek tırnak içinde tek bir karakter (`'a'`, `'中'`, `'\n'`, `'\u4F60'` vb.).
+- **Rune Literals (Rune sabitleri)**: Tek tırnak içinde tek bir karakter (`'a'`, `'中'`, `'
+'`, `'你'` vb.).
 - **String Literals (String sabitleri)**: Çift tırnakla belirtilen dizgeler (`"hello"`, `"world"` vb.).
-
----
-
-## 📘 Numeric Constants (Sayısal Sabitler)
-
-1. **Tamsayı Sabitleri (Integer Literals)**: Tamsayılar sınırlar içinde olmalıdır, aksi halde taşma hatası oluşur.
-2. **Gerçek Sayı Sabitleri (Floating Point Literals)**: Nokta (.) içeren tüm sayılar **floating-point literal** olarak kabul edilir.
-3. **Karmaşık Sayı Sabitleri (Complex Literals)**: `(real + imaginary i)` biçimindedir. Parantez zorunlu değildir, ancak kullanıldığında aralarındaki boşluklara izin verilir.
-4. **Rune Sabitleri (Rune Literals)**: Tek tırnak içinde **bir karakter** kullanılır. Unicode karakterlerin kod noktaları `\\u` veya `\\U` ile yazılabilir.
-
----
-
-## 📘 Escape Sequences (Kaçış Dizileri)
-
-Golang, **rune** ve **string** sabitlerinde kullanılabilen çeşitli kaçış dizilerini destekler:
-
-- **Standart Escape Dizileri**:
-    - `\\a` — Bell/Alert
-    - `\\b` — Backspace
-    - `\\f` — Form Feed
-    - `\\n` — New Line
-    - `\\r` — Carriage Return
-    - `\\t` — Horizontal Tab
-    - `\\v` — Vertical Tab
-    - `\\\\` — Backslash
-    - `'` — Single Quote
-    - `\\"` — Double Quote
-
-- **Hexadecimal (\\x)**: Standart ASCII karakterleri için `\\xAB` biçiminde kullanılır.
-- **Unicode (\\u ve \\U)**: `\\u` 2 byte'lık karakterleri, `\\U` 4 byte'lık karakterleri temsil eder.
-- **Octal (\\nnn)**: Sekizlik (octal) temsilini sağlar (`\\000`, `\\177`).
 
 ---
 
@@ -97,7 +67,7 @@ func main() {
 	fmt.Println("Horizontal Tab: A\tB")
 	fmt.Println("Vertical Tab: A\vB")
 	fmt.Println("Backslash: \\")
-	fmt.Println("Single Quote: '")
+	fmt.Println("Single Quote: \'")
 	fmt.Println("Double Quote: \"")
 
 	var stringLiteral1 string = "Hello, Go!"
