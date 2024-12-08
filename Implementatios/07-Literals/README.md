@@ -21,38 +21,9 @@ Go'daki sabit türleri aşağıdaki gibidir:
 
 ---
 
-## 📘 Numeric Constants (Sayısal Sabitler)
-
-1. **Tamsayı Sabitleri (Integer Literals)**: Tamsayılar sınırlar içinde olmalıdır, aksi halde taşma hatası oluşur.
-2. **Gerçek Sayı Sabitleri (Floating Point Literals)**: Nokta (.) içeren tüm sayılar **floating-point literal** olarak kabul edilir.
-3. **Karmaşık Sayı Sabitleri (Complex Literals)**: `(real + imaginary i)` biçimindedir. Parantez zorunlu değildir, ancak kullanıldığında aralarındaki boşluklara izin verilir.
-4. **Rune Sabitleri (Rune Literals)**: Tek tırnak içinde **bir karakter** kullanılır. Unicode karakterlerin kod noktaları `\u` veya `\U` ile yazılabilir.
-
----
-
-## 📘 Escape Sequences (Kaçış Dizileri)
-
-Golang, **rune** ve **string** sabitlerinde kullanılabilen çeşitli kaçış dizilerini destekler:
-
-- **Standart Escape Dizileri**:  
-  - `\a` — Bell/Alert  
-  - `\b` — Backspace  
-  - `\f` — Form Feed  
-  - `\n` — New Line  
-  - `\r` — Carriage Return  
-  - `\t` — Horizontal Tab  
-  - `\v` — Vertical Tab  
-  - `\\` — Backslash  
-  - `\'` — Single Quote  
-  - `\"` — Double Quote  
-
-- **Hexadecimal (\x)**: Standart ASCII karakterleri için `\xAB` biçiminde kullanılır.
-- **Unicode (\u ve \U)**: `\u` 2 byte'lık karakterleri, `\U` 4 byte'lık karakterleri temsil eder.
-- **Octal (\nnn)**: Sekizlik (octal) temsilini sağlar (`\000`, `\177`).
-
----
-
 ## 📘 Full Example (Tam Kod Örneği)
+
+Aşağıda Golang'de **sabitler (literals)**, **sabit ifadeler (constant expressions)**, **rune** ve **escape sequence** kullanımına dair eksiksiz bir örnek bulunmaktadır.
 
 ```go
 package main
@@ -111,6 +82,44 @@ func main() {
 	fmt.Printf("Octal Rune: %c\n", octalRune)
 	fmt.Printf("Unicode Rune: %c\n", unicodeRune)
 }
+```
+
+---
+
+## 📘 Çıktı (Output)
+
+Programın çıktısı aşağıdaki gibidir:
+
+```
+Integer Literal: 42
+Floating Point Literal: 3.141590
+Complex Literal 1: 3.000000+4.000000i
+Complex Literal 2: 2.200000+1.100000i
+Boolean Literal (true): true
+Boolean Literal (false): false
+Rune Literal 1: A
+Rune Literal 2: '\n'
+Rune Literal 3 (Unicode 你): 你
+Rune Literal 4 (Hexadecimal 'A'): A
+Escape Sequences:
+Alert (Bell): 
+Backspace: ABD
+Form Feed: A
+B
+New Line: First Line
+Second Line
+Carriage Return: 123
+Horizontal Tab: A	B
+Vertical Tab: A
+B
+Backslash: \
+Single Quote: '
+Double Quote: "
+String Literal 1: Hello, Go!
+String Literal 2: This is a raw string literal. \n No escape sequences work here.
+Hexadecimal Rune: A
+Octal Rune: A
+Unicode Rune: A
 ```
 
 ---
