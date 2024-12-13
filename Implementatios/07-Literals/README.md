@@ -1,82 +1,88 @@
 
-# README.md
+# README
 
-## 📘 Programın Amacı (Purpose of the Program)
-Bu program, Golang'de çeşitli türlerdeki (data types) literalleri (literals) ve kaçış dizilerini (escape sequences) kullanmayı ve nasıl çalıştıklarını göstermek için tasarlanmıştır. Program, her bir türün örneklerini konsola (console) yazdırarak, kullanıcıya bu türlerin nasıl tanımlandığını ve kullanıldığını açıkça gösterir.
+## Programın Amaçları ve Amacı (Purpose and Objective of the Program)
+Bu program, Golang dilinde çeşitli "literal" (İngilizce: literal, Türkçe: sabit değer) türlerini göstermek ve bunları terminal üzerinden dışari yazdırmak amacıyla oluşturulmuştur. Program, aşağıdaki veri türleriyle çalışır:
 
----
+- **Tam sayı (Integer) literal**
+- **Ondalıklı (Floating Point) literal**
+- **Karmaşık (Complex) sayı literal**
+- **Mantıksal (Boolean) literal**
+- **Karakter (Rune) literal**
+- **Dize (String) literal**
 
-## 🚀 Program Nasıl Çalışır? (How Does the Program Work?)
-1. **Değişken Tanımlamaları (Variable Declarations):** Program, `int`, `float64`, `complex128`, `bool`, `rune`, `string` gibi veri türlerini (data types) kullanarak değişkenler oluşturur.
-2. **Değişken Değerlerinin Gösterilmesi (Printing Variable Values):** `fmt.Printf()` ve `fmt.Println()` fonksiyonları, bu değişkenlerin değerlerini konsola yazdırmak için kullanılır.
-3. **Kaçış Dizileri (Escape Sequences):** Program, özel karakterleri (special characters) göstermek için kaçış dizilerini kullanır. Örneğin, yeni satır (`\n`), sekme (`\t`), geri alma (`\b`) gibi diziler.
-4. **Sayısal Temsil (Numerical Representations):** Program, onaltılık (hexadecimal), ikilik (binary) ve sekizlik (octal) sayı sistemlerini kullanarak değişkenleri tanımlar ve bu sayı sistemleri arasındaki farkları gösterir.
-5. **Veri Türlerini Gösterme (Data Type Display):** `fmt.Printf("%T", variable)` kullanılarak değişkenlerin veri türleri ekrana yazdırılır.
-
----
-
-## 🎯 Kodun Amacı (Purpose of the Code)
-Bu kodun temel amacı, Golang'deki veri türlerini (data types), literalleri (literals), kaçış dizilerini (escape sequences) ve sayısal sistemleri (number systems) öğretmektir. Yeni başlayanlar için eğitici bir örnek olup, farklı veri türlerinin nasıl tanımlandığını ve bu türlerin konsola nasıl yazdırıldığını açıkça gösterir.
+Bu veri türleri, kod içinde birçok durumda kullanılan temel veri türleridir. Bu program, farklı şekillerde tanımlanan bu değerlerin, formatlı bir şekilde terminal üzerinde gösterilmesine olanak tanır.
 
 ---
 
-## 🛠️ Fonksiyonların Amacı (Purpose of the Functions)
+## Programın Çalışma Prensibi (How the Program Works)
+1. Her bir "literal" türü (integer, float, complex, boolean, rune, string) tanımlanır.
+2. `fmt.Printf()` fonksiyonu kullanılarak terminal üzerine çıktı verilir.
+3. "Escape sequence" (Kaçış dizisi) karakterleri kullanılarak farklı metin formatlamaları ve dizin yolları yazdırılır.
 
-### **`main()` Fonksiyonu (Main Function)**
-Bu programda sadece `main()` fonksiyonu bulunmaktadır. Tüm işlemler ve veri türü örnekleri bu fonksiyonun içinde yer alır.
+---
 
-#### **Fonksiyon İçindeki Kod Blokları (Code Blocks in the Function)**
+## Fonksiyonların Amaçları (Purpose of the Functions)
+Bu programda yalnızca bir adet fonksiyon vardır:
 
-**1. Tamsayı (Integer) Literali**
+### `func main()`
+Bu fonksiyon, programın başlangıç noktısıdır. Şu işlevleri yerine getirir:
+
+| **Kısım (Section)** | **Amaç (Purpose)** | **Açıklama (Explanation)** |
+|---------------------|---------------------|-----------------------------------|
+| **Integer Literals** | Tam sayı değerlerini göstermek | `int` türünde bir değer tanımlar ve yazdırır. |
+| **Floating Point Literals** | Ondalıklı sayıları göstermek | `float64` türü bir değer tanımlar ve yazdırır. |
+| **Complex Literals** | Karmaşık sayıları göstermek | `complex128` türünde iki karmaşık sayıyı tanımlar ve yazdırır. |
+| **Boolean Literals** | Mantıksal değerleri göstermek | `bool` türünde iki mantıksal değer tanımlar ve yazdırır. |
+| **Rune Literals** | Karakterleri göstermek | Unicode ve ASCII karakterleri tanımlar ve yazdırır. |
+| **String Literals** | Dizeleri (string) göstermek | Kaçış dizileri ile ham ve normal dize yazımını tanımlar ve yazdırır. |
+| **Escape Sequences** | Kaçış dizilerini göstermek | Yeni satır, tab ve geri alma gibi kaçış dizilerini gösterir. |
+| **Binary, Hex, Octal Literals** | Sayı sistemlerini göstermek | İkili (binary), sekizli (octal) ve onaltılık (hex) sayı sistemlerini gösterir. |
+| **Scientific Notation** | Bilimsel gösterimi göstermek | Üsülü gösterimle ondalık sayıları gösterir. |
+| **File Path Printing** | Dosya yolunu yazdırmak | Dosya yollarını yazdırır ve kaçış dizisi hatalarını gösterir. |
+
+---
+
+## Koddaki Tüm Satırların Açıklamaları (Explanation of All Code Lines)
+Her bir kod satırının açıklaması ve terminalde oluşan çıktılar aşağıda verilmiştir.
+
 ```go
+// Integer Literal
 var intLiteral int = 42
-fmt.Printf("Integer Literal: %d\n", intLiteral)
+fmt.Printf("Integer Literal: %d\n", intLiteral) // Çıktı: Integer Literal: 42
 ```
-- **Amaç (Purpose):** Bir `int` türünde değişkeni tanımlamak ve değeri konsola yazdırmak.
+Açıklama: Bu satır bir tamsayı değerini tanımlar ve formatlı çıktı ile yazdırır.
 
-**2. Ondalıklı Sayı (Floating Point) Literali**
 ```go
+// Floating Point Literal
 var floatLiteral float64 = 3.14159
-fmt.Printf("Floating Point Literal: %f\n", floatLiteral)
+fmt.Printf("Floating Point Literal: %f\n", floatLiteral) // Çıktı: Floating Point Literal: 3.141590
 ```
-- **Amaç (Purpose):** Bir `float64` türünde değişkeni tanımlamak ve değeri konsola yazdırmak.
+Açıklama: Bu satır bir ondalıklı sayı değerini tanımlar ve yazdırır.
 
-**3. Karmaşık Sayılar (Complex Numbers) Literalleri**
 ```go
-var complexLiteral1 complex128 = 3 + 4i
-var complexLiteral2 complex128 = (2.2 + 1.1i)
-fmt.Printf("Complex Literal 1: %f\n", complexLiteral1)
-fmt.Printf("Complex Literal 2: %f\n", complexLiteral2)
+// Boolean Literals
+var isTrue bool = true
+var isFalse bool = false
+fmt.Printf("Boolean True: %t\n", isTrue) // Çıktı: Boolean True: true
+fmt.Printf("Boolean False: %t\n", isFalse) // Çıktı: Boolean False: false
 ```
-- **Amaç (Purpose):** `complex128` veri türünde değişkenler tanımlamak ve değerlerini konsola yazdırmak.
+Açıklama: Mantıksal (boolean) değerleri tanımlar ve yazdırır.
 
-**4. Boolean Literalleri (Boolean Literals)**
 ```go
-var boolTrue bool = true
-var boolFalse bool = false
-fmt.Printf("Boolean Literal (true): %t\n", boolTrue)
-fmt.Printf("Boolean Literal (false): %t\n", boolFalse)
+// Rune Literals
+var runeLiteral rune = 'A'
+fmt.Printf("Rune Literal: %c\n", runeLiteral) // Çıktı: Rune Literal: A
 ```
-- **Amaç (Purpose):** `bool` veri türünde `true` ve `false` değerlerini göstermek.
+Açıklama: Bir karakteri (rune) tanımlar ve ASCII karşılığını yazdırır.
 
-**5. Rune Literalleri (Rune Literals)**
 ```go
-var runeLiteral1 rune = 'A'
-var runeLiteral2 rune = '\n'
-var runeLiteral3 rune = '\u4F60'
-var runeLiteral4 rune = '\x41'
-fmt.Printf("Rune Literal 1: %c\n", runeLiteral1)
-fmt.Printf("Rune Literal 2: %q\n", runeLiteral2)
-fmt.Printf("Rune Literal 3 (Unicode 你): %c\n", runeLiteral3)
-fmt.Printf("Rune Literal 4 (Hexadecimal 'A'): %c\n", runeLiteral4)
+// String Literals
+var normalString string = "Hello, Go!"
+var rawString string = `This is a raw string literal.`
+fmt.Printf("Normal String: %s\n", normalString) // Çıktı: Normal String: Hello, Go!
+fmt.Printf("Raw String: %s\n", rawString) // Çıktı: Raw String: This is a raw string literal.
 ```
-- **Amaç (Purpose):** Unicode ve ASCII karakterlerinin nasıl gösterildiğini göstermek.
+Açıklama: Ham ve normal dize türlerini tanımlar ve yazdırır.
 
-**6. Kaçış Dizileri (Escape Sequences)**
-```go
-fmt.Println("Escape Sequences:")
-fmt.Println("Alert (Bell): \a")
-fmt.Println("Backspace: ABC\bD")
-fmt.Println("New Line: First Line\nSecond Line")
-```
-- **Amaç (Purpose):** Kaçış dizilerinin nasıl çalıştığını göstermek.
+---
