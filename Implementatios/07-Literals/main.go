@@ -39,7 +39,7 @@ func main() {
 	fmt.Println("Horizontal Tab: A\tB")
 	fmt.Println("Vertical Tab: A\vB")
 	fmt.Println("Backslash: \\")
-	fmt.Println("Single Quote: '")
+	fmt.Println("Single Quote can be directly used in  string literal: '\\'")
 	fmt.Println("Double Quote: \"")
 
 	var stringLiteral1 string = "Hello, Go!"

@@ -143,7 +143,7 @@ Horizontal Tab: A	B
 Vertical Tab: A
 B
 Backslash: \
-Single Quote: '
+Single Quote can be directly used in  string literal: '\'
 Double Quote: "
 String Literal 1: Hello, Go!
 String Literal 2: This is a raw string literal. \n No escape sequences work here.
