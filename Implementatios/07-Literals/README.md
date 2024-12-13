@@ -1,5 +1,5 @@
 
-# Literals
+# README.md
 
 ## 📘 Programın Amacı (Purpose of the Program)
 Bu program, Golang'de çeşitli türlerdeki (data types) literalleri (literals) ve kaçış dizilerini (escape sequences) kullanmayı ve nasıl çalıştıklarını göstermek için tasarlanmıştır. Program, her bir türün örneklerini konsola (console) yazdırarak, kullanıcıya bu türlerin nasıl tanımlandığını ve kullanıldığını açıkça gösterir.
