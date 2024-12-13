@@ -84,7 +84,8 @@ fmt.Println("Backspace: ABCD")
 fmt.Println("Form Feed: AB")
 fmt.Println("New Line: First Line
 Second Line")
-fmt.Println("Carriage Return: ABC123")
+fmt.Println("Carriage Return: ABC
+123")
 fmt.Println("Horizontal Tab: A	B")
 fmt.Println("Vertical Tab: AB")
 ```
@@ -93,19 +94,19 @@ Bu kısımda farklı *escape sequences* (kaçış dizileri) gösterilmektedir. B
 ---
 
 ## Escape Sequence Tablosu (Escape Sequence Table)
-| Escape Sequence | Açıklama (Explanation) |
-|-----------------|---------------------------------|
-| ``            | Alarm (Bell) - Sesli uyarı verir |
-| ``            | Backspace - Bir karakter geri gider |
-| ``            | Form feed - Yeni bir sayfa başlatır |
-| `
-`            | New line - Yeni satıra geçer |
-| ``            | Carriage return - Satır başına döner |
-| `	`            | Horizontal tab - Yatay sekme yapar |
-| ``            | Vertical tab - Dikey sekme yapar |
-| `\`           | Backslash - Ters bölüm işareti ekler |
-| `'`            | Single quote - Tek tırnak işareti ekler |
-| `"`           | Double quote - Çift tırnak işareti ekler |
+
+| Escape Sequence | Açıklama (Explanation)                        |
+|-----------------|----------------------------------------------|
+| `\a`           | Alarm (Bell) - Sesli uyarı verir             |
+| `\b`           | Backspace - Bir karakter geri gider          |
+| `\f`           | Form feed - Yeni bir sayfa başlatır          |
+| `\n`           | New line - Yeni satıra geçer                 |
+| `\r`           | Carriage return - Satır başına döner         |
+| `\t`           | Horizontal tab - Yatay sekme yapar           |
+| `\v`           | Vertical tab - Dikey sekme yapar             |
+| `\\`           | Backslash - Ters bölüm işareti ekler         |
+| `'`            | Single quote - Tek tırnak işareti ekler      |
+| `\"`           | Double quote - Çift tırnak işareti ekler     |
 
 ---
 
