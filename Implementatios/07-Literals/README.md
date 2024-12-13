@@ -1,159 +1,82 @@
 
-# Literals and Constants in Go
+# README.md
 
-## 📘 Introduction
-
-Bu dosya, Golang'deki **sabitler (literals)** ve **sabit ifadeler (constant expressions)** kavramlarına odaklanmaktadır. Sabitler, bir programda doğrudan yazılan değerlerdir ve birçok türde olabilirler. Bu dosya, Golang'deki tüm sabit türlerini, kurallarını ve ilgili örnekleri açıklar.
-
----
-
-## 📚 Literals (Sabit Türleri)
-
-Go'daki sabit türleri aşağıdaki gibidir:
-
-- **Integer Literals (Tam sayı sabitleri)**: Tamsayı değerleri (`42`, `100`, `0b1010` vb.).
-- **Floating Point Literals (Gerçek sayı sabitleri)**: Ondalık sayılar (`3.14`, `-0.5` vb.).
-- **Complex Literals (Karmaşık sayı sabitleri)**: Karmaşık sayılar (`3+4i`, `(1.1 + 2.2i)` vb.).
-- **Boolean Literals (Boolean sabitleri)**: `true` ve `false` sabitleridir.
-- **Rune Literals (Rune sabitleri)**: Tek tırnak içinde tek bir karakter (`'a'`, `'中'`, `'\n'`, `'\u4F60'` vb.).
-- **String Literals (String sabitleri)**: Çift tırnakla belirtilen dizgeler (`"hello"`, `"world"` vb.).
+## 📘 Programın Amacı (Purpose of the Program)
+Bu program, Golang'de çeşitli türlerdeki (data types) literalleri (literals) ve kaçış dizilerini (escape sequences) kullanmayı ve nasıl çalıştıklarını göstermek için tasarlanmıştır. Program, her bir türün örneklerini konsola (console) yazdırarak, kullanıcıya bu türlerin nasıl tanımlandığını ve kullanıldığını açıkça gösterir.
 
 ---
 
-## 📘 Numeric Constants (Sayısal Sabitler)
-
-1. **Tamsayı Sabitleri (Integer Literals)**: Tamsayılar sınırlar içinde olmalıdır, aksi halde taşma hatası oluşur.
-2. **Gerçek Sayı Sabitleri (Floating Point Literals)**: Nokta (.) içeren tüm sayılar **floating-point literal** olarak kabul edilir.
-3. **Karmaşık Sayı Sabitleri (Complex Literals)**: `(real + imaginary i)` biçimindedir. Parantez zorunlu değildir, ancak kullanıldığında aralarındaki boşluklara izin verilir.
-4. **Rune Sabitleri (Rune Literals)**: Tek tırnak içinde **bir karakter** kullanılır. Unicode karakterlerin kod noktaları `\\u` veya `\\U` ile yazılabilir.
-
----
-
-## 📘 Escape Sequences (Kaçış Dizileri)
-
-Golang, **rune** ve **string** sabitlerinde kullanılabilen çeşitli kaçış dizilerini destekler:
-
-- **Standart Escape Dizileri**:
-    - `\\a` — Bell/Alert
-    - `\\b` — Backspace
-    - `\\f` — Form Feed
-    - `\\n` — New Line
-    - `\\r` — Carriage Return
-    - `\\t` — Horizontal Tab
-    - `\\v` — Vertical Tab
-    - `\\\\` — Backslash
-    - `'` — Single Quote
-    - `\\"` — Double Quote
-
-- **Hexadecimal (\\x)**: Standart ASCII karakterleri için `\\xAB` biçiminde kullanılır.
-- **Unicode (\\u ve \\U)**: `\\u` 2 byte'lık karakterleri, `\\U` 4 byte'lık karakterleri temsil eder.
-- **Octal (\\nnn)**: Sekizlik (octal) temsilini sağlar (`\\000`, `\\177`).
+## 🚀 Program Nasıl Çalışır? (How Does the Program Work?)
+1. **Değişken Tanımlamaları (Variable Declarations):** Program, `int`, `float64`, `complex128`, `bool`, `rune`, `string` gibi veri türlerini (data types) kullanarak değişkenler oluşturur.
+2. **Değişken Değerlerinin Gösterilmesi (Printing Variable Values):** `fmt.Printf()` ve `fmt.Println()` fonksiyonları, bu değişkenlerin değerlerini konsola yazdırmak için kullanılır.
+3. **Kaçış Dizileri (Escape Sequences):** Program, özel karakterleri (special characters) göstermek için kaçış dizilerini kullanır. Örneğin, yeni satır (`\n`), sekme (`\t`), geri alma (`\b`) gibi diziler.
+4. **Sayısal Temsil (Numerical Representations):** Program, onaltılık (hexadecimal), ikilik (binary) ve sekizlik (octal) sayı sistemlerini kullanarak değişkenleri tanımlar ve bu sayı sistemleri arasındaki farkları gösterir.
+5. **Veri Türlerini Gösterme (Data Type Display):** `fmt.Printf("%T", variable)` kullanılarak değişkenlerin veri türleri ekrana yazdırılır.
 
 ---
 
-## 📘 Full Example (Tam Kod Örneği)
+## 🎯 Kodun Amacı (Purpose of the Code)
+Bu kodun temel amacı, Golang'deki veri türlerini (data types), literalleri (literals), kaçış dizilerini (escape sequences) ve sayısal sistemleri (number systems) öğretmektir. Yeni başlayanlar için eğitici bir örnek olup, farklı veri türlerinin nasıl tanımlandığını ve bu türlerin konsola nasıl yazdırıldığını açıkça gösterir.
 
-Aşağıda Golang'de **sabitler (literals)**, **sabit ifadeler (constant expressions)**, **rune** ve **escape sequence** kullanımına dair eksiksiz bir örnek bulunmaktadır.
+---
 
+## 🛠️ Fonksiyonların Amacı (Purpose of the Functions)
+
+### **`main()` Fonksiyonu (Main Function)**
+Bu programda sadece `main()` fonksiyonu bulunmaktadır. Tüm işlemler ve veri türü örnekleri bu fonksiyonun içinde yer alır.
+
+#### **Fonksiyon İçindeki Kod Blokları (Code Blocks in the Function)**
+
+**1. Tamsayı (Integer) Literali**
 ```go
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	var intLiteral int = 42
-	fmt.Printf("Integer Literal: %d\n", intLiteral)
-
-	var floatLiteral float64 = 3.14159
-	fmt.Printf("Floating Point Literal: %f\n", floatLiteral)
-
-	var complexLiteral1 complex128 = 3 + 4i
-	var complexLiteral2 complex128 = (2.2 + 1.1i)
-	fmt.Printf("Complex Literal 1: %f\n", complexLiteral1)
-	fmt.Printf("Complex Literal 2: %f\n", complexLiteral2)
-
-	var boolTrue bool = true
-	var boolFalse bool = false
-	fmt.Printf("Boolean Literal (true): %t\n", boolTrue)
-	fmt.Printf("Boolean Literal (false): %t\n", boolFalse)
-
-	var runeLiteral1 rune = 'A'
-	var runeLiteral2 rune = '\n'
-	var runeLiteral3 rune = '\u4F60'
-	var runeLiteral4 rune = '\x41'
-	fmt.Printf("Rune Literal 1: %c\n", runeLiteral1)
-	fmt.Printf("Rune Literal 2: %q\n", runeLiteral2)
-	fmt.Printf("Rune Literal 3 (Unicode 你): %c\n", runeLiteral3)
-	fmt.Printf("Rune Literal 4 (Hexadecimal 'A'): %c\n", runeLiteral4)
-
-	fmt.Println("Escape Sequences:")
-	fmt.Println("Alert (Bell): \a")
-	fmt.Println("Backspace: ABC\bD")
-	fmt.Println("Form Feed: A\fB")
-	fmt.Println("New Line: First Line\nSecond Line")
-	fmt.Println("Carriage Return: ABC\r123")
-	fmt.Println("Horizontal Tab: A\tB")
-	fmt.Println("Vertical Tab: A\vB")
-	fmt.Println("Backslash: \\")
-	fmt.Println("Single Quote: '")
-	fmt.Println("Double Quote: \"")
-
-	var stringLiteral1 string = "Hello, Go!"
-	var stringLiteral2 string = `This is a raw string literal. \n No escape sequences work here.`
-	fmt.Printf("String Literal 1: %s\n", stringLiteral1)
-	fmt.Printf("String Literal 2: %s\n", stringLiteral2)
-
-	var hexRune rune = '\x41'
-	var octalRune rune = '\101'
-	var unicodeRune rune = '\u0041'
-	fmt.Printf("Hexadecimal Rune: %c\n", hexRune)
-	fmt.Printf("Octal Rune: %c\n", octalRune)
-	fmt.Printf("Unicode Rune: %c\n", unicodeRune)
-}
+var intLiteral int = 42
+fmt.Printf("Integer Literal: %d\n", intLiteral)
 ```
+- **Amaç (Purpose):** Bir `int` türünde değişkeni tanımlamak ve değeri konsola yazdırmak.
 
----
-
-## 📘 Çıktı (Output)
-
-Programın çıktısı aşağıdaki gibidir:
-
+**2. Ondalıklı Sayı (Floating Point) Literali**
+```go
+var floatLiteral float64 = 3.14159
+fmt.Printf("Floating Point Literal: %f\n", floatLiteral)
 ```
-Integer Literal: 42
-Floating Point Literal: 3.141590
-Complex Literal 1: 3.000000+4.000000i
-Complex Literal 2: 2.200000+1.100000i
-Boolean Literal (true): true
-Boolean Literal (false): false
-Rune Literal 1: A
-Rune Literal 2: '\n'
-Rune Literal 3 (Unicode 你): 你
-Rune Literal 4 (Hexadecimal 'A'): A
-Escape Sequences:
-Alert (Bell): 
-Backspace: ABD
-Form Feed: A
-B
-New Line: First Line
-Second Line
-Carriage Return: 123
-Horizontal Tab: A	B
-Vertical Tab: A
-B
-Backslash: \
-Single Quote can be directly used in  string literal: '\'
-Double Quote: "
-String Literal 1: Hello, Go!
-String Literal 2: This is a raw string literal. \n No escape sequences work here.
-Hexadecimal Rune: A
-Octal Rune: A
-Unicode Rune: A
+- **Amaç (Purpose):** Bir `float64` türünde değişkeni tanımlamak ve değeri konsola yazdırmak.
+
+**3. Karmaşık Sayılar (Complex Numbers) Literalleri**
+```go
+var complexLiteral1 complex128 = 3 + 4i
+var complexLiteral2 complex128 = (2.2 + 1.1i)
+fmt.Printf("Complex Literal 1: %f\n", complexLiteral1)
+fmt.Printf("Complex Literal 2: %f\n", complexLiteral2)
 ```
+- **Amaç (Purpose):** `complex128` veri türünde değişkenler tanımlamak ve değerlerini konsola yazdırmak.
 
----
+**4. Boolean Literalleri (Boolean Literals)**
+```go
+var boolTrue bool = true
+var boolFalse bool = false
+fmt.Printf("Boolean Literal (true): %t\n", boolTrue)
+fmt.Printf("Boolean Literal (false): %t\n", boolFalse)
+```
+- **Amaç (Purpose):** `bool` veri türünde `true` ve `false` değerlerini göstermek.
 
-## 🧩 Sonuç
+**5. Rune Literalleri (Rune Literals)**
+```go
+var runeLiteral1 rune = 'A'
+var runeLiteral2 rune = '\n'
+var runeLiteral3 rune = '\u4F60'
+var runeLiteral4 rune = '\x41'
+fmt.Printf("Rune Literal 1: %c\n", runeLiteral1)
+fmt.Printf("Rune Literal 2: %q\n", runeLiteral2)
+fmt.Printf("Rune Literal 3 (Unicode 你): %c\n", runeLiteral3)
+fmt.Printf("Rune Literal 4 (Hexadecimal 'A'): %c\n", runeLiteral4)
+```
+- **Amaç (Purpose):** Unicode ve ASCII karakterlerinin nasıl gösterildiğini göstermek.
 
-Bu dosya, Go'daki **sabit türleri (literal types)** ve **sabit ifadeler (constant expressions)** konularını kapsayan kapsamlı bir kılavuzdur. Bu örnekler, Go'daki `complex`, `rune`, `string` ve diğer sabit türlerini nasıl kullanacağınızı gösterir. Ayrıca, kaçış dizileri (escape sequences) ile ilgili bilgiler sağlar. Bu konuları anlamak, Go'da daha etkili ve verimli kod yazmanıza olanak tanır.
+**6. Kaçış Dizileri (Escape Sequences)**
+```go
+fmt.Println("Escape Sequences:")
+fmt.Println("Alert (Bell): \a")
+fmt.Println("Backspace: ABC\bD")
+fmt.Println("New Line: First Line\nSecond Line")
+```
+- **Amaç (Purpose):** Kaçış dizilerinin nasıl çalıştığını göstermek.

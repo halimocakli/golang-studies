@@ -53,4 +53,36 @@ func main() {
 	fmt.Printf("Hexadecimal Rune: %c\n", hexRune)
 	fmt.Printf("Octal Rune: %c\n", octalRune)
 	fmt.Printf("Unicode Rune: %c\n", unicodeRune)
+
+	a := 0x1FC0             // Hexadecimal
+	b := 0b0001111111000000 // Binary
+	c := 0o17700            // Octal (Starts with '0o')
+	d := 0o17700            // Octal with Big o
+	fmt.Printf("Hexadecimal a: %d\n", a)
+	fmt.Printf("Binary b: %d\n", b)
+	fmt.Printf("Octal c: %d\n", c)
+	fmt.Printf("Octal d: %d\n", d)
+
+	a = 0x1F_C0               // Hexadecimal
+	b = 0b0001_1111_1100_0000 // Binary
+	c = 0o177_00              // Octal
+	fmt.Printf("Hexadecimal a: %d\n", a)
+	fmt.Printf("Binary b: %d\n", b)
+	fmt.Printf("Octal c: %d\n", c)
+
+	avogadro := 6.02e23
+	fmt.Printf("Avogadro: %e\n", avogadro)
+	fmt.Printf("Avogadro (normal format): %f\n", avogadro)
+	fmt.Printf("Type: %T\n", avogadro)
+
+	hexFloat := 0xABp3
+	fmt.Printf("Hexadecimal Floating Point: %f\n", hexFloat)
+	fmt.Printf("Type: %T\n", hexFloat)
+
+	// Correct Usages of Escape Sequences
+	fmt.Print("C:\\test\\numbers.txt\n")
+	fmt.Print(`C:\test\numbers.txt`)
+
+	// Wrong Usage of Escape Sequences
+	// fmt.Print("C:\jest\numbers.txt")
 }
