@@ -1,357 +1,266 @@
-## 1. Boşluk Karakterleri (Whitespace Characters – Boşluk Karakterleri)
+## 1. Golang (Go) Programlama Dilinin Tarihçesi ve Genel Özellikleri
 
-- **Tanım ve Örnekler:**
+**Tarihçe ve Köken:**
 
-  - Boşluk karakterleri, klavyeden basıldığında görsel olarak boşluk hissi yaratan karakterlerdir.
-  - Tipik örnekler: **SPACE** (SPACE – boşluk), **TAB** (TAB – sekme) ve **ENTER** (ENTER – satır sonu) karakterleridir.
+- **Go**, Google (Google) bünyesinde Robert Griesemer, Rob Pike ve Ken Thompson tarafından 2009 yılında geliştirilmeye başlanmış, açık kaynaklı (open source – açık kaynak kodlu) bir sistem programlama dilidir.
+- Resmi adı **Go** iken, "Golang" terimi, özellikle internet aramalarında ve bazı topluluklarda kullanılmaktadır. Bu yüzden [golang.org](https://golang.org) web sitesi tercih edilmiştir.
 
-- **Go’da Boşluk Kullanımının Özellikleri:**
-  - Go, diğer bazı programlama dillerine göre sözdizimi (syntax – sözdizimi) açısından çok esnek değildir.
-  - Yazım sırasında boşluk karakterlerinin yeri, kodun okunabilirliği ve yorumlanması açısından önem taşır.
-  - Kodun otomatik formatlanmasını sağlayan **go fmt** (go fmt – kod formatlama aracı) gibi araçlar sayesinde, gereksiz veya tutarsız boşluk kullanımı otomatik olarak düzeltilebilir.
+**Genel Özellikler:**
 
----
+- **Basit ve Anlaşılır Sözdizimi (Syntax – sözdizimi):**
 
-## 2. Yorum Satırları (Comment Lines – Yorum Satırları)
+  - Go, C benzeri ancak daha sade bir sözdizimi sunar.
+  - Kod okunabilirliği yüksek olup, öğrenme sürecini hızlandırır.
 
-- **Yorum Satırlarının Tanımı ve Türleri:**
+- **Verimli Derleme ve Hata Yakalama:**
 
-  - Yorum satırları, derleyicinin (compiler – derleyici) ve yorumlayıcının (interpreter – yorumlayıcı) göz ardı ettiği, kod hakkında açıklama yapan metinlerdir.
-  - Go dilinde iki tür yorum satırı bulunur:
-    - **Tek satırlık yorum:** `//` ile başlayan yorum satırları.
-    - **Çok satırlı yorum:** `/* ... */` arasına yazılan yorumlar.
+  - Go derleyicisi (compiler – derleyici), derleme zamanında pek çok hatayı yakalar.
+  - Bu durum, uygulama geliştirme sürecinde güvenilirliği artırır.
 
-- **Önemli Notlar ve İpuçları:**
+- **Geniş Standart Kütüphane (Standard Library – standart kütüphane):**
+  - Farklı uygulama alanları için hazır fonksiyonlar ve paketler içerir.
+- **Eşzamanlılık (Concurrency – eşzamanlılık) ve Goroutine (goroutine – goroutine) Desteği:**
 
-  - Yorum satırları, kodun anlaşılabilirliğini artırmak amacıyla kullanılmalıdır.
-  - Gereksiz ve dağınık yorum satırları, kodun okunabilirliğini olumsuz etkileyebilir.
-  - İç içe çok satırlı yorumlarda dikkatli olunmalıdır; Go’da iç içe yorum satırları desteklenmez.
+  - Düşük maliyetli **Goroutine** (goroutine – goroutine) yapısı sayesinde paralel işlemler kolaylıkla uygulanabilir.
+  - **Channel** (channel – kanal) mekanizması, goroutine’ler arasında güvenli veri alışverişine olanak tanır.
+  - Bu model, **Communicating Sequential Processes (CSP – iletişimsel sıralama işlemleri)** paradigmasına dayanmaktadır.
 
-- **Örnek:**
+- **Statik Derleme (Static Compilation – statik derleme):**
 
-  ```go
-  package main
+  - Tek dosya halinde **executable** (executable – çalıştırılabilir) binary dosyaları üretir; bu, farklı platformlarda dağıtım ve çalıştırma işlemlerini kolaylaştırır.
 
-  import "fmt"
-
-  func main() {
-      fmt.Println("Hello, World") // Bu satır yorum satırı olup derleyici tarafından göz ardı edilir.
-
-      /*
-         Bu da çok satırlı bir yorumdur.
-         Burada yazılanlar derleme sürecinde kullanılmaz.
-      */
-  }
-  ```
+- **Tip Güvenliği ve Generics (Generics – jenerikler):**
+  - Go, statik tip kontrolü sayesinde çalışma zamanı hatalarını minimize eder.
+  - Go 1.18 ile eklenen **Generics** (generics – jenerikler) desteği, daha esnek ve yeniden kullanılabilir kod yapıları oluşturmayı mümkün kılar.
 
 ---
 
-## 3. Bildirim (Declaration – Bildirim) ve Program Yapısı
+## 2. Programlama Paradigmaları ve Sınıflandırma
 
-- **Bildirim Nedir?**
+Golang, farklı programlama paradigmasını ve seviyelerini destekleyen çok yönlü bir dildir. Aşağıda temel sınıflandırmalar yer almaktadır:
 
-  - Bildirim, bir ismin derleyiciye tanıtılmasıdır. Derleyici, bildirimler sayesinde kod içinde kullanılan isimleri (değişken, fonksiyon, paket vb.) tanır.
+### **2.1. Seviyelerine Göre Sınıflandırma**
 
-- **Go Programlarının Temel Yapısı:**
+| **Dil Seviyesi**           | **Özellikler**                                                                                             |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **Düşük Seviyeli Diller**  | Makine diline yakın, donanımla doğrudan iletişim sağlar (örneğin, Assembly, C).                            |
+| **Orta Seviyeli Diller**   | Hem makine hem de insan odaklı yazılabilir (örneğin, C++).                                                 |
+| **Yüksek Seviyeli Diller** | İnsan tarafından okunabilirliği yüksek, soyutlamalar ve basit sözdizimi sunar (örneğin, Go, Python, Java). |
 
-  - **Paket Bildirimi:** Her Go programı en az bir paket bildirimi ile başlar. Örneğin:
+- **Go**, genel olarak yüksek seviyeli (high-level – yüksek seviyeli) bir dil olarak sınıflandırılır; ancak, sistem programlaması gerektiren düşük seviyeli işlemleri de gerçekleştirebilir.
 
-    ```go
-    package main
-    ```
+### **2.2. Kullanım Alanlarına Göre Sınıflandırma**
 
-    - Burada `main` paketi, programın çalıştırılabilir bir uygulama oluşturması için özel bir isimdir.
+| **Kullanım Alanı**                        | **Örnek Uygulamalar**                                                                                         |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| **Genel Amaçlı Uygulamalar**              | Web sunucuları, RESTful API’ler, CLI (Command Line Interface – komut satırı arayüzü) araçları                 |
+| **Network Programlama**                   | Proxy sunucuları, load balancer, ağ tarayıcıları                                                              |
+| **Dağıtık Sistemler ve Bulut Hizmetleri** | Mikroservis mimarileri, container tabanlı uygulamalar, DevOps araçları                                        |
+| **Sisteme Yönelik Araçlar**               | Dosya sistemi yönetimi, işletim sistemi araçları, otomasyon scriptleri                                        |
+| **Derleyici ve Yorumlayıcı Geliştirme**   | Kendi dillerini derleyebilen uygulamalar, DSL (Domain Specific Language – alan özel dili) oluşturma projeleri |
 
-  - **Fonksiyon Bildirimi:**
-    - Fonksiyon bildiriminin genel biçimi:
-      ```go
-      func <fonksiyon ismi>([parametreler]) [geri dönüş bilgisi] {
-          // Fonksiyonun gövdesi
-      }
-      ```
-    - **Örnek:**
-      ```go
-      func foo() {
-          fmt.Println("foo")
-      }
-      ```
-    - **Fonksiyon Çağrısı:**
-      - Aynı paket içerisindeki fonksiyonlar, doğrudan çağrılabilir:
-        ```go
-        foo()
-        ```
-      - Farklı paketlerde yer alan fonksiyonlar, paket adı ile çağrılır:
-        ```go
-        test.Foo()
-        ```
+### **2.3. Programlama Modeline Göre Sınıflandırma**
 
-- **İsimlendirme Kuralları ve Önemli Notlar:**
-
-  - **Export Edilebilirlik (Exported – Dışa Açık):**
-    - Fonksiyon veya değişken ismi küçük harfle başlıyorsa, sadece aynı paket içerisinde kullanılabilir.
-    - İlk harfi büyük olan isimler (örn. `Bar()`) dış paketlerden erişime açıktır.
-  - **Kod Düzeni:**
-    - Fonksiyonun gövdesi, fonksiyon parametre parantezinin hemen aynı satırında veya bir sonraki satırda yazılabilir; fakat okunabilirlik açısından genellikle aynı satırda açılış `{` karakteri tercih edilir.
-
-- **Örnek Program:**
-
-  ```go
-  package main
-
-  import "fmt"
-
-  func foo() {
-      fmt.Println("foo")
-      tar()
-  }
-
-  func Bar() {
-      fmt.Println("Bar")
-  }
-
-  func tar() {
-      fmt.Println("tar")
-  }
-
-  func main() {
-      fmt.Println("Hello, World")
-      foo()
-      Bar()
-      fmt.Println("Goodbye, World")
-  }
-  ```
-
-- **Ek Açıklamalar:**
-  - **Entry Point (Giriş Noktası):** Go programlarında çalışma, `main()` fonksiyonu ile başlar. Bu fonksiyon programın "entry point" (giriş noktası) olarak kabul edilir.
-  - **Fonksiyon Akışı:** Bir fonksiyon çağrıldığında, kod akışı çağrılan fonksiyonun içerisine geçer ve fonksiyon tamamlandığında çağrıldığı yere geri döner.
+| **Paradigma**                         | **Açıklama**                                                                                                        | **Örnek Diller**                                                      |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| **Procedural (Prosedürel)**           | Fonksiyonlar (functions – fonksiyon) etrafında yapılandırılmıştır.                                                  | C, Go, Pascal                                                         |
+| **Object-Oriented (Nesne Yönelimli)** | Nesneler (objects – nesneler) ve yapı (struct – yapı) temelli; Go’da klasik sınıf (class – sınıf) kavramı bulunmaz. | Java, C++, C# (Go’da interface ve struct kullanılır)                  |
+| **Functional (Fonksiyonel)**          | Fonksiyonlar, birinci sınıf vatandaş olup yan etkileri minimize etmeye çalışır.                                     | Haskell, Lisp, Scala; Go’da da fonksiyonel yaklaşımlar uygulanabilir. |
 
 ---
 
-## 4. Standart Girdi/Çıktı ve Process Kavramı
+## 3. Golang’ın Kullanım Alanları ve Uygulama Örnekleri
 
-- **Standart Dosya Akışları:**
+Go’nun esnek ve güçlü yapısı, pek çok farklı alanda etkili çözümler geliştirilmesine olanak tanır. Aşağıda, kullanım alanları ve örnek uygulama senaryoları özetlenmiştir:
 
-  - **stdin (Standart Girdi – Klavye):** Genellikle kullanıcıdan alınan veriler için kullanılır.
-  - **stdout (Standart Çıktı – Ekran):** Program çıktılarının görüntülendiği yerdir.
-  - **stderr (Standart Hata – Hata Çıktısı):** Hata mesajlarının gönderildiği akıştır. Genellikle stdout ile aynı yere yönlendirilir.
+- **Network Programlama:**
 
-- **Örnek Kullanım:**
+  - **Örnek Uygulamalar:** Proxy sunucuları, load balancer, ağ tarayıcıları
+  - **Avantajlar:** Düşük gecikme, yüksek performans, eşzamanlılık (concurrency – eşzamanlılık) desteği sayesinde verimli ağ uygulamaları geliştirme imkanı.
 
-  - `fmt.Println` ve `fmt.Print` fonksiyonları, ekrana yazı yazar.
-    - `fmt.Println`: Yazının sonunda imleci yeni satıra geçirir.
-    - `fmt.Print`: Yazının sonunda imleci aynı satırda bırakır.
+- **Backend Uygulamaları:**
 
-- **Process (Process – İşlem) Kavramı:**
-  - Bir program, işletim sistemi tarafından çalıştırıldığında "process" (işlem) olarak adlandırılır. Bu, programın hafızada çalışan halidir.
+  - **Örnek Uygulamalar:** RESTful API’ler, web sunucuları, mikroservis mimarileri
+  - **Avantajlar:** Kolay ölçeklenebilirlik, sade sözdizimi, geniş standart kütüphane.
 
----
+- **Komut Satırı (CLI) Araçları:**
 
-## 5. Taşınabilirlik (Portability – Taşınabilirlik) ve Derleme Süreci
+  - **Örnek Uygulamalar:** Sistem yönetimi araçları, otomasyon scriptleri, paket yöneticileri
+  - **Avantajlar:** Hızlı derleme, tek dosya çalıştırılabilir binary üretimi, platformlar arası uyumluluk.
 
-- **Kod Taşınabilirliği (Code Portability):**
+- **Dağıtık Sistemler ve Bulut Hizmetleri:**
 
-  - Farklı sistemlerde, kodda değişiklik yapmadan derlenebilmesi.
-  - Go gibi dillerde, kodun belirli bir platforma özgü olmaması sağlanır.
+  - **Örnek Uygulamalar:** Mikroservis mimarileri, container tabanlı uygulamalar, DevOps araçları
+  - **Avantajlar:** Statik derleme sayesinde düşük kaynak kullanımı, cross-compilation (çoklu platform desteği).
 
-- **Program Taşınabilirliği (Program Portability):**
+- **Derleyici ve Yorumlayıcı Geliştirme:**
+  - **Örnek Uygulamalar:** DSL (Domain Specific Language – alan özel dili) oluşturma, derleyici geliştirme
+  - **Avantajlar:** Hızlı derleme süreci ve açık kaynak ekosistem desteği.
 
-  - Derlenmiş programın, farklı işletim sistemlerinde (Windows, Linux, macOS) çalışabilmesi.
-  - Go, **cross-compilation** (çoklu platform desteği – cross-compilation) sayesinde tek bir derleme ile farklı platformlarda çalışabilecek binary dosyalar üretebilir.
+Aşağıdaki tablo, Golang’ın farklı kullanım alanlarını ve örnek uygulama senaryolarını özetlemektedir:
 
-- **Derleme İşlemleri:**
-  - **go build:** Kaynak kodu derleyerek platforma özgü çalıştırılabilir (executable – çalıştırılabilir) dosya üretir.
-  - **go run:** Derleme sürecini arka planda gerçekleştirir ve geçici binary oluşturup çalıştırır.
-
----
-
-## 6. Sayı Sistemleri ve İkilik Temsili
-
-### 6.1. Temel Sayı Sistemleri
-
-- **10'luk Sistem (Decimal – Decimal):**
-
-  - 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 rakamları kullanılır.
-  - Her basamak, 10’un kuvvetiyle çarpılarak toplam ifade edilir.
-  - Örneğin:  
-    123.25 = 1×10² + 2×10¹ + 3×10⁰ + 2×10⁻¹ + 5×10⁻²
-
-- **2'lik Sistem (Binary – İkilik):**
-
-  - 0 ve 1 rakamları kullanılır.
-  - Her basamak, 2’nin kuvvetiyle çarpılarak sayı elde edilir.
-  - Bir **bit (binary digit – bit)** en küçük bilgi birimidir; 8 bit ise 1 **byte (byte – bayt)** oluşturur.
-  - Bitler, okunabilirlik açısından genellikle 4’erli gruplar halinde yazılır.
-
-- **Tablo: 1 Byte İçin Örnek Değerler**
-
-  | İkilik Gösterim | Decimal (10'luk) |
-  | --------------- | ---------------- |
-  | 0000 0000       | 0                |
-  | 1111 1111       | 255              |
-
-### 6.2. İşaretli ve İşaretsiz Tamsayılar
-
-- **İşaretsiz (Unsigned – İşaretsiz):**
-
-  - En sol bit işaret biti olarak kullanılmaz.
-  - Değer aralığı: [0, 2ⁿ – 1] (n: bit sayısı).
-
-- **İşaretli (Signed – İşaretli):**
-
-  - En sol bit, sayının işaretini belirler (0: pozitif, 1: negatif).
-  - Negatif sayıların temsili için **ikiye tümleyen (two's complement – ikiye tümleyen)** yöntemi kullanılır.
-  - İşaretli aralık: [–2^(n–1), 2^(n–1) – 1].
-
-- **Örnek (1 Byte – 8 bit):**
-
-  - Maksimum pozitif: 0 111 1111 → +127
-  - Maksimum negatif: 1 000 0000 → –128
-
-- **İkiye Tümleyen Hesaplama Örneği:**
-  - Pozitif +10 için:
-    ```plaintext
-    +10: 0000 1010
-    ```
-  - -10’u elde etmek için +10’un ikiye tümleyenini alın:
-    1. Bire tümleyen (bit flip): 1111 0101
-    2. 1 ekleyin: 1111 0110 → Bu, -10 değeridir.
-
-### 6.3. Kayan Noktalı Sayıların Temsili
-
-- **Sabit Noktalı Format (Fixed Point – Sabit Noktalı):**
-
-  - Noktanın yeri sabittir. Örneğin 4 byte ayrılırsa, 2 byte tam sayı kısmı, 2 byte kesirli kısım olabilir.
-  - Dezavantaj: Dinamik değildir; farklı büyüklükte sayılar için esneklik sağlamaz.
-
-- **Kayan Noktalı Format (Floating Point – Kayan Noktalı):**
-  - Sayının temsilinde üç bölüm vardır:
-    - **İşaret biti (sign bit – işaret biti)**
-    - **Mantis (mantis – mantis)**
-    - **Üstel kısım (exponential part – üstel kısım)**
-  - Günümüzde yaygın olarak **IEEE 754** standardı kullanılır:
-    - **Short Real Format (4 byte – float32)**
-    - **Long Real Format (8 byte – float64)**
-    - **Extended Real Format (10 byte – bazı platformlarda)**
-  - **Yuvarlama Hatası (Rounding Error – yuvarlama hatası):**
-    - Kayan noktalı sayılar, bazı sayıları tam ifade edemediğinden yuvarlama hatası oluşabilir.
-    - Bu nedenle finansal uygulamalar gibi hassas hesaplamalarda doğrudan float kullanmak yerine, örneğin **decimal** türü gibi alternatifler tercih edilir.
+| **Kullanım Alanı**                    | **Örnek Uygulamalar**                                                  | **Özellikler / Avantajlar**                                                             |
+| ------------------------------------- | ---------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Network Araçları                      | Proxy sunucuları, load balancer, ağ tarayıcıları                       | Düşük gecikme, yüksek performans, eşzamanlılık desteği (Goroutine ve Channel kullanımı) |
+| Backend Uygulamaları                  | RESTful API’ler, web sunucuları, mikroservisler                        | Kolay ölçeklenebilirlik, sade sözdizimi, geniş standart kütüphane                       |
+| Komut Satırı (CLI) Araçları           | Sistem yönetimi araçları, otomasyon scriptleri, paket yöneticileri     | Hızlı derleme, tek dosya çalıştırılabilir binary üretimi, platformlar arası uyumluluk   |
+| Dağıtık Sistemler ve Bulut Hizmetleri | Mikroservis mimarileri, container tabanlı uygulamalar, DevOps araçları | Kolay dağıtım, statik derleme, düşük kaynak kullanımı, çoklu platform desteği           |
+| Derleyici ve Yorumlayıcı Geliştirme   | Kendi dillerini derleyebilen uygulamalar, DSL oluşturma projeleri      | Hızlı derleme süreci, açık kaynak ekosistem desteği                                     |
 
 ---
 
-## 7. Karakter Kodlamaları ve Yazıların Temsili
+## 4. Teknik Özellikler ve Geliştirme Araçları
 
-- **Temel Kavramlar:**
+Golang, modern uygulama geliştirme ihtiyaçlarını karşılayacak güçlü teknik özellikler ve araçlar sunar:
 
-  - Bilgisayarlar, yazıları ikilik sistemde sayılar olarak saklar. Her bir karakter, bir sayı (code point – kod noktası) ile temsil edilir.
-  - Karakter tabloları, her karaktere karşılık gelen sayıları (glyph – glif) içerir.
+- **Kod Formatlama ve Statik Analiz:**
 
-- **ASCII ve Genişletilmiş ASCII:**
+  - **go fmt** (go fmt – kod formatlama aracı): Kodun otomatik olarak biçimlendirilmesini sağlar.
+  - **go vet** (go vet – statik analiz aracı): Potansiyel hataları, kod kokularını (code smells – kod kokuları) ve uyumsuzlukları erken tespit eder.
 
-  - **ASCII (American Standard Code Information Interchange – ASCII):**
-    - 7 bit’lik kodlama ile 128 karakter içerir.
-  - **Code Page’ler:**
-    - Farklı ülkelerin karakterlerini desteklemek için 8 bitlik genişletilmiş tablolar (örneğin, ISO 8859-9) kullanılmıştır.
+- **Derleme ve Çalıştırma İşlemleri:**
 
-- **UNICODE ve UTF-8:**
-  - **UNICODE:**
-    - Dünyanın tüm dillerini kapsayan standart bir karakter setidir.
-    - ISO 10646 olarak da adlandırılır.
-  - **UTF-8 Encoding (UTF-8 – UTF-8):**
-    - En yaygın kullanılan Unicode kodlamasıdır.
-    - ASCII karakterler 1 byte, diğer karakterler 2 ila 5 byte kullanır.
-    - Türkçe karakterler genellikle 2 byte yer kaplar.
-  - **Not:** Modern Go editörleri varsayılan olarak dosyaları UTF-8 formatında kaydeder.
+  - **go run** (go run – çalıştırma komutu): Kaynak dosyaları geçici binary’ye derleyerek anında çalıştırır.
+  - **go build** (go build – yapılandırma/derleme): Kaynak kodu derleyerek platforma özgü çalıştırılabilir binary üretir.
+  - **go install** (go install – yükleme komutu): Binary dosyaları `GOPATH/bin` dizinine yükleyerek sistem genelinde kullanılabilir hale getirir.
 
----
+- **Modüler Yapı ve Bağımlılık Yönetimi:**
 
-## 8. Hexadecimal ve Octal (8'lik) Sayı Sistemleri
+  - **go mod** (go mod – modül): Proje bağımlılıklarını düzenler, versiyon kontrolünü sağlar ve modüler yapıyı destekler.
 
-### 8.1. Hexadecimal Sistem (Hexadecimal – 16'lık Sistem)
+- **Generics (Jenerikler – generics):**
+  - Go 1.18 ile gelen jenerik desteği, fonksiyon ve veri yapılarının daha esnek, yeniden kullanılabilir olmasını sağlar.
+  - Bu özellik, özellikle veri yapıları ve algoritmaların soyutlanması için büyük avantaj sunar.
 
-- **Tanım:**
+Aşağıdaki tablo, Golang’ın temel komut satırı araçlarını özetlemektedir:
 
-  - 16 sembol kullanılır: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F.
-  - Her hex digit (hex digit – hex rakamı) 4 bit ile ifade edilir.
-
-- **Hex to Binary Dönüşüm Tablosu:**
-
-  | Hex Rakamı | İkilik (Binary – İkilik) |
-  | ---------- | ------------------------ |
-  | 0          | 0000                     |
-  | 1          | 0001                     |
-  | 2          | 0010                     |
-  | 3          | 0011                     |
-  | 4          | 0100                     |
-  | 5          | 0101                     |
-  | 6          | 0110                     |
-  | 7          | 0111                     |
-  | 8          | 1000                     |
-  | 9          | 1001                     |
-  | A          | 1010                     |
-  | B          | 1011                     |
-  | C          | 1100                     |
-  | D          | 1101                     |
-  | E          | 1110                     |
-  | F          | 1111                     |
-
-- **Örnek:**
-  - Hex: `1FC9`  
-    İkilik: `0001 1111 1100 1001`
-  - Bilgisayar belleğinde 1 byte, 2 hex digit ile gösterilir. Örneğin:
-    - En büyük pozitif 1 byte sayısı: `7F`
-    - 4 byte içerisinde -1: `FFFFFFFF`
-
-### 8.2. Octal Sistem (Octal – 8'lik Sistem)
-
-- **Tanım:**
-
-  - 8 sembol kullanılır: 0, 1, 2, 3, 4, 5, 6, 7.
-  - Her octal digit (octal digit – sekizlik rakam) 3 bit ile ifade edilir.
-
-- **Octal to Binary Dönüşüm Tablosu:**
-
-  | Octal Rakamı | İkilik (Binary – İkilik) |
-  | ------------ | ------------------------ |
-  | 0            | 000                      |
-  | 1            | 001                      |
-  | 2            | 010                      |
-  | 3            | 011                      |
-  | 4            | 100                      |
-  | 5            | 101                      |
-  | 6            | 110                      |
-  | 7            | 111                      |
-
-- **Örnek:**
-  - Octal: `476`  
-    İkilik: `100 111 110`
-  - İkilik sayı, sağdan üçer gruplandırılarak octal sisteme dönüştürülebilir.
+| **Komut**  | **Açıklama**                                                                  | **Örnek Kullanım**                                     |
+| ---------- | ----------------------------------------------------------------------------- | ------------------------------------------------------ |
+| `go run`   | Kaynak dosyalarını derleyip, geçici binary oluşturarak direkt çalıştırır.     | `go run main.go`                                       |
+| `go build` | Kaynak kodu derleyerek platforma özgü çalıştırılabilir binary üretir.         | `go build main.go` veya `go build -o uygulama main.go` |
+| `go fmt`   | Kodun otomatik formatlanmasını sağlar; okunabilirliği artırır.                | `go fmt .`                                             |
+| `go test`  | Yazılmış test dosyalarını çalıştırır.                                         | `go test ./...`                                        |
+| `go mod`   | Proje bağımlılıklarını yönetmek ve modüler yapıyı oluşturmak için kullanılır. | `go mod init proje_ismi`                               |
 
 ---
 
-## Ek Uygulama ve Kullanım Senaryoları
+## 5. Derleyici (Compiler – derleyici), Yorumlayıcı (Interpreter – yorumlayıcı) ve Build Süreçleri
 
-- **Go Programlarında Sayı Sistemlerinin Kullanımı:**
+- **Derleyici (Compiler – derleyici):**
 
-  - Go’da tamsayılar **int**, **int8**, **int16**, **int32** ve **int64** gibi türlerde tanımlanır. Her tür, yukarıda açıklanan sayı aralıklarını kullanır.
-  - Sayı sabitleri, ondalık, hexadecimal (`0x` veya `0X` öneki) ve octal (`0` öneki) formatlarda yazılabilir.
+  - Go, kaynak kodu doğrudan makine koduna çeviren derleyiciye sahiptir.
+  - Bu sayede, oluşturulan binary dosyalar yüksek performanslı çalışır.
 
-- **Yorum Satırları ve Kod Belgelendirme:**
-
-  - Kodun anlaşılabilirliğini artırmak için yorum satırları, fonksiyonların ve paketlerin ne amaçla kullanıldığını açıklar.
-  - **godoc** aracı, yorum satırlarından otomatik olarak dokümantasyon oluşturur.
-
-- **Derleme ve Çalıştırma Sürecinde Dikkat Edilmesi Gerekenler:**
-  - **go fmt** kullanılarak kodun tutarlı boşluk ve biçimlendirme kurallarına uygun yazılması sağlanır.
-  - Portability konusuna dikkat edilerek, cross-compilation ile farklı platformlarda çalışabilecek uygulamalar geliştirilebilir.
+- **Yorumlayıcı (Interpreter – yorumlayıcı):**
+  - Go, `go run` komutu ile yorumlayıcı gibi çalışsa da, arka planda geçici bir derleme işlemi gerçekleştirir.
+- **Build Süreci:**
+  - Projede birden fazla dosya mevcutsa, `go build` komutu tüm bileşenleri derleyerek tek veya birden fazla çalıştırılabilir dosya oluşturur.
+  - Windows ortamında binary dosyalar **.exe** uzantılı, Unix/Linux/MacOS gibi sistemlerde ise doğrudan çalıştırılabilir dosya olarak üretilir.
 
 ---
 
-## Sonuç
+## 6. IDE ve Geliştirme Ortamları
 
-Verilen metinde Go dilinin temel yapı taşları ve bilgisayar bilimlerinde kullanılan sayı sistemlerinin temelleri detaylandırılmıştır. Bu konuların her biri; kod yazım standartları, derleyici davranışları, veri temsili, hata ayıklama ve uygulama geliştirme süreçlerinde kritik rol oynamaktadır. Özellikle:
+Golang geliştirme sürecinde verimliliği artıran pek çok IDE (Integrated Development Environment – entegre geliştirme ortamı) ve editör bulunmaktadır:
 
-- **Boşluk karakterlerinin** ve **yorum satırlarının** doğru kullanımı, kodun okunabilirliğini ve bakımını kolaylaştırır.
-- **Bildirimler, paket ve fonksiyon tanımları**, Go dilinin yapısal bütünlüğünü oluşturur.
-- **Sayı sistemlerinin ve ikiye tümleyen yönteminin** iyi anlaşılması, özellikle düşük seviyeli programlama, bellek yönetimi ve hata kontrolü konularında önemlidir.
-- **Kayan noktalı sayılar, yuvarlama hataları** ve **karakter kodlamaları**, modern uygulamalarda doğruluk ve güvenilirlik açısından kritik unsurlardır.
-- **Hexadecimal ve octal sistemlerin** kullanımı, özellikle sistem programlama ve hata ayıklamada sıkça karşımıza çıkar.
+- **Popüler IDE ve Editörler:**
+
+  - **GoLand** (GoLand – GoLand): JetBrains tarafından geliştirilen güçlü bir IDE.
+  - **Visual Studio Code** (Visual Studio Code – Visual Studio Code): Geniş eklenti desteğiyle popüler bir editör.
+  - **LiteIDE:** Özellikle Go geliştirme için tasarlanmış, hafif bir IDE.
+  - Terminal tabanlı editörler (örneğin, Vim, Emacs) da tercih edilebilir.
+
+- **Geliştirme Sürecini Kolaylaştıran Araçlar:**
+  - **godoc** (godoc – dokümantasyon aracı): Kod dokümantasyonunun otomatik oluşturulmasını sağlar.
+  - **go test**: Birim testleri otomatik olarak çalıştırır ve test raporları sunar.
+
+---
+
+## 7. Örnek Kodlarla Açıklamalar
+
+### **7.1. Goroutine (goroutine – goroutine) Kullanımı**
+
+Aşağıdaki örnek, temel bir goroutine kullanımını göstermektedir:
+
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func printMessage(msg string) {
+	for i := 0; i < 5; i++ {
+		fmt.Println(msg)
+		time.Sleep(100 * time.Millisecond)
+	}
+}
+
+func main() {
+	// Goroutine (goroutine – goroutine) ile eşzamanlı çalıştırma
+	go printMessage("Goroutine ile çalışıyor")
+	// Ana fonksiyon
+	printMessage("Ana fonksiyonda çalışıyor")
+}
+```
+
+- **Açıklama:**
+  - `go printMessage(...)` ifadesi, `printMessage` fonksiyonunu ayrı bir goroutine olarak çalıştırır.
+  - Bu sayede ana fonksiyon ve goroutine aynı anda çalışır, böylece eşzamanlı (concurrent – eşzamanlı) işlemler gerçekleştirilir.
+
+### **7.2. Channel (channel – kanal) ile Veri Alışverişi**
+
+Aşağıdaki örnek, iki goroutine arasında channel kullanarak veri aktarımını göstermektedir:
+
+```go
+package main
+
+import "fmt"
+
+func sum(a []int, c chan int) {
+	sum := 0
+	for _, v := range a {
+		sum += v
+	}
+	c <- sum // Sonucu channel'a gönder
+}
+
+func main() {
+	numbers := []int{1, 2, 3, 4, 5}
+	c := make(chan int)
+	go sum(numbers, c)
+	result := <-c // Channel'dan sonucu al
+	fmt.Println("Toplam:", result)
+}
+```
+
+- **Açıklama:**
+  - `make(chan int)` ifadesi ile bir channel oluşturulur.
+  - `sum` fonksiyonu, verilen sayıların toplamını hesaplar ve sonucu channel üzerinden gönderir.
+  - Ana fonksiyonda, `<-c` ifadesi ile channel’dan gelen veri okunur.
+
+---
+
+## 8. Özet ve Sonuç
+
+Golang (Go) programlama dili, modern yazılım geliştirme ihtiyaçlarını karşılamak üzere tasarlanmış, basit ve verimli bir dildir. Aşağıda, dilin temel avantajları özetlenmiştir:
+
+- **Kolay Öğrenilebilirlik:**
+
+  - Sade sözdizimi ve kapsamlı standart kütüphanesi sayesinde hızlıca öğrenilebilir.
+
+- **Yüksek Performans:**
+  - Derlenmiş (compiled – derlenmiş) yapı sayesinde, yüksek performanslı uygulamalar geliştirilir.
+- **Güçlü Eşzamanlılık Desteği:**
+
+  - Goroutine (goroutine – goroutine) ve Channel (channel – kanal) yapıları, düşük maliyetle paralel işlemler yapılmasını sağlar.
+
+- **Modern Geliştirme Araçları:**
+
+  - go fmt, go vet, go test, go mod gibi araçlar sayesinde üretken bir geliştirme süreci sunar.
+
+- **Geniş Kullanım Alanı:**
+  - Backend, ağ programlama, CLI araçları, dağıtık sistemler ve daha pek çok alanda etkili çözümler üretir.
+
+Golang, hem küçük ölçekli araçlardan büyük dağıtık sistemlere kadar geniş bir yelpazede kullanılabilen, esnek ve yüksek performanslı bir dildir. Özellikle eşzamanlılık ve düşük kaynak kullanımı gerektiren uygulamalar için ideal olan Go, modern yazılım geliştirme ortamlarında kendine sağlam bir yer edinmiştir.

@@ -1,435 +1,357 @@
-## 1. Tür (Type – tür) Kavramı ve Kategorileri
+## 1. Boşluk Karakterleri (Whitespace Characters – Boşluk Karakterleri)
 
-**Tanım:**  
-Bir **type (tür – tür)**, bir değişkenin içerisindeki değerin hangi formatta saklanacağını ve bellekte ne kadar yer kaplayacağını belirler. Go dilinde türler, bellekte verimli yer kullanımını sağlamak ve kodun güvenliğini artırmak amacıyla farklı kategorilere ayrılır.
+- **Tanım ve Örnekler:**
 
-**Alt Kategoriler:**
+  - Boşluk karakterleri, klavyeden basıldığında görsel olarak boşluk hissi yaratan karakterlerdir.
+  - Tipik örnekler: **SPACE** (SPACE – boşluk), **TAB** (TAB – sekme) ve **ENTER** (ENTER – satır sonu) karakterleridir.
 
-- **Boolean types (boolean türleri – boolean türleri):**  
-  Mantıksal değerler (true/false) için kullanılır.
-- **Numeric types (sayısal türler – sayısal türler):**  
-  Tamsayılar (integer/integral types – tamsayı türleri) ve gerçek sayılar (floating point types – kayan nokta türleri) ile karmaşık sayıları (complex types – karmaşık türler) kapsar.
-- **String types (string türleri – string türleri):**  
-  Metin verilerini saklamak için kullanılır.
-- **Derived types (türetilmiş türler – türetilmiş türler):**  
-  Array, slice, map, struct gibi veri yapılarını içerir.
-
-**Ek Bilgiler:**
-
-- **Pointer types (pointer türleri – işaretçi türleri):**  
-  Pointer’lar, başka bir değişkenin bellekteki adresini saklar. Go’da pointer kullanımı, bellek yönetimini kolaylaştırır; ancak pointer aritmetiği desteklenmez.
-- **Struct (struct – yapı) ve Interface (interface – arayüz) Türleri:**  
-  Yapılar, verileri gruplamak için kullanılırken; arayüzler, davranışların (method – method) soyutlanmasını sağlar.
-- **Fonksiyon Türleri (function types – fonksiyon türleri):**  
-  Fonksiyonlar da birer değerdir ve değişkenlere atanabilir, parametre veya dönüş değeri olarak kullanılabilir.
+- **Go’da Boşluk Kullanımının Özellikleri:**
+  - Go, diğer bazı programlama dillerine göre sözdizimi (syntax – sözdizimi) açısından çok esnek değildir.
+  - Yazım sırasında boşluk karakterlerinin yeri, kodun okunabilirliği ve yorumlanması açısından önem taşır.
+  - Kodun otomatik formatlanmasını sağlayan **go fmt** (go fmt – kod formatlama aracı) gibi araçlar sayesinde, gereksiz veya tutarsız boşluk kullanımı otomatik olarak düzeltilebilir.
 
 ---
 
-## 2. Sayısal (Numeric – sayısal) Türler ve Özellikleri
+## 2. Yorum Satırları (Comment Lines – Yorum Satırları)
 
-Sayısal türler iki ana gruba ayrılır:
+- **Yorum Satırlarının Tanımı ve Türleri:**
 
-- **Tamsayı Türleri (Integer / Integral Types – tamsayı türleri):**
-  - İşaretli (signed) ve işaretsiz (unsigned) türler bulunur.
-  - İkiye tümleme (two's complement – ikiye tümleme) yöntemi kullanılarak saklanırlar.
-  - Taşma (overflow – taşma) durumlarına karşı derleyici kontrolü bulunmaz; bu yüzden hesaplamalarda dikkat gerektirir.
-- **Gerçek Sayı Türleri (Floating Point Types – gerçek sayı türleri):**
-  - IEEE754 standardını temel alır.
-  - Hesaplamalarda yuvarlama hataları ve kesinlik sorunları yaşanabilir; özellikle bilimsel hesaplamalarda dikkatli olunmalıdır.
-  - **complex64 (complex64 – complex64):** Gerçek (real – gerçek) ve sanal (imaginary – sanal) kısımları `float32` türünden olan karmaşık sayıları temsil eder.
-  - **complex128 (complex128 – complex128):** Gerçek (real – gerçek) ve sanal (imaginary – sanal) kısımları `float64` türünden olan karmaşık sayıları temsil eder.
+  - Yorum satırları, derleyicinin (compiler – derleyici) ve yorumlayıcının (interpreter – yorumlayıcı) göz ardı ettiği, kod hakkında açıklama yapan metinlerdir.
+  - Go dilinde iki tür yorum satırı bulunur:
+    - **Tek satırlık yorum:** `//` ile başlayan yorum satırları.
+    - **Çok satırlı yorum:** `/* ... */` arasına yazılan yorumlar.
 
-Aşağıdaki tablo, Go’daki temel sayısal türlerin byte (bayt) uzunluklarını özetlemektedir:
+- **Önemli Notlar ve İpuçları:**
 
-| **Tür İsmi** | **Byte (Bayt)** | **Açıklama**                                                            |
-| ------------ | --------------- | ----------------------------------------------------------------------- |
-| int8         | 1               | 8-bit işaretli tamsayı                                                  |
-| uint8        | 1               | 8-bit işaretsiz tamsayı                                                 |
-| int16        | 2               | 16-bit işaretli tamsayı                                                 |
-| uint16       | 2               | 16-bit işaretsiz tamsayı                                                |
-| int32        | 4               | 32-bit işaretli tamsayı                                                 |
-| uint32       | 4               | 32-bit işaretsiz tamsayı                                                |
-| int64        | 8               | 64-bit işaretli tamsayı                                                 |
-| uint64       | 8               | 64-bit işaretsiz tamsayı                                                |
-| byte         | 1               | `uint8` için alias (takma ad – alias)                                   |
-| rune         | 4               | `int32` için alias (takma ad – alias); Unicode karakterleri temsil eder |
-| int          | 4/8             | İşletim sistemine bağlı olarak 4 veya 8 byte                            |
-| uint         | 4/8             | İşletim sistemine bağlı olarak 4 veya 8 byte                            |
-| float32      | 4               | 32-bit kayan noktalı sayı                                               |
-| float64      | 8               | 64-bit kayan noktalı sayı                                               |
-| complex64    | 8               | Gerçek ve sanal kısımları `float32` olan karmaşık sayı                  |
-| complex128   | 16              | Gerçek ve sanal kısımları `float64` olan karmaşık sayı                  |
-| bool         | 1               | Boolean (mantıksal – boolean) tür, true veya false değer alır           |
+  - Yorum satırları, kodun anlaşılabilirliğini artırmak amacıyla kullanılmalıdır.
+  - Gereksiz ve dağınık yorum satırları, kodun okunabilirliğini olumsuz etkileyebilir.
+  - İç içe çok satırlı yorumlarda dikkatli olunmalıdır; Go’da iç içe yorum satırları desteklenmez.
 
-**Ek Örnek:**  
-Aşağıdaki örnekte, tamsayı ve kayan nokta hesaplamaları ile birlikte taşma durumuna dikkat çekilmiştir:
+- **Örnek:**
 
-```go
-package main
+  ```go
+  package main
 
-import "fmt"
+  import "fmt"
 
-func main() {
-	var a uint8 = 250
-	var b uint8 = 10
-	// a + b işlemi, uint8 sınırını aşarsa taşma meydana gelebilir.
-	sum := a + b
-	fmt.Println("uint8 toplamı:", sum) // Taşma örneği: beklenenden düşük değer verebilir
+  func main() {
+      fmt.Println("Hello, World") // Bu satır yorum satırı olup derleyici tarafından göz ardı edilir.
 
-	var x float64 = 0.1
-	var y float64 = 0.2
-	result := x + y
-	fmt.Println("float64 toplamı:", result) // Kayan nokta hesaplamalarında kesinlik farkları gözlemlenebilir
-}
-```
+      /*
+         Bu da çok satırlı bir yorumdur.
+         Burada yazılanlar derleme sürecinde kullanılmaz.
+      */
+  }
+  ```
 
 ---
 
-## 3. İfade (Expression – ifade) Kavramı
+## 3. Bildirim (Declaration – Bildirim) ve Program Yapısı
 
-**Tanım:**  
-İfade, sabitler, değişkenler ve operatörlerin (operators – operatörler) oluşturduğu dizilimlerdir. İfadeler, hesaplamaların sonucunu belirler ve programın akışında önemli rol oynar.
+- **Bildirim Nedir?**
 
-**Örnek İfade Türleri:**
+  - Bildirim, bir ismin derleyiciye tanıtılmasıdır. Derleyici, bildirimler sayesinde kod içinde kullanılan isimleri (değişken, fonksiyon, paket vb.) tanır.
 
-- **Aritmetik İfadeler:**  
-  Örneğin: `3 + 4 * 2`
-- **Mantıksal (Boolean) İfadeler:**  
-  Örneğin: `a > b && b != 0`
-- **İşlev Çağrıları:**  
-  Örneğin: `fmt.Println("Merhaba, Go!")`
-- **Karmaşık İfadeler:**  
-  Parantez kullanarak öncelik belirleme, fonksiyon çağrıları ve değişkenlerin birleşimi:  
-  `result := (a + b) * (c - d)`
+- **Go Programlarının Temel Yapısı:**
 
-**Ek Örnek:**  
-Aşağıdaki kod parçası, farklı ifade türlerini kullanarak koşullu bir işlem yapmaktadır:
+  - **Paket Bildirimi:** Her Go programı en az bir paket bildirimi ile başlar. Örneğin:
 
-```go
-package main
+    ```go
+    package main
+    ```
 
-import "fmt"
+    - Burada `main` paketi, programın çalıştırılabilir bir uygulama oluşturması için özel bir isimdir.
 
-func main() {
-	a, b := 10, 20
-	// Karmaşık ifade: koşul ifadesi ve aritmetik işlem
-	max := a
-	if b > a {
-		max = b
-	}
-	fmt.Println("Büyük olan:", max)
-}
-```
+  - **Fonksiyon Bildirimi:**
+    - Fonksiyon bildiriminin genel biçimi:
+      ```go
+      func <fonksiyon ismi>([parametreler]) [geri dönüş bilgisi] {
+          // Fonksiyonun gövdesi
+      }
+      ```
+    - **Örnek:**
+      ```go
+      func foo() {
+          fmt.Println("foo")
+      }
+      ```
+    - **Fonksiyon Çağrısı:**
+      - Aynı paket içerisindeki fonksiyonlar, doğrudan çağrılabilir:
+        ```go
+        foo()
+        ```
+      - Farklı paketlerde yer alan fonksiyonlar, paket adı ile çağrılır:
+        ```go
+        test.Foo()
+        ```
 
----
+- **İsimlendirme Kuralları ve Önemli Notlar:**
 
-## 4. Değişken (Variable – değişken) Kavramları
+  - **Export Edilebilirlik (Exported – Dışa Açık):**
+    - Fonksiyon veya değişken ismi küçük harfle başlıyorsa, sadece aynı paket içerisinde kullanılabilir.
+    - İlk harfi büyük olan isimler (örn. `Bar()`) dış paketlerden erişime açıktır.
+  - **Kod Düzeni:**
+    - Fonksiyonun gövdesi, fonksiyon parametre parantezinin hemen aynı satırında veya bir sonraki satırda yazılabilir; fakat okunabilirlik açısından genellikle aynı satırda açılış `{` karakteri tercih edilir.
 
-**Temel Kavramlar:**
+- **Örnek Program:**
 
-- **İsim (Name – isim):**  
-  Değişkenin adını belirler. Kurallara uygun (rakamla başlamama, case-sensitive vb.) yazılmalıdır.
-- **Tür (Type – tür):**  
-  Değişkenin bellekte hangi formatta saklanacağını belirler.
-- **Faaliyet Alanı (Scope – faaliyet alanı):**  
-  Değişkenin kod içinde erişilebilir olduğu bölgedir.
-- **Ömür (Storage Duration – ömür):**  
-  Değişkenin bellekte yaratılmasından yok edilmesine kadar geçen süreyi ifade eder.
+  ```go
+  package main
 
-**Sıfır Değerler Tablosu:**  
-Go, bildirilen değişkenlere otomatik olarak sıfır (zero) değeri atar. Aşağıdaki tablo, yaygın türlerin varsayılan sıfır değerlerini göstermektedir:
+  import "fmt"
 
-| **Tür**                                 | **Sıfır Değeri** |
-| --------------------------------------- | ---------------- |
-| bool                                    | false            |
-| int, int8, int16, int32, int64          | 0                |
-| uint, uint8, uint16, uint32, uint64     | 0                |
-| float32, float64                        | 0                |
-| complex64, complex128                   | 0+0i             |
-| string                                  | "" (boş string)  |
-| pointer, slice, map, channel, interface | nil              |
+  func foo() {
+      fmt.Println("foo")
+      tar()
+  }
 
-**Ek Örnek:**  
-Type inference (tür çıkarımı) mekanizmasını vurgulamak amacıyla ek bir örnek:
+  func Bar() {
+      fmt.Println("Bar")
+  }
 
-```go
-package main
+  func tar() {
+      fmt.Println("tar")
+  }
 
-import "fmt"
+  func main() {
+      fmt.Println("Hello, World")
+      foo()
+      Bar()
+      fmt.Println("Goodbye, World")
+  }
+  ```
 
-func main() {
-	// Tür çıkarımı sayesinde, değişkenin türü otomatik belirlenir.
-	num := 100          // num int tipindedir.
-	str := "Go Öğren"   // str string tipindedir.
-	flag := true        // flag bool tipindedir.
-	fmt.Println(num, str, flag)
-}
-```
+- **Ek Açıklamalar:**
+  - **Entry Point (Giriş Noktası):** Go programlarında çalışma, `main()` fonksiyonu ile başlar. Bu fonksiyon programın "entry point" (giriş noktası) olarak kabul edilir.
+  - **Fonksiyon Akışı:** Bir fonksiyon çağrıldığında, kod akışı çağrılan fonksiyonun içerisine geçer ve fonksiyon tamamlandığında çağrıldığı yere geri döner.
 
 ---
 
-## 5. Nesne (Object – nesne), lvalue ve rvalue
+## 4. Standart Girdi/Çıktı ve Process Kavramı
 
-**Nesne (Object – nesne):**  
-Bellekte yer ayrılmış olan veri birimidir. Bir değişken tanımlandığında bellekte ona karşılık gelen bir nesne oluşturulur. Nesnelerin ömrü, garbage collection (çöp toplama – garbage collection) mekanizması ile yönetilir.
+- **Standart Dosya Akışları:**
 
-**lvalue (Sol Taraf Değeri – lvalue):**  
-Bellekte belirli bir adresi olan, değişken gibi atanabilir ifadelerdir. Atama operatörünün sol tarafında yer alır.  
-**rvalue (Sağ Taraf Değeri – rvalue):**  
-Sadece değeri temsil eden, geçici ifadelerdir. rvalue ifadeler, doğrudan atama operatörünün sol tarafında kullanılamaz.
+  - **stdin (Standart Girdi – Klavye):** Genellikle kullanıcıdan alınan veriler için kullanılır.
+  - **stdout (Standart Çıktı – Ekran):** Program çıktılarının görüntülendiği yerdir.
+  - **stderr (Standart Hata – Hata Çıktısı):** Hata mesajlarının gönderildiği akıştır. Genellikle stdout ile aynı yere yönlendirilir.
 
-**Ek Örnek:**  
-Aşağıdaki kod, lvalue ve rvalue arasındaki farkı göstermektedir:
+- **Örnek Kullanım:**
 
-```go
-package main
+  - `fmt.Println` ve `fmt.Print` fonksiyonları, ekrana yazı yazar.
+    - `fmt.Println`: Yazının sonunda imleci yeni satıra geçirir.
+    - `fmt.Print`: Yazının sonunda imleci aynı satırda bırakır.
 
-import "fmt"
-
-func main() {
-	var x int = 5   // 'x' bir lvalue’dur.
-	y := 10         // y de bir lvalue’dur.
-	x = y           // Burada y’nin rvalue’si x'e atanır.
-	// 5 = x       // Bu kullanım geçersizdir çünkü 5 bir rvalue'dir.
-	fmt.Println("x:", x)
-}
-```
+- **Process (Process – İşlem) Kavramı:**
+  - Bir program, işletim sistemi tarafından çalıştırıldığında "process" (işlem) olarak adlandırılır. Bu, programın hafızada çalışan halidir.
 
 ---
 
-## 6. Değişken Initialization (İlk Değer Atama) ve Bildirim Yöntemleri
+## 5. Taşınabilirlik (Portability – Taşınabilirlik) ve Derleme Süreci
 
-Go dilinde değişken bildirimi iki temel yöntemle yapılır:
+- **Kod Taşınabilirliği (Code Portability):**
 
-1. **var Anahtar Sözcüğü ile Bildirim:**
+  - Farklı sistemlerde, kodda değişiklik yapmadan derlenebilmesi.
+  - Go gibi dillerde, kodun belirli bir platforma özgü olmaması sağlanır.
 
-   - Tür belirtilirse, ilk değer verilmediğinde otomatik olarak sıfır değeri atanır.
-   - İlk değer verildiğinde, tür otomatik tespit edilir (type inference/deduction – tür çıkarımı).
+- **Program Taşınabilirliği (Program Portability):**
 
-   **Örnek:**
+  - Derlenmiş programın, farklı işletim sistemlerinde (Windows, Linux, macOS) çalışabilmesi.
+  - Go, **cross-compilation** (çoklu platform desteği – cross-compilation) sayesinde tek bir derleme ile farklı platformlarda çalışabilecek binary dosyalar üretebilir.
 
-   ```go
-   package main
-
-   import "fmt"
-
-   func main() {
-       var a int       // 'a' için sıfır değeri (0) atanır
-       var b = 15      // Tür otomatik olarak int olarak belirlenir
-       fmt.Println("a:", a, "b:", b)
-   }
-   ```
-
-2. **:= Operatörü ile Kısa Bildirim (Immediate Declaration – anında bildirim):**
-
-   - Hem bildirim hem de ilk değer atama aynı anda yapılır.
-   - Tür, sağlanan değere göre otomatik tespit edilir.
-
-   **Örnek:**
-
-   ```go
-   package main
-
-   import "fmt"
-
-   func main() {
-       a := 25        // 'a' bildirimi ve 25 değeri atanır
-       b := a         // b, a'nın değerini alır
-       fmt.Println("a:", a, "b:", b)
-   }
-   ```
-
-3. **Çoklu Değişken Bildirimi:**
-
-   - Aynı satırda, virgül kullanılarak aynı türde ya da karışık türlerde değişkenler bildirilebilir.
-
-   **Örnek (Aynı Tür):**
-
-   ```go
-   package main
-
-   import "fmt"
-
-   func main() {
-       var x, y, z int = 5, 10, 15
-       fmt.Println(x, y, z)
-   }
-   ```
-
-   **Örnek (Mixed Declaration – karışık türler):**
-
-   ```go
-   package main
-
-   import "fmt"
-
-   func main() {
-       var a, b, c = 42, 3.14, "Go"
-       fmt.Println(a, b, c)
-   }
-   ```
-
-**Ek Bilgiler:**
-
-- Değişken bildirimi sırasında, derleyici türü otomatik çıkarır ve bu sayede kod okunabilirliği artar.
-- Bildirilen fakat kullanılmayan değişkenler hata (error) oluşturur.
+- **Derleme İşlemleri:**
+  - **go build:** Kaynak kodu derleyerek platforma özgü çalıştırılabilir (executable – çalıştırılabilir) dosya üretir.
+  - **go run:** Derleme sürecini arka planda gerçekleştirir ve geçici binary oluşturup çalıştırır.
 
 ---
 
-## 7. Değişken İsimlendirme Kuralları
+## 6. Sayı Sistemleri ve İkilik Temsili
 
-Go dilinde değişken isimleri için uyulması gereken temel kurallar şunlardır:
+### 6.1. Temel Sayı Sistemleri
 
-- **Başlangıç Karakteri:**
-  - Değişken isimleri rakam ile başlayamaz; yalnızca alfabetik karakter veya alttire (underscore – alt çizgi) karakteri ile başlamalıdır.
-- **Devamı:**
-  - İsim, istenildiği kadar rakam ve harf içerebilir.
-- **Case-Sensitive (Büyük/Küçük Harf Duyarlılığı – case sensitive):**
-  - Değişken isimleri büyük/küçük harf duyarlıdır; örneğin, `deger` ile `Deger` farklı değişkenlerdir.
-- **Unicode Desteği:**
-  - Unicode karakterler kullanılabilir; ancak ASCII dışı karakterlerin kullanımı önerilmez.
-- **İsimlendirme Konvansiyonları:**
-  - Yerel değişkenler için genellikle camelCase (örneğin, `kullaniciAdi`) kullanılırken; paket dışı (exported) değişkenler için PascalCase (örneğin, `KullaniciAdi`) tercih edilir.
-  - Gereksiz kısaltmalardan kaçınılmalı, anlamlı ve açıklayıcı isimler kullanılmalıdır.
+- **10'luk Sistem (Decimal – Decimal):**
 
----
+  - 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 rakamları kullanılır.
+  - Her basamak, 10’un kuvvetiyle çarpılarak toplam ifade edilir.
+  - Örneğin:  
+    123.25 = 1×10² + 2×10¹ + 3×10⁰ + 2×10⁻¹ + 5×10⁻²
 
-## 8. Bloklar (Block – blok) ve Yerel Değişkenler (Local Variables – yerel değişkenler)
+- **2'lik Sistem (Binary – İkilik):**
 
-**Blok (Block – blok):**
+  - 0 ve 1 rakamları kullanılır.
+  - Her basamak, 2’nin kuvvetiyle çarpılarak sayı elde edilir.
+  - Bir **bit (binary digit – bit)** en küçük bilgi birimidir; 8 bit ise 1 **byte (byte – bayt)** oluşturur.
+  - Bitler, okunabilirlik açısından genellikle 4’erli gruplar halinde yazılır.
 
-- Bir fonksiyonun `{` ve `}` arasındaki kısmı bir bloktur.
-- İç içe bloklar oluşturulabilir ve her blok kendi yerel değişkenlerini barındırır.
+- **Tablo: 1 Byte İçin Örnek Değerler**
 
-**Yerel Değişkenler (Local Variables – yerel değişkenler):**
+  | İkilik Gösterim | Decimal (10'luk) |
+  | --------------- | ---------------- |
+  | 0000 0000       | 0                |
+  | 1111 1111       | 255              |
 
-- Bir blok içerisinde bildirilen değişkenler yerel değişkenlerdir.
-- Bu değişkenlerin ömrü, bulundukları blokla sınırlıdır ve blok dışına çıkıldığında erişilemez hale gelir.
+### 6.2. İşaretli ve İşaretsiz Tamsayılar
 
-**Ek Örnek:**  
-İç içe bloklarda yerel değişkenlerin nasıl çalıştığını gösteren ek bir örnek:
+- **İşaretsiz (Unsigned – İşaretsiz):**
 
-```go
-package main
+  - En sol bit işaret biti olarak kullanılmaz.
+  - Değer aralığı: [0, 2ⁿ – 1] (n: bit sayısı).
 
-import "fmt"
+- **İşaretli (Signed – İşaretli):**
 
-func main() {
-	{
-		// İlk blok: 'a' yerel değişkeni oluşturulur.
-		var a int = 100
-		fmt.Println("İlk blok, a:", a)
-		{
-			// İç blok: 'b' adında yeni yerel değişken oluşturulur.
-			var b int = 200
-			fmt.Println("İç blok, b:", b)
-		}
-		// 'b' burada erişilemez.
-	}
-	// 'a' burada da erişilemez.
-}
-```
+  - En sol bit, sayının işaretini belirler (0: pozitif, 1: negatif).
+  - Negatif sayıların temsili için **ikiye tümleyen (two's complement – ikiye tümleyen)** yöntemi kullanılır.
+  - İşaretli aralık: [–2^(n–1), 2^(n–1) – 1].
 
----
+- **Örnek (1 Byte – 8 bit):**
 
-## 9. Shadowing (Masking – gölgeleme) Durumu
+  - Maksimum pozitif: 0 111 1111 → +127
+  - Maksimum negatif: 1 000 0000 → –128
 
-**Tanım:**  
-İçiçe bloklarda aynı isimde yerel değişken bildirildiğinde, iç bloktaki değişken dış bloktaki değişkenin üzerine yazar (masking/shadowing). Bu durum, dış bloktaki değere erişimin kaybolmasına sebep olabilir.
+- **İkiye Tümleyen Hesaplama Örneği:**
+  - Pozitif +10 için:
+    ```plaintext
+    +10: 0000 1010
+    ```
+  - -10’u elde etmek için +10’un ikiye tümleyenini alın:
+    1. Bire tümleyen (bit flip): 1111 0101
+    2. 1 ekleyin: 1111 0110 → Bu, -10 değeridir.
 
-**Ek Bilgiler:**
+### 6.3. Kayan Noktalı Sayıların Temsili
 
-- Shadowing, özellikle büyük kod tabanlarında yanlış anlaşılmalara yol açabileceğinden dikkatli kullanılmalıdır.
-- İsimlerin tekrarlanması durumunda, kod okunabilirliğini artırmak için farklı isimlendirme stratejileri (örneğin, daha açıklayıcı isimler) tercih edilebilir.
+- **Sabit Noktalı Format (Fixed Point – Sabit Noktalı):**
 
-**Örnek:**
+  - Noktanın yeri sabittir. Örneğin 4 byte ayrılırsa, 2 byte tam sayı kısmı, 2 byte kesirli kısım olabilir.
+  - Dezavantaj: Dinamik değildir; farklı büyüklükte sayılar için esneklik sağlamaz.
 
-```go
-package main
-
-import "fmt"
-
-func main() {
-	var value int = 50
-	fmt.Println("Dış blok value:", value)
-
-	{
-		// Shadowing: 'value' isminde yeni bir değişken oluşturuluyor.
-		var value int = 100
-		value += 20
-		fmt.Println("İç blok value:", value)
-	}
-
-	// Dış bloktaki 'value' etkilenmemiştir.
-	fmt.Println("Dış blok, tekrar value:", value)
-}
-```
+- **Kayan Noktalı Format (Floating Point – Kayan Noktalı):**
+  - Sayının temsilinde üç bölüm vardır:
+    - **İşaret biti (sign bit – işaret biti)**
+    - **Mantis (mantis – mantis)**
+    - **Üstel kısım (exponential part – üstel kısım)**
+  - Günümüzde yaygın olarak **IEEE 754** standardı kullanılır:
+    - **Short Real Format (4 byte – float32)**
+    - **Long Real Format (8 byte – float64)**
+    - **Extended Real Format (10 byte – bazı platformlarda)**
+  - **Yuvarlama Hatası (Rounding Error – yuvarlama hatası):**
+    - Kayan noktalı sayılar, bazı sayıları tam ifade edemediğinden yuvarlama hatası oluşabilir.
+    - Bu nedenle finansal uygulamalar gibi hassas hesaplamalarda doğrudan float kullanmak yerine, örneğin **decimal** türü gibi alternatifler tercih edilir.
 
 ---
 
-## 10. Global Değişkenler (Global Variables – global değişkenler)
+## 7. Karakter Kodlamaları ve Yazıların Temsili
 
-**Tanım:**  
-Fonksiyonların dışında, paket içerisinde bildirilen değişkenler global değişkenlerdir. Aynı dosya içindeki tüm fonksiyonlar bu değişkenlere erişebilir. Global değişkenlere de sıfır değeri otomatik olarak atanır.
+- **Temel Kavramlar:**
 
-**Ek Bilgiler:**
+  - Bilgisayarlar, yazıları ikilik sistemde sayılar olarak saklar. Her bir karakter, bir sayı (code point – kod noktası) ile temsil edilir.
+  - Karakter tabloları, her karaktere karşılık gelen sayıları (glyph – glif) içerir.
 
-- Global değişkenler, programın genel durumunu tutmak için kullanılır ancak aşırı kullanımı programın yönetilebilirliğini zorlaştırabilir.
-- İyi tasarlanmış bir mimaride, global değişkenler minimum düzeyde tutulmalı ve mümkünse fonksiyonlara parametre olarak aktarılmalıdır.
+- **ASCII ve Genişletilmiş ASCII:**
 
-**Örnek:**
+  - **ASCII (American Standard Code Information Interchange – ASCII):**
+    - 7 bit’lik kodlama ile 128 karakter içerir.
+  - **Code Page’ler:**
+    - Farklı ülkelerin karakterlerini desteklemek için 8 bitlik genişletilmiş tablolar (örneğin, ISO 8859-9) kullanılmıştır.
 
-```go
-package main
-
-import "fmt"
-
-// Global değişken bildirimi
-var globalCount int = 10
-
-func main() {
-	fmt.Println("Başlangıç globalCount:", globalCount)
-	increase()
-	fmt.Println("increase() sonrası globalCount:", globalCount)
-	reset()
-	fmt.Println("reset() sonrası globalCount:", globalCount)
-}
-
-func increase() {
-	globalCount += 5
-}
-
-func reset() {
-	globalCount = 0
-}
-```
+- **UNICODE ve UTF-8:**
+  - **UNICODE:**
+    - Dünyanın tüm dillerini kapsayan standart bir karakter setidir.
+    - ISO 10646 olarak da adlandırılır.
+  - **UTF-8 Encoding (UTF-8 – UTF-8):**
+    - En yaygın kullanılan Unicode kodlamasıdır.
+    - ASCII karakterler 1 byte, diğer karakterler 2 ila 5 byte kullanır.
+    - Türkçe karakterler genellikle 2 byte yer kaplar.
+  - **Not:** Modern Go editörleri varsayılan olarak dosyaları UTF-8 formatında kaydeder.
 
 ---
 
-## 11. Özet ve Sonuç
+## 8. Hexadecimal ve Octal (8'lik) Sayı Sistemleri
 
-**Go (Golang) programlama dilinde temel kavramlar şu şekilde özetlenebilir:**
+### 8.1. Hexadecimal Sistem (Hexadecimal – 16'lık Sistem)
 
-- **Type (tür – tür):**  
-  Değişkenlerin bellekte hangi formatta ve ne kadar yer kaplayacağını belirler. Sayısal türler, boolean, string ve türetilmiş türler gibi kategorilere ayrılır. Ek olarak, pointer, struct, interface ve fonksiyon türleri de dilin esnekliğini artırır.
+- **Tanım:**
 
-- **Expression (ifade – ifade):**  
-  Sabitler, operatörler ve değişkenlerin birleşiminden oluşur. İfadeler, koşul ve döngü yapıları gibi kontrol akışlarında kritik rol oynar.
+  - 16 sembol kullanılır: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F.
+  - Her hex digit (hex digit – hex rakamı) 4 bit ile ifade edilir.
 
-- **Variable (değişken – değişken):**  
-  İsim, tür, scope (faaliyet alanı) ve storage duration (ömür) gibi kavramları içerir.
+- **Hex to Binary Dönüşüm Tablosu:**
 
-  - **Bildirim Yöntemleri:** `var` bildirimi, kısa bildirim (`:=`) ve çoklu değişken bildirimi.
-  - **Sıfır Değerler:** Her değişken bildirildiğinde, türüne uygun sıfır değeri otomatik atanır.
-  - **Type Inference:** Tür çıkarımı sayesinde, kod daha okunabilir ve yazımı kolaylaşır.
+  | Hex Rakamı | İkilik (Binary – İkilik) |
+  | ---------- | ------------------------ |
+  | 0          | 0000                     |
+  | 1          | 0001                     |
+  | 2          | 0010                     |
+  | 3          | 0011                     |
+  | 4          | 0100                     |
+  | 5          | 0101                     |
+  | 6          | 0110                     |
+  | 7          | 0111                     |
+  | 8          | 1000                     |
+  | 9          | 1001                     |
+  | A          | 1010                     |
+  | B          | 1011                     |
+  | C          | 1100                     |
+  | D          | 1101                     |
+  | E          | 1110                     |
+  | F          | 1111                     |
 
-- **Blok (block – blok) ve Scope (faaliyet alanı):**  
-  Bloklar, fonksiyon gövdeleri ve iç içe yapılar şeklinde tanımlanır. Yerel değişkenlerin ömrü, bulundukları blokla sınırlıdır.
+- **Örnek:**
+  - Hex: `1FC9`  
+    İkilik: `0001 1111 1100 1001`
+  - Bilgisayar belleğinde 1 byte, 2 hex digit ile gösterilir. Örneğin:
+    - En büyük pozitif 1 byte sayısı: `7F`
+    - 4 byte içerisinde -1: `FFFFFFFF`
 
-  - **Shadowing (gölgeleme):** Aynı isimde değişken bildirimi durumunda iç bloktaki değişken, dış bloktaki değişkeni maskeleyebilir.
+### 8.2. Octal Sistem (Octal – 8'lik Sistem)
 
-- **Global Variables (global değişkenler – global değişkenler):**  
-  Paket genelinde erişilebilen değişkenlerdir. Global değişkenler, programın durumunu merkezi bir şekilde yönetmede kullanılır; ancak dikkatli kullanılmalıdır.
+- **Tanım:**
 
-**Genel Değerlendirme:**  
-Go, güçlü tip güvenliği, otomatik bellek yönetimi ve etkili eşzamanlılık (concurrency – eşzamanlılık) desteği sayesinde sistem programlama, ağ uygulamaları, CLI araçları ve mikroservis mimarileri gibi pek çok alanda verimli ve güvenilir çözümler sunar. Eklenen detaylar; türler, ifadeler, değişken bildirimi, isimlendirme kuralları, blok yapıları ve global değişkenlerin doğru kullanımı konularında derinlemesine bilgi sağlamaktadır. Bu bilgiler, Go dilinin temel özelliklerini anlamak ve pratik uygulamalarda karşılaşılabilecek durumlara hazırlıklı olmak açısından büyük önem taşır.
+  - 8 sembol kullanılır: 0, 1, 2, 3, 4, 5, 6, 7.
+  - Her octal digit (octal digit – sekizlik rakam) 3 bit ile ifade edilir.
+
+- **Octal to Binary Dönüşüm Tablosu:**
+
+  | Octal Rakamı | İkilik (Binary – İkilik) |
+  | ------------ | ------------------------ |
+  | 0            | 000                      |
+  | 1            | 001                      |
+  | 2            | 010                      |
+  | 3            | 011                      |
+  | 4            | 100                      |
+  | 5            | 101                      |
+  | 6            | 110                      |
+  | 7            | 111                      |
+
+- **Örnek:**
+  - Octal: `476`  
+    İkilik: `100 111 110`
+  - İkilik sayı, sağdan üçer gruplandırılarak octal sisteme dönüştürülebilir.
+
+---
+
+## Ek Uygulama ve Kullanım Senaryoları
+
+- **Go Programlarında Sayı Sistemlerinin Kullanımı:**
+
+  - Go’da tamsayılar **int**, **int8**, **int16**, **int32** ve **int64** gibi türlerde tanımlanır. Her tür, yukarıda açıklanan sayı aralıklarını kullanır.
+  - Sayı sabitleri, ondalık, hexadecimal (`0x` veya `0X` öneki) ve octal (`0` öneki) formatlarda yazılabilir.
+
+- **Yorum Satırları ve Kod Belgelendirme:**
+
+  - Kodun anlaşılabilirliğini artırmak için yorum satırları, fonksiyonların ve paketlerin ne amaçla kullanıldığını açıklar.
+  - **godoc** aracı, yorum satırlarından otomatik olarak dokümantasyon oluşturur.
+
+- **Derleme ve Çalıştırma Sürecinde Dikkat Edilmesi Gerekenler:**
+  - **go fmt** kullanılarak kodun tutarlı boşluk ve biçimlendirme kurallarına uygun yazılması sağlanır.
+  - Portability konusuna dikkat edilerek, cross-compilation ile farklı platformlarda çalışabilecek uygulamalar geliştirilebilir.
+
+---
+
+## Sonuç
+
+Verilen metinde Go dilinin temel yapı taşları ve bilgisayar bilimlerinde kullanılan sayı sistemlerinin temelleri detaylandırılmıştır. Bu konuların her biri; kod yazım standartları, derleyici davranışları, veri temsili, hata ayıklama ve uygulama geliştirme süreçlerinde kritik rol oynamaktadır. Özellikle:
+
+- **Boşluk karakterlerinin** ve **yorum satırlarının** doğru kullanımı, kodun okunabilirliğini ve bakımını kolaylaştırır.
+- **Bildirimler, paket ve fonksiyon tanımları**, Go dilinin yapısal bütünlüğünü oluşturur.
+- **Sayı sistemlerinin ve ikiye tümleyen yönteminin** iyi anlaşılması, özellikle düşük seviyeli programlama, bellek yönetimi ve hata kontrolü konularında önemlidir.
+- **Kayan noktalı sayılar, yuvarlama hataları** ve **karakter kodlamaları**, modern uygulamalarda doğruluk ve güvenilirlik açısından kritik unsurlardır.
+- **Hexadecimal ve octal sistemlerin** kullanımı, özellikle sistem programlama ve hata ayıklamada sıkça karşımıza çıkar.

@@ -1,22 +1,68 @@
-## 1. Stdin’den Değer Okuma (Input Reading)
+## 1. Tür (Type – tür) Kavramı ve Kategorileri
 
-Go dilinde kullanıcıdan veri almak için **fmt** paketindeki üç temel fonksiyon kullanılır:  
-**Scan (tarama)**, **Scanf (biçimli tarama)** ve **Scanln (satır sonu tarama)**.  
-Bu fonksiyonların kullanım özellikleri ve farkları aşağıdaki tabloda özetlenmiştir:
+**Tanım:**  
+Bir **type (tür – tür)**, bir değişkenin içerisindeki değerin hangi formatta saklanacağını ve bellekte ne kadar yer kaplayacağını belirler. Go dilinde türler, bellekte verimli yer kullanımını sağlamak ve kodun güvenliğini artırmak amacıyla farklı kategorilere ayrılır.
 
-| **Fonksiyon** | **Açıklama**                                                                                                                         | **Kullanım Durumu**                                                                            | **Özellikler**                                                                                                                                                                         |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `fmt.Scan`    | Standart giriş akışından (stdin – standart giriş) verileri, boşluk, tab veya newline gibi whitespace karakterlerine göre ayrıştırır. | Basit veri girişlerinde, veriler arasında boşluk varsa.                                        | Giriş sırasında girilen veriler arasında otomatik ayrıştırma yapılır; her bir veri ilgili değişkene atanır. Hata kontrolü yapılabilir, fakat burada örnekte hata kontrolü atlanmıştır. |
-| `fmt.Scanf`   | Belirtilen format (format – biçim) doğrultusunda verileri okur.                                                                      | Giriş verilerinin belirli bir formatta (örn. "name: %s, age: %d") alınması gereken durumlarda. | Kullanıcıdan beklenen veri formatı önceden belirlenir; böylece hatalı girişler için format uyumsuzluğu yakalanabilir.                                                                  |
-| `fmt.Scanln`  | Satır sonuna kadar verileri okur; boşluk karakterlerine göre ayrıştırma yapar.                                                       | Genellikle bir tam satırın okunması gereken durumlarda kullanılır.                             | Satır sonuna ulaşıldığında okuma işlemi tamamlanır; sonundaki boşluk karakterleri atlanır.                                                                                             |
+**Alt Kategoriler:**
 
-**Ek Notlar:**
+- **Boolean types (boolean türleri – boolean türleri):**  
+  Mantıksal değerler (true/false) için kullanılır.
+- **Numeric types (sayısal türler – sayısal türler):**  
+  Tamsayılar (integer/integral types – tamsayı türleri) ve gerçek sayılar (floating point types – kayan nokta türleri) ile karmaşık sayıları (complex types – karmaşık türler) kapsar.
+- **String types (string türleri – string türleri):**  
+  Metin verilerini saklamak için kullanılır.
+- **Derived types (türetilmiş türler – türetilmiş türler):**  
+  Array, slice, map, struct gibi veri yapılarını içerir.
 
-- Bu fonksiyonlar, kullanıcıdan alınan verileri ilgili değişkenlere aktarmak için **address of** operatörü (`&` – adres operatörü) kullanır.  
-  Örneğin: `fmt.Scan(&a, &b)` ifadesinde, `a` ve `b` değişkenlerinin adresleri gönderilir.
-- Gerçek uygulamalarda, kullanıcı hatalı veri girişi yapabilir. Bu durumlarda dönen hata (error) değeri kontrol edilerek uygun hata yönetimi (error handling – hata yönetimi) yapılmalıdır. Şimdilik, örneklerde hata kontrolü yapılmamaktadır.
+**Ek Bilgiler:**
 
-### Örnek Kod
+- **Pointer types (pointer türleri – işaretçi türleri):**  
+  Pointer’lar, başka bir değişkenin bellekteki adresini saklar. Go’da pointer kullanımı, bellek yönetimini kolaylaştırır; ancak pointer aritmetiği desteklenmez.
+- **Struct (struct – yapı) ve Interface (interface – arayüz) Türleri:**  
+  Yapılar, verileri gruplamak için kullanılırken; arayüzler, davranışların (method – method) soyutlanmasını sağlar.
+- **Fonksiyon Türleri (function types – fonksiyon türleri):**  
+  Fonksiyonlar da birer değerdir ve değişkenlere atanabilir, parametre veya dönüş değeri olarak kullanılabilir.
+
+---
+
+## 2. Sayısal (Numeric – sayısal) Türler ve Özellikleri
+
+Sayısal türler iki ana gruba ayrılır:
+
+- **Tamsayı Türleri (Integer / Integral Types – tamsayı türleri):**
+  - İşaretli (signed) ve işaretsiz (unsigned) türler bulunur.
+  - İkiye tümleme (two's complement – ikiye tümleme) yöntemi kullanılarak saklanırlar.
+  - Taşma (overflow – taşma) durumlarına karşı derleyici kontrolü bulunmaz; bu yüzden hesaplamalarda dikkat gerektirir.
+- **Gerçek Sayı Türleri (Floating Point Types – gerçek sayı türleri):**
+  - IEEE754 standardını temel alır.
+  - Hesaplamalarda yuvarlama hataları ve kesinlik sorunları yaşanabilir; özellikle bilimsel hesaplamalarda dikkatli olunmalıdır.
+  - **complex64 (complex64 – complex64):** Gerçek (real – gerçek) ve sanal (imaginary – sanal) kısımları `float32` türünden olan karmaşık sayıları temsil eder.
+  - **complex128 (complex128 – complex128):** Gerçek (real – gerçek) ve sanal (imaginary – sanal) kısımları `float64` türünden olan karmaşık sayıları temsil eder.
+
+Aşağıdaki tablo, Go’daki temel sayısal türlerin byte (bayt) uzunluklarını özetlemektedir:
+
+| **Tür İsmi** | **Byte (Bayt)** | **Açıklama**                                                            |
+| ------------ | --------------- | ----------------------------------------------------------------------- |
+| int8         | 1               | 8-bit işaretli tamsayı                                                  |
+| uint8        | 1               | 8-bit işaretsiz tamsayı                                                 |
+| int16        | 2               | 16-bit işaretli tamsayı                                                 |
+| uint16       | 2               | 16-bit işaretsiz tamsayı                                                |
+| int32        | 4               | 32-bit işaretli tamsayı                                                 |
+| uint32       | 4               | 32-bit işaretsiz tamsayı                                                |
+| int64        | 8               | 64-bit işaretli tamsayı                                                 |
+| uint64       | 8               | 64-bit işaretsiz tamsayı                                                |
+| byte         | 1               | `uint8` için alias (takma ad – alias)                                   |
+| rune         | 4               | `int32` için alias (takma ad – alias); Unicode karakterleri temsil eder |
+| int          | 4/8             | İşletim sistemine bağlı olarak 4 veya 8 byte                            |
+| uint         | 4/8             | İşletim sistemine bağlı olarak 4 veya 8 byte                            |
+| float32      | 4               | 32-bit kayan noktalı sayı                                               |
+| float64      | 8               | 64-bit kayan noktalı sayı                                               |
+| complex64    | 8               | Gerçek ve sanal kısımları `float32` olan karmaşık sayı                  |
+| complex128   | 16              | Gerçek ve sanal kısımları `float64` olan karmaşık sayı                  |
+| bool         | 1               | Boolean (mantıksal – boolean) tür, true veya false değer alır           |
+
+**Ek Örnek:**  
+Aşağıdaki örnekte, tamsayı ve kayan nokta hesaplamaları ile birlikte taşma durumuna dikkat çekilmiştir:
 
 ```go
 package main
@@ -24,42 +70,40 @@ package main
 import "fmt"
 
 func main() {
-	var a int32
-	var b int
-	var c float64
-	var d bool
+	var a uint8 = 250
+	var b uint8 = 10
+	// a + b işlemi, uint8 sınırını aşarsa taşma meydana gelebilir.
+	sum := a + b
+	fmt.Println("uint8 toplamı:", sum) // Taşma örneği: beklenenden düşük değer verebilir
 
-	fmt.Print("Input values: ")
-	// Kullanıcıdan alınan veriler, boşluk karakterlerine göre ayrıştırılarak ilgili değişkenlere atanır.
-	_, err := fmt.Scan(&a, &b, &c, &d)
-	if err != nil {
-		fmt.Println("Veri okuma hatası:", err)
-		return
-	}
-	fmt.Println("Okunan Değerler:", a, b, c, d)
+	var x float64 = 0.1
+	var y float64 = 0.2
+	result := x + y
+	fmt.Println("float64 toplamı:", result) // Kayan nokta hesaplamalarında kesinlik farkları gözlemlenebilir
 }
 ```
 
-**Açıklamalar:**
-
-- `fmt.Scan` fonksiyonu, girilen verileri sırasıyla `a`, `b`, `c` ve `d` değişkenlerine atar.
-- Dönüş değeri olarak, okunan öğe sayısı ve hata değeri döndürülür. Örnekte hata kontrolü eklenmiştir.
-
 ---
 
-## 2. Fonksiyon Bildirimi ve Tanımlaması (Function Declaration & Definition)
+## 3. İfade (Expression – ifade) Kavramı
 
-Go’da bir **fonksiyonun bildirimi (declaration – bildirim)**, fonksiyon ismi, parametreleri ve geri dönüş türünü belirtir.  
-**Fonksiyon tanımlaması (definition – tanımlama)** ise, bildirimin yanı sıra fonksiyonun gövdesinin (body – gövde) yazılmasıdır.  
-Genellikle Go dilinde her iki kavram tek seferde yazılır.
+**Tanım:**  
+İfade, sabitler, değişkenler ve operatörlerin (operators – operatörler) oluşturduğu dizilimlerdir. İfadeler, hesaplamaların sonucunu belirler ve programın akışında önemli rol oynar.
 
-### Detaylı Açıklamalar:
+**Örnek İfade Türleri:**
 
-- **Parametreler:** Fonksiyon ismi parantez içerisinde, her bir parametre adı ve türü ile yazılır. Eğer ardışık parametrelerin türü aynı ise, tür sadece bir kez yazılır.
-- **Geri Dönüş Türü:** Fonksiyon, tek veya çoklu değer döndürebilir. Çoklu dönüş değerleri parantez içinde, virgülle ayrılarak yazılır.
-- **Return Deyimi:** Fonksiyon sonlandığında, `return` deyimi ile geri dönüş değeri belirtilir. Geri dönüş değeri olan fonksiyonlarda, tüm akış yollarında geçerli bir `return` deyimi bulunmalıdır; aksi halde derleme hatası meydana gelir.
+- **Aritmetik İfadeler:**  
+  Örneğin: `3 + 4 * 2`
+- **Mantıksal (Boolean) İfadeler:**  
+  Örneğin: `a > b && b != 0`
+- **İşlev Çağrıları:**  
+  Örneğin: `fmt.Println("Merhaba, Go!")`
+- **Karmaşık İfadeler:**  
+  Parantez kullanarak öncelik belirleme, fonksiyon çağrıları ve değişkenlerin birleşimi:  
+  `result := (a + b) * (c - d)`
 
-### Örnek Kod: Basit Fonksiyon Tanımlaması
+**Ek Örnek:**  
+Aşağıdaki kod parçası, farklı ifade türlerini kullanarak koşullu bir işlem yapmaktadır:
 
 ```go
 package main
@@ -67,77 +111,203 @@ package main
 import "fmt"
 
 func main() {
-	result := sum() * 2
-	fmt.Println("result =", result)
-}
-
-// sum fonksiyonu, kullanıcıdan iki tam sayı alır ve bu sayıların toplamını geri döndürür.
-func sum() int {
-	var a, b int
-	fmt.Print("İki sayı giriniz: ")
-	_, err := fmt.Scan(&a, &b)
-	if err != nil {
-		fmt.Println("Veri okuma hatası:", err)
-		return 0 // Hata durumunda 0 değeri döndürülür.
+	a, b := 10, 20
+	// Karmaşık ifade: koşul ifadesi ve aritmetik işlem
+	max := a
+	if b > a {
+		max = b
 	}
-	// Hesaplama yapıldıktan sonra toplam değeri geri döndürülür.
-	return a + b
+	fmt.Println("Büyük olan:", max)
 }
 ```
 
-**Ek Açıklamalar:**
+---
 
-- Fonksiyon bildirimi ve tanımlaması aynı yerde yapılmaktadır.
-- Hata yönetimi eklenerek, veri okuma sırasında hata oluşması durumunda fonksiyonun 0 döndürmesi sağlanmıştır.
+## 4. Değişken (Variable – değişken) Kavramları
+
+**Temel Kavramlar:**
+
+- **İsim (Name – isim):**  
+  Değişkenin adını belirler. Kurallara uygun (rakamla başlamama, case-sensitive vb.) yazılmalıdır.
+- **Tür (Type – tür):**  
+  Değişkenin bellekte hangi formatta saklanacağını belirler.
+- **Faaliyet Alanı (Scope – faaliyet alanı):**  
+  Değişkenin kod içinde erişilebilir olduğu bölgedir.
+- **Ömür (Storage Duration – ömür):**  
+  Değişkenin bellekte yaratılmasından yok edilmesine kadar geçen süreyi ifade eder.
+
+**Sıfır Değerler Tablosu:**  
+Go, bildirilen değişkenlere otomatik olarak sıfır (zero) değeri atar. Aşağıdaki tablo, yaygın türlerin varsayılan sıfır değerlerini göstermektedir:
+
+| **Tür**                                 | **Sıfır Değeri** |
+| --------------------------------------- | ---------------- |
+| bool                                    | false            |
+| int, int8, int16, int32, int64          | 0                |
+| uint, uint8, uint16, uint32, uint64     | 0                |
+| float32, float64                        | 0                |
+| complex64, complex128                   | 0+0i             |
+| string                                  | "" (boş string)  |
+| pointer, slice, map, channel, interface | nil              |
+
+**Ek Örnek:**  
+Type inference (tür çıkarımı) mekanizmasını vurgulamak amacıyla ek bir örnek:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	// Tür çıkarımı sayesinde, değişkenin türü otomatik belirlenir.
+	num := 100          // num int tipindedir.
+	str := "Go Öğren"   // str string tipindedir.
+	flag := true        // flag bool tipindedir.
+	fmt.Println(num, str, flag)
+}
+```
 
 ---
 
-## 3. Geri Dönüş Değerleri ve Return Deyimi
+## 5. Nesne (Object – nesne), lvalue ve rvalue
 
-Fonksiyonların çalışma sonlanırken geri dönüş değeri ile çağrıldığı noktaya bilgi göndermesi, fonksiyonların modüler ve yeniden kullanılabilir olmasını sağlar.  
-Go’da her geri dönüş değeri `return` deyimiyle belirtilir.
+**Nesne (Object – nesne):**  
+Bellekte yer ayrılmış olan veri birimidir. Bir değişken tanımlandığında bellekte ona karşılık gelen bir nesne oluşturulur. Nesnelerin ömrü, garbage collection (çöp toplama – garbage collection) mekanizması ile yönetilir.
 
-### İki Kullanım Örneği:
+**lvalue (Sol Taraf Değeri – lvalue):**  
+Bellekte belirli bir adresi olan, değişken gibi atanabilir ifadelerdir. Atama operatörünün sol tarafında yer alır.  
+**rvalue (Sağ Taraf Değeri – rvalue):**  
+Sadece değeri temsil eden, geçici ifadelerdir. rvalue ifadeler, doğrudan atama operatörünün sol tarafında kullanılamaz.
 
-1. **Direkt Geri Dönüş:**
+**Ek Örnek:**  
+Aşağıdaki kod, lvalue ve rvalue arasındaki farkı göstermektedir:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var x int = 5   // 'x' bir lvalue’dur.
+	y := 10         // y de bir lvalue’dur.
+	x = y           // Burada y’nin rvalue’si x'e atanır.
+	// 5 = x       // Bu kullanım geçersizdir çünkü 5 bir rvalue'dir.
+	fmt.Println("x:", x)
+}
+```
+
+---
+
+## 6. Değişken Initialization (İlk Değer Atama) ve Bildirim Yöntemleri
+
+Go dilinde değişken bildirimi iki temel yöntemle yapılır:
+
+1. **var Anahtar Sözcüğü ile Bildirim:**
+
+   - Tür belirtilirse, ilk değer verilmediğinde otomatik olarak sıfır değeri atanır.
+   - İlk değer verildiğinde, tür otomatik tespit edilir (type inference/deduction – tür çıkarımı).
+
+   **Örnek:**
 
    ```go
-   func sum() int {
-       var a, b int
-       fmt.Print("İki sayı giriniz: ")
-       fmt.Scan(&a, &b)
-       return a + b
+   package main
+
+   import "fmt"
+
+   func main() {
+       var a int       // 'a' için sıfır değeri (0) atanır
+       var b = 15      // Tür otomatik olarak int olarak belirlenir
+       fmt.Println("a:", a, "b:", b)
    }
    ```
 
-2. **Değişkene Atama Yapılarak Geri Dönüş:**
+2. **:= Operatörü ile Kısa Bildirim (Immediate Declaration – anında bildirim):**
+
+   - Hem bildirim hem de ilk değer atama aynı anda yapılır.
+   - Tür, sağlanan değere göre otomatik tespit edilir.
+
+   **Örnek:**
 
    ```go
-   func sum() int {
-       var a, b int
-       fmt.Print("İki sayı giriniz: ")
-       fmt.Scan(&a, &b)
-       total := a + b
-       return total
+   package main
+
+   import "fmt"
+
+   func main() {
+       a := 25        // 'a' bildirimi ve 25 değeri atanır
+       b := a         // b, a'nın değerini alır
+       fmt.Println("a:", a, "b:", b)
    }
    ```
 
-**Önemli Noktalar:**
+3. **Çoklu Değişken Bildirimi:**
 
-- **Return Deyiminin Konumu:**  
-  Fonksiyon içerisindeki tüm mantıksal akış yollarında bir `return` deyimi bulunmalıdır.  
-  Örneğin, koşul ifadelerinde (if, switch) bazı durumlar için `return` atlanırsa derleyici hata verir.
-- **Erken Çıkış (Early Return):**  
-  Fonksiyon içerisinde belirli bir koşul gerçekleştiğinde, geri dönüş değeri olmaksızın fonksiyondan çıkmak için `return` deyimi kullanılabilir.
+   - Aynı satırda, virgül kullanılarak aynı türde ya da karışık türlerde değişkenler bildirilebilir.
+
+   **Örnek (Aynı Tür):**
+
+   ```go
+   package main
+
+   import "fmt"
+
+   func main() {
+       var x, y, z int = 5, 10, 15
+       fmt.Println(x, y, z)
+   }
+   ```
+
+   **Örnek (Mixed Declaration – karışık türler):**
+
+   ```go
+   package main
+
+   import "fmt"
+
+   func main() {
+       var a, b, c = 42, 3.14, "Go"
+       fmt.Println(a, b, c)
+   }
+   ```
+
+**Ek Bilgiler:**
+
+- Değişken bildirimi sırasında, derleyici türü otomatik çıkarır ve bu sayede kod okunabilirliği artar.
+- Bildirilen fakat kullanılmayan değişkenler hata (error) oluşturur.
 
 ---
 
-## 4. Çoklu Geri Dönüş Değerleri (Multiple Return Values)
+## 7. Değişken İsimlendirme Kuralları
 
-Go dilinin güçlü özelliklerinden biri, fonksiyonların birden fazla değeri aynı anda geri döndürebilmesidir.  
-Bu özellik, özellikle hata yönetimi, swapping (değer yer değiştirme) gibi senaryolarda büyük kolaylık sağlar.
+Go dilinde değişken isimleri için uyulması gereken temel kurallar şunlardır:
 
-### Örnek Kod: İki Değeri Yer Değiştirme (Swapping)
+- **Başlangıç Karakteri:**
+  - Değişken isimleri rakam ile başlayamaz; yalnızca alfabetik karakter veya alttire (underscore – alt çizgi) karakteri ile başlamalıdır.
+- **Devamı:**
+  - İsim, istenildiği kadar rakam ve harf içerebilir.
+- **Case-Sensitive (Büyük/Küçük Harf Duyarlılığı – case sensitive):**
+  - Değişken isimleri büyük/küçük harf duyarlıdır; örneğin, `deger` ile `Deger` farklı değişkenlerdir.
+- **Unicode Desteği:**
+  - Unicode karakterler kullanılabilir; ancak ASCII dışı karakterlerin kullanımı önerilmez.
+- **İsimlendirme Konvansiyonları:**
+  - Yerel değişkenler için genellikle camelCase (örneğin, `kullaniciAdi`) kullanılırken; paket dışı (exported) değişkenler için PascalCase (örneğin, `KullaniciAdi`) tercih edilir.
+  - Gereksiz kısaltmalardan kaçınılmalı, anlamlı ve açıklayıcı isimler kullanılmalıdır.
+
+---
+
+## 8. Bloklar (Block – blok) ve Yerel Değişkenler (Local Variables – yerel değişkenler)
+
+**Blok (Block – blok):**
+
+- Bir fonksiyonun `{` ve `}` arasındaki kısmı bir bloktur.
+- İç içe bloklar oluşturulabilir ve her blok kendi yerel değişkenlerini barındırır.
+
+**Yerel Değişkenler (Local Variables – yerel değişkenler):**
+
+- Bir blok içerisinde bildirilen değişkenler yerel değişkenlerdir.
+- Bu değişkenlerin ömrü, bulundukları blokla sınırlıdır ve blok dışına çıkıldığında erişilemez hale gelir.
+
+**Ek Örnek:**  
+İç içe bloklarda yerel değişkenlerin nasıl çalıştığını gösteren ek bir örnek:
 
 ```go
 package main
@@ -145,263 +315,34 @@ package main
 import "fmt"
 
 func main() {
-	var a, b int
-	fmt.Print("İki sayı giriniz: ")
-	fmt.Scan(&a, &b)
-
-	x, y := swapped(a, b)
-	fmt.Println("Yer değiştirilmiş değerler -> x =", x, ", y =", y)
-}
-
-func swapped(a, b int) (int, int) {
-	// Gelen iki değerin yerlerini değiştirerek geri döndürür.
-	return b, a
-}
-```
-
-**Ek Açıklamalar:**
-
-- Fonksiyon tanımında geri dönüş türleri parantez içinde belirtilmiştir.
-- Ana fonksiyonda, dönen değerler sırasıyla `x` ve `y` değişkenlerine atanır.
-
----
-
-## 5. İsimlendirilmiş Geri Dönüş Değerleri (Named Return Values)
-
-Go’da fonksiyonların geri dönüş değerlerine isim verilebilir. Bu kullanım, özellikle fonksiyon içerisinde değerlerin hesaplanması ve sonunda bu isimlendirilmiş değerlerin döndürülmesi işlemini kolaylaştırır.
-
-### Örnek Kod: İsimlendirilmiş Geri Dönüş Değerleri Kullanımı
-
-```go
-package main
-
-import "fmt"
-
-func main() {
-	var a, b int
-	fmt.Print("İki sayı giriniz: ")
-	fmt.Scan(&a, &b)
-
-	x, y := swapped(a, b)
-	fmt.Println("Yer değiştirilmiş değerler -> x =", x, ", y =", y)
-	fmt.Println("Toplam:", sum(a, b))
-}
-
-// sum fonksiyonunda geri dönüş değeri 'total' olarak isimlendirilmiştir.
-func sum(a, b int) (total int) {
-	total = a + b
-	// İsimlendirilmiş geri dönüş değeri kullanıldığından, return ifadesinde değişken ismi belirtilmeden döndürme yapılır.
-	return
-}
-
-func swapped(a, b int) (x int, y int) {
-	x = b
-	y = a
-	return
-}
-```
-
-**Detaylı Açıklamalar:**
-
-- **İsimlendirilmiş Değişkenlerin Avantajları:**  
-  Fonksiyon içinde yapılan hesaplamalarda bu değişkenlere doğrudan atama yapılabilir ve sonrasında `return` deyimi tek başına kullanılarak otomatik olarak geri dönüş yapılır.
-- **Okunabilirlik:**  
-  Bu yöntem, özellikle fonksiyonun neyi döndürdüğünü açıkça belirtmek istediğiniz durumlarda okunabilirliği artırır.
-
----
-
-## 6. Fonksiyon Parametreleri ve Argümanlar
-
-Fonksiyonların parantez içerisinde bildirilen değişkenlere **parametreler (parameters – parametreler)** denir;  
-Fonksiyon çağrılırken bu parametrelere verilen değerlere ise **argümanlar (arguments – argümanlar)** denir.
-
-### Detaylı Açıklamalar:
-
-- **Aynı Türden Parametreler:**  
-  Eğer birden fazla parametre aynı türden ise, tür sadece son parametreden sonra yazılır.
-
-  Örnek:
-
-  ```go
-  func sum(a, b int) int {
-      return a + b
-  }
-  ```
-
-- **Fonksiyonun Kapsamı (Scope):**  
-  Parametre değişkenleri, fonksiyonun başında tanımlanan yerel değişkenlere benzer şekilde, fonksiyon gövdesi boyunca geçerlidir.
-
-- **Argüman İfadeleri:**  
-  Fonksiyon çağrılarında verilen argümanlar önce hesaplanır, ardından fonksiyona iletilir.  
-  Örneğin:
-  ```go
-  fmt.Print(sum(a+1, b*2))
-  ```
-
-### Örnek Kod: Parametre Kullanımı
-
-```go
-package main
-
-import "fmt"
-
-func main() {
-	var a, b int
-	fmt.Print("İki sayı giriniz: ")
-	fmt.Scan(&a, &b)
-
-	display(a, b)
-	fmt.Println(a, "+", b, "=", sum(a, b))
-}
-
-func sum(a, b int) int {
-	return a + b
-}
-
-func display(a int, b int) {
-	fmt.Println("a =", a, ", b =", b)
-}
-```
-
----
-
-## 7. Parametre Geçiş Yöntemleri: Call by Value ve Call by Reference
-
-Go’da bir fonksiyona parametre geçişi iki farklı yöntemle yapılır:
-
-### Call by Value (Değer Gönderimi)
-
-- **Tanım:**  
-  Fonksiyona, değişkenin **kopyası** gönderilir.
-- **Özellik:**  
-  Fonksiyon içerisinde yapılan değişiklikler orijinal değişkeni etkilemez.
-
-#### Örnek Kod: Call by Value
-
-```go
-package main
-
-import "fmt"
-
-func main() {
-	a := 10
-	foo(a) // a'nın kopyası gönderilir.
-	fmt.Println("main: a =", a) // main fonksiyonundaki a değeri değişmez.
-}
-
-func foo(a int) {
-	a = a + 1
-	fmt.Println("foo: a =", a)
-}
-```
-
-### Call by Reference (Referans Gönderimi)
-
-- **Tanım:**  
-  Fonksiyona, değişkenin **adresi** gönderilir; yani, orijinal değerin bellekteki konumu iletildiği için fonksiyon içerisindeki değişiklikler doğrudan orijinal değişken üzerinde etkilidir.
-- **Özellik:**  
-  `&` operatörü kullanılarak değişkenin adresi gönderilir ve fonksiyon içerisinde pointer (`*`) kullanılarak değere erişilir.
-
-#### Örnek Kod: Call by Reference
-
-```go
-package main
-
-import "fmt"
-
-func main() {
-	a := 10
-	foo(&a) // a'nın adresi gönderilir.
-	fmt.Println("main: a =", a) // a, foo fonksiyonundaki değişiklikten etkilenir.
-}
-
-func foo(p *int) {
-	*p = *p + 1
-	fmt.Println("foo: a =", *p)
-}
-```
-
-**Tablo: Call by Value vs. Call by Reference**
-
-| **Özellik**                           | **Call by Value (Değer Gönderimi)**                                  | **Call by Reference (Referans Gönderimi)**                    |
-| ------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------- |
-| **Gönderilen Değer**                  | Değişkenin kopyası                                                   | Değişkenin adresi (`&` operatörü kullanılarak)                |
-| **Orijinal Değişken Üzerindeki Etki** | Fonksiyon içerisinde yapılan değişiklik orijinal değişkene yansımaz  | Fonksiyon içerisindeki değişiklik, orijinal değişkeni etkiler |
-| **Bellek Kullanımı**                  | Kopyalama işlemi yapılır (büyük veri yapılarında maliyetli olabilir) | Bellek adresi gönderildiği için kopyalama maliyeti düşüktür   |
-
----
-
-## 8. Math Paketi ve Matematiksel İşlemler
-
-Go dilinde matematiksel işlemler için **math** paketi geniş bir fonksiyon seti sunar.  
-Sık kullanılan fonksiyonlardan bazıları şunlardır:
-
-- **Sqrt (karekök – square root):** Bir sayının karekökünü alır.
-- **Pow (üst alma – power):** Bir sayının üstel değerini hesaplar.
-- **Log (logaritma – logarithm):** Doğal logaritmayı hesaplar.
-- **Ceil (yukarı yuvarlama – ceiling):** Bir sayıyı, kendisinden büyük veya eşit en yakın tam sayıya yuvarlar.
-- **Floor (aşağı yuvarlama – floor):** Bir sayıyı, kendisinden küçük veya eşit en yakın tam sayıya yuvarlar.
-- **Round (yuvarlama – round):** Standart yuvarlama işlemini gerçekleştirir.
-- **Max, Min (maksimum, minimum):** İki sayı arasından en büyük veya en küçüğü seçer.
-
-### Sınıf Çalışması: Euclidean (Öklid) Uzaklığı Hesaplama
-
-**Görev:**  
-Parametreleri `float64` türünde olan iki noktanın koordinatlarını (x1, y1 ve x2, y2) alarak aralarındaki Euclidean (Öklid) uzaklığını hesaplayan bir fonksiyon yazınız.
-
-#### Örnek Kod: Euclidean Distance
-
-```go
-package main
-
-import (
-	"fmt"
-	"math"
-)
-
-func main() {
-	distanceTest()
-}
-
-func distanceTest() {
-	fmt.Print("Input coordinates (x1 y1 x2 y2): ")
-	var x1, y1, x2, y2 float64
-	_, err := fmt.Scan(&x1, &y1, &x2, &y2)
-	if err != nil {
-		fmt.Println("Veri okuma hatası:", err)
-		return
+	{
+		// İlk blok: 'a' yerel değişkeni oluşturulur.
+		var a int = 100
+		fmt.Println("İlk blok, a:", a)
+		{
+			// İç blok: 'b' adında yeni yerel değişken oluşturulur.
+			var b int = 200
+			fmt.Println("İç blok, b:", b)
+		}
+		// 'b' burada erişilemez.
 	}
-	fmt.Println("Euclidean Distance:", distance(x1, y1, x2, y2))
-}
-
-func distance(x1, y1, x2, y2 float64) float64 {
-	// Euclidean distance = sqrt((x1-x2)^2 + (y1-y2)^2)
-	return math.Sqrt(math.Pow(x1-x2, 2) + math.Pow(y1-y2, 2))
+	// 'a' burada da erişilemez.
 }
 ```
 
-**Detaylı Açıklamalar:**
-
-- `math.Pow` fonksiyonu ile (x1 - x2) ve (y1 - y2) farklarının karesi hesaplanır.
-- `math.Sqrt` fonksiyonu, karesini alınan toplamın karekökünü bularak iki nokta arasındaki Öklid uzaklığını verir.
-- Hata kontrolü ile, kullanıcı hatalı değer girişi yaptığında uygun mesaj gösterilebilir.
-
 ---
 
-## 9. Pointer (Gösterici) Kullanımının Detayları
+## 9. Shadowing (Masking – gölgeleme) Durumu
 
-Go’da pointer’lar, bir değişkenin bellek adresini tutar.  
-**`&` Operatörü:**
+**Tanım:**  
+İçiçe bloklarda aynı isimde yerel değişken bildirildiğinde, iç bloktaki değişken dış bloktaki değişkenin üzerine yazar (masking/shadowing). Bu durum, dış bloktaki değere erişimin kaybolmasına sebep olabilir.
 
-- Bir değişkenin adresini almak için kullanılır.
-- Örneğin, `&a` ifadesi, `a` değişkeninin bellek adresini döndürür.
+**Ek Bilgiler:**
 
-**`*` Operatörü (Dereference – gösterilen değeri alma):**
+- Shadowing, özellikle büyük kod tabanlarında yanlış anlaşılmalara yol açabileceğinden dikkatli kullanılmalıdır.
+- İsimlerin tekrarlanması durumunda, kod okunabilirliğini artırmak için farklı isimlendirme stratejileri (örneğin, daha açıklayıcı isimler) tercih edilebilir.
 
-- Pointer’ın gösterdiği adresteki değeri almak için kullanılır.
-- Örneğin, `*p` ifadesi, `p` pointer’ının işaret ettiği değeri döndürür.
-
-**Örnek Kod: Pointer Kullanımı**
+**Örnek:**
 
 ```go
 package main
@@ -409,46 +350,86 @@ package main
 import "fmt"
 
 func main() {
-	a := 100
-	p := &a // p, a'nın adresini tutar.
-	fmt.Println("a'nın adresi:", p)
-	fmt.Println("p'nin işaret ettiği değer:", *p)
+	var value int = 50
+	fmt.Println("Dış blok value:", value)
+
+	{
+		// Shadowing: 'value' isminde yeni bir değişken oluşturuluyor.
+		var value int = 100
+		value += 20
+		fmt.Println("İç blok value:", value)
+	}
+
+	// Dış bloktaki 'value' etkilenmemiştir.
+	fmt.Println("Dış blok, tekrar value:", value)
 }
 ```
 
-**Ek Açıklamalar:**
+---
 
-- Pointer kullanımı, özellikle call by reference (referans ile geçiş) durumlarında, fonksiyonların orijinal veriler üzerinde değişiklik yapabilmesini sağlar.
-- Pointer’lar, büyük veri yapılarının kopyalanmasının önüne geçerek bellek verimliliğini artırır.
+## 10. Global Değişkenler (Global Variables – global değişkenler)
+
+**Tanım:**  
+Fonksiyonların dışında, paket içerisinde bildirilen değişkenler global değişkenlerdir. Aynı dosya içindeki tüm fonksiyonlar bu değişkenlere erişebilir. Global değişkenlere de sıfır değeri otomatik olarak atanır.
+
+**Ek Bilgiler:**
+
+- Global değişkenler, programın genel durumunu tutmak için kullanılır ancak aşırı kullanımı programın yönetilebilirliğini zorlaştırabilir.
+- İyi tasarlanmış bir mimaride, global değişkenler minimum düzeyde tutulmalı ve mümkünse fonksiyonlara parametre olarak aktarılmalıdır.
+
+**Örnek:**
+
+```go
+package main
+
+import "fmt"
+
+// Global değişken bildirimi
+var globalCount int = 10
+
+func main() {
+	fmt.Println("Başlangıç globalCount:", globalCount)
+	increase()
+	fmt.Println("increase() sonrası globalCount:", globalCount)
+	reset()
+	fmt.Println("reset() sonrası globalCount:", globalCount)
+}
+
+func increase() {
+	globalCount += 5
+}
+
+func reset() {
+	globalCount = 0
+}
+```
 
 ---
 
-## Sonuç ve Özet
+## 11. Özet ve Sonuç
 
-Yukarıda detaylı olarak Go dilinde kullanıcıdan veri alma, fonksiyon bildirimleri ve tanımlamaları, geri dönüş değerleri, çoklu dönüş değerleri, isimlendirilmiş dönüş değerleri, parametre geçişi (call by value ve call by reference) ile pointer kullanımının yanı sıra matematiksel işlemler için math paketinin kullanımı ele alınmıştır.
+**Go (Golang) programlama dilinde temel kavramlar şu şekilde özetlenebilir:**
 
-**Önemli Noktalar:**
+- **Type (tür – tür):**  
+  Değişkenlerin bellekte hangi formatta ve ne kadar yer kaplayacağını belirler. Sayısal türler, boolean, string ve türetilmiş türler gibi kategorilere ayrılır. Ek olarak, pointer, struct, interface ve fonksiyon türleri de dilin esnekliğini artırır.
 
-- **Stdin’den Veri Okuma:**
+- **Expression (ifade – ifade):**  
+  Sabitler, operatörler ve değişkenlerin birleşiminden oluşur. İfadeler, koşul ve döngü yapıları gibi kontrol akışlarında kritik rol oynar.
 
-  - `fmt.Scan`, `fmt.Scanf` ve `fmt.Scanln` fonksiyonları, farklı giriş senaryoları için kullanılabilir.
-  - Hata yönetimi eklenmesi, güvenli ve sağlam bir uygulama geliştirme süreci sağlar.
+- **Variable (değişken – değişken):**  
+  İsim, tür, scope (faaliyet alanı) ve storage duration (ömür) gibi kavramları içerir.
 
-- **Fonksiyon Bildirimi ve Tanımlaması:**
+  - **Bildirim Yöntemleri:** `var` bildirimi, kısa bildirim (`:=`) ve çoklu değişken bildirimi.
+  - **Sıfır Değerler:** Her değişken bildirildiğinde, türüne uygun sıfır değeri otomatik atanır.
+  - **Type Inference:** Tür çıkarımı sayesinde, kod daha okunabilir ve yazımı kolaylaşır.
 
-  - Parametreler ve geri dönüş türleri doğru biçimde bildirilmelidir.
-  - Her akış yolunda geçerli bir `return` deyiminin bulunması gerekmektedir.
+- **Blok (block – blok) ve Scope (faaliyet alanı):**  
+  Bloklar, fonksiyon gövdeleri ve iç içe yapılar şeklinde tanımlanır. Yerel değişkenlerin ömrü, bulundukları blokla sınırlıdır.
 
-- **Çoklu Geri Dönüş Değerleri:**
+  - **Shadowing (gölgeleme):** Aynı isimde değişken bildirimi durumunda iç bloktaki değişken, dış bloktaki değişkeni maskeleyebilir.
 
-  - Fonksiyonlar, birden fazla değeri aynı anda döndürebilir.
-  - İsimlendirilmiş dönüş değerleri okunabilirliği ve yönetimi kolaylaştırır.
+- **Global Variables (global değişkenler – global değişkenler):**  
+  Paket genelinde erişilebilen değişkenlerdir. Global değişkenler, programın durumunu merkezi bir şekilde yönetmede kullanılır; ancak dikkatli kullanılmalıdır.
 
-- **Parametre Geçişi:**
-
-  - Call by value, değerin kopyasını gönderirken; call by reference, adres gönderimi yaparak orijinal veriyi etkiler.
-  - Pointer’lar, bu geçiş türlerinde kritik rol oynar.
-
-- **Math Paketi ve Uygulamaları:**
-  - Matematiksel hesaplamalar, `math.Sqrt`, `math.Pow` gibi fonksiyonlarla gerçekleştirilir.
-  - Euclidean distance örneği, iki nokta arasındaki mesafenin hesaplanması açısından somut bir uygulamadır.
+**Genel Değerlendirme:**  
+Go, güçlü tip güvenliği, otomatik bellek yönetimi ve etkili eşzamanlılık (concurrency – eşzamanlılık) desteği sayesinde sistem programlama, ağ uygulamaları, CLI araçları ve mikroservis mimarileri gibi pek çok alanda verimli ve güvenilir çözümler sunar. Eklenen detaylar; türler, ifadeler, değişken bildirimi, isimlendirme kuralları, blok yapıları ve global değişkenlerin doğru kullanımı konularında derinlemesine bilgi sağlamaktadır. Bu bilgiler, Go dilinin temel özelliklerini anlamak ve pratik uygulamalarda karşılaşılabilecek durumlara hazırlıklı olmak açısından büyük önem taşır.
