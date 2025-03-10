@@ -12,17 +12,17 @@ type Point struct {
 func main() {
 	var p1, p2 Point
 
-	fmt.Print("Enter coordinates for 1st point [x1 y1]: ")
+	fmt.Print("Enter coordinates for 1st point [x1, y1]: ")
 	_, err := fmt.Scan(&p1.x, &p1.y)
 	if err != nil {
-		fmt.Println("Invalid input for the first point. Please enter two numbers.")
+		fmt.Println("Invalid input for the first point. Please enter two float numbers.")
 		return
 	}
 
 	fmt.Print("Enter coordinates for 2nd point [x2 y2]: ")
 	_, err = fmt.Scan(&p2.x, &p2.y)
 	if err != nil {
-		fmt.Println("Invalid input for the second point. Please enter two numbers.")
+		fmt.Println("Invalid input for the second point. Please enter two float numbers.")
 		return
 	}
 
