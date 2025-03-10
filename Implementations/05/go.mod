@@ -1,3 +1,3 @@
-module 03-Indefinite-And-Indeterminate
+module main.go
 
-go 1.23
+go 1.24.1

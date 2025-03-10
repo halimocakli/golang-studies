@@ -1,123 +1,165 @@
+# Go Dilinde Matematiksel Özel Durumlar Örneği
 
-# Golang Uygulaması
+Bu proje, Go dilinde matematiksel hesaplamalarda karşılaşılan özel durumları (NaN, Sonsuzluk) nasıl yöneteceğimizi göstermektedir. Projede, IEEE 754 standardına uygun olarak tanımsız ve sonsuz değerlerin nasıl üretildiği ve kontrol edildiği detaylı teknik terimlerle açıklanmıştır.
 
-Bu proje, **NaN (Not-a-Number)**, **Infinity (sonsuzluk)** ve **log(0)** kavramlarını açıklayan bir Golang uygulamasıdır. Uygulama, bu durumların nasıl oluştuğunu ve nasıl kontrol edileceğini öğretir.
+## İçerik
 
-## 📘 **Proje Genel Bakış**
-Bu uygulama, aşağıdaki işlemleri ele alır ve açıklar:
+- [Genel Bakış](#genel-bakış)
+- [Özellikler](#özellikler)
+- [Kullanım](#kullanım)
+- [Kod Açıklaması](#kod-açıklaması)
+  - [Paket Tanımlaması](#paket-tanımlaması)
+  - [Paket Dahil Etme](#paket-dahil-etme)
+  - [Ana Fonksiyon](#ana-fonksiyon)
+  - [Matematiksel İşlemler ve Kontroller](#matematiksel-işlemler-ve-kontroller)
+- [Özet ve Teknik Notlar](#özet-ve-teknik-notlar)
 
-- **NaN (Not-a-Number) Değerleri**: Negatif bir sayının karekökü, (∞ - ∞) ve negatif bir sayının logaritması tanımsız olduğu için `NaN` (Not-a-Number) değerini üretir.
-- **Infinity Değerleri**: `math.Log(0)` işlemi negatif sonsuzluk (-∞) döndürür.
-- **Kontroller**: Bu NaN ve Infinity değerlerinin nasıl kontrol edileceği gösterilir.
+## Genel Bakış
 
----
+Bu proje, Go dilinde matematiksel işlemler sırasında ortaya çıkabilecek geçersiz hesaplamalar ve belirsiz değerlerin nasıl yönetilebileceğini ortaya koymaktadır. Özellikle, negatif sayıların karekökü ve logaritması gibi işlemlerde elde edilen **NaN (Not-a-Number [Sayı Değil])** ve **Sonsuzluk (Infinity/Sonsuzluk)** değerleri üzerinde durulmaktadır.
 
-## 🚀 **Nasıl Çalıştırılır**
+## Özellikler
 
-Bu uygulamayı çalıştırmak için şu adımları izleyin:
+- Negatif sayıların karekökünün hesaplanması (NaN üretimi)
+- Pozitif sonsuzluktan pozitif sonsuzluğun çıkarılması (NaN üretimi)
+- Negatif sayıların logaritmasının hesaplanması (NaN üretimi)
+- Sıfırın logaritmasının hesaplanması (Negatif sonsuzluk üretimi)
+- Özel durumların tespiti için `math.IsNaN` ve `math.IsInf` fonksiyonlarının kullanımı
 
-1. **Golang'in yüklü olduğundan emin olun**. Doğrulamak için şu komutu çalıştırın:
-   ```bash
-   go version
-   ```
+## Kullanım
 
-2. **Uygulamayı çalıştırın**:
+Projeyi yerel ortamınızda çalıştırmak için aşağıdaki adımları izleyebilirsiniz:
+
+1. Go dilinin sisteminizde yüklü olduğundan emin olun.
+2. Proje dosyasını klonlayın veya indirin.
+3. Terminal veya komut satırında proje dizinine gidin.
+4. Aşağıdaki komutu çalıştırarak uygulamayı başlatın:
+
    ```bash
    go run main.go
    ```
 
-3. **Sonuçları inceleyin**. NaN, Infinity ve log(0) durumlarının nasıl oluştuğunu ve nasıl kontrol edildiğini göreceksiniz.
+Ekrana matematiksel işlemlerin sonuçları ve durum tespitlerine ilişkin mesajlar yazdırılacaktır.
 
----
+## Kod Açıklaması
 
-## 🔧 **Gereksinimler**
+### Paket Tanımlaması
 
-- Golang (1.18 veya daha yüksek sürüm önerilir)
+- **Açıklama:**  
+  `package main` ifadesiyle, yürütülebilir bir uygulamanın ana paketi tanımlanır.
 
----
+### Paket Dahil Etme
 
-## 🛠️ **Kod Açıklaması**
+- **Açıklama:**  
+  `fmt` paketi formatlı giriş/çıkış işlemleri için, `math` paketi ise matematiksel fonksiyonların kullanımı için dahil edilmiştir.
 
-Uygulama şu adımları izler:
+### Ana Fonksiyon
 
-1. **Karekök İşlemi**: 
-   - `math.Sqrt(-1)` ifadesi ile -1'in karekökü alınır.
-   - Bu işlem, matematiksel olarak tanımsız olduğu için `NaN` döner.
-   - `math.IsNaN(x)` fonksiyonu ile bu değerin NaN olup olmadığı kontrol edilir.
+- **Açıklama:**  
+  `func main()` fonksiyonu, programın başlangıç noktası olup, tüm matematiksel hesaplamaların ve kontrollerin gerçekleştirildiği yerdir.
 
-2. **Infinity İşlemi**:
-   - `math.Inf(1)` ile pozitif sonsuzluk değeri (+∞) oluşturulur.
-   - `(∞ - ∞)` işlemi, matematiksel olarak tanımsız olduğu için `NaN` döner.
-   - Bu değerin NaN olup olmadığı `math.IsNaN(x)` ile kontrol edilir.
+### Matematiksel İşlemler ve Kontroller
 
-3. **Logaritma İşlemi**:
-   - **Negatif Sayı**: `math.Log(-10)` ifadesi, -10'un doğal logaritmasını hesaplamaya çalışır.
-     - Negatif bir sayının logaritması tanımsız olduğu için `NaN` döner.
-     - Bu değerin NaN olup olmadığı `math.IsNaN(x)` ile kontrol edilir.
-   - **Log(0)**: `math.Log(0)` ifadesi, 0'ın doğal logaritmasını hesaplamaya çalışır.
-     - 0'ın logaritması, negatif sonsuzluk (-∞) olarak tanımlanır.
-     - `math.IsInf(x, 0)` fonksiyonu ile bu değerin sonsuz olup olmadığı kontrol edilir.
+- **Negatif Sayının Karekökü (`math.Sqrt(-1)`):**
 
----
+  - **İşlem:** Negatif bir sayının karekökü hesaplanır.
+  - **Teknik Detay:** Negatif sayıların karekökü tanımsızdır ve IEEE 754 standardına göre **NaN** değeri döner.
+  - **Kontrol:** `math.IsNaN(sqrtNeg)` ile elde edilen değerin NaN olup olmadığı kontrol edilir.
 
-## 📂 **Proje Yapısı**
+- **Pozitif Sonsuzluk İşlemleri:**
 
+  - **İşlem:** `math.Inf(1)` ile pozitif sonsuzluk (+Infinity [+Sonsuzluk]) oluşturulur.
+  - **Teknik Detay:** Pozitif sonsuzluktan pozitif sonsuzluk çıkarılması belirsizlik içerdiğinden **NaN** değeri üretir.
+  - **Kontrol:** `math.IsNaN(infMinusInf)` kullanılarak belirsizlik sonucu ortaya çıkan NaN değeri tespit edilir.
+
+- **Negatif Sayının Logaritması (`math.Log(-10)`):**
+
+  - **İşlem:** Negatif bir sayının logaritması hesaplanır.
+  - **Teknik Detay:** Negatif sayıların logaritması tanımsızdır ve bu nedenle **NaN** değeri üretir.
+  - **Kontrol:** `math.IsNaN(logNeg)` ile sonuç kontrol edilir.
+
+- **Sıfırın Logaritması (`math.Log(0)`):**
+  - **İşlem:** Sıfırın logaritması hesaplanır.
+  - **Teknik Detay:** Matematiksel tanım gereği, sıfırın logaritması **Negatif Sonsuzluk (negative Infinity [negatif Sonsuzluk])** sonucunu üretir.
+  - **Kontrol:** `math.IsInf(logZero, 0)` ifadesi kullanılarak, hem pozitif hem de negatif sonsuzluk kontrolü yapılır.
+
+Aşağıda, kod üzerinde detaylı yorumlar içeren hali yer almaktadır:
+
+```go
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func main() {
+	// Negatif bir sayının karekökünü hesaplama.
+	// Gerçek sayı sisteminde tanımsız olduğundan IEEE 754'e uygun olarak NaN üretir.
+	sqrtNeg := math.Sqrt(-1)
+
+	fmt.Printf("math.Sqrt(-1) = %v\n", sqrtNeg) // Beklenen çıktı: NaN
+
+	// Üretilen değerin NaN olup olmadığını kontrol etme (hata yönetimi açısından kritik)
+	if math.IsNaN(sqrtNeg) {
+		fmt.Println("sqrtNeg is NaN (Not-a-Number)!")
+	}
+
+	fmt.Print("\n")
+
+	// Pozitif sonsuzluk (+Infinity) oluşturma;
+	// IEEE 754 standardına göre sonsuzluk kavramı uygulanır.
+	inf := math.Inf(1)
+	// Pozitif sonsuzluktan pozitif sonsuzluk çıkarılması belirsizlik içerdiğinden NaN üretir.
+	infMinusInf := inf - inf
+
+	fmt.Printf("(+Infinity) - (+Infinity) = %v\n", infMinusInf) // Beklenen çıktı: NaN
+
+	// İşlem sonucunun NaN olup olmadığını kontrol etme
+	if math.IsNaN(infMinusInf) {
+		fmt.Println("infMinusInf is NaN (Not-a-Number)!")
+	}
+
+	fmt.Print("\n")
+
+	// Negatif bir sayının logaritmasını hesaplama.
+	// Matematiksel olarak tanımsız olduğundan NaN sonucu verir.
+	logNeg := math.Log(-10)
+
+	fmt.Printf("math.Log(-10) = %v\n", logNeg) // Beklenen çıktı: NaN
+
+	// Hesaplamadan elde edilen sonucun NaN olup olmadığını kontrol etme
+	if math.IsNaN(logNeg) {
+		fmt.Println("logNeg is NaN (Not-a-Number)!")
+	}
+
+	fmt.Print("\n")
+
+	// Sıfırın logaritmasının hesaplanması.
+	// Matematiksel tanım gereği negatif sonsuzluk (negative Infinity) sonucu üretir.
+	logZero := math.Log(0)
+
+	fmt.Printf("math.Log(0) = %v\n", logZero)
+
+	// logZero değerinin sonsuzluk (Infinity) olup olmadığını kontrol etme.
+	// 0 parametresi, her iki yönlü sonsuzluğu kapsar.
+	if math.IsInf(logZero, 0) {
+		fmt.Println("logZero is negative Infinity!")
+	}
+}
 ```
-├── main.go       # Ana Golang uygulama dosyası
-```
 
----
+## Özet ve Teknik Notlar
 
-## 📘 **Örnek Kullanım**
+- **Kodun Amacı:**
 
-```bash
-$ go run main.go
+  - Matematiksel fonksiyonların geçersiz veya tanımsız durumlarda nasıl davranacağını göstermek.
+  - IEEE 754 standardına uygun olarak NaN ve sonsuzluk değerlerinin nasıl üretildiğini, kontrol edildiğini ve hata yönetiminin nasıl uygulandığını örneklemek.
 
-math.Sqrt(-1) = NaN
-sqrtNeg is NaN (Not-a-Number)!
-
-+Infinity - +Infinity = NaN
-infMinusInf is NaN (Not-a-Number)!
-
-math.Log(-10) = NaN
-logNeg is NaN (Not-a-Number)!
-
-math.Log(0) = -Inf
-logZero is negative Infinity!
-```
-
----
-
-## 🔍 **Kullanılan Golang Matematik Fonksiyonları**
-
-| **İşlem**                | **Kullanılan Fonksiyon**  | **Açıklama**                                      |
-|------------------------|--------------------------|-------------------------------------------------|
-| Karekök (Negatif Sayı)  | `math.Sqrt(x)`            | Negatif bir sayının karekökü alınır, NaN döner.  |
-| Sonsuzluk (+Infinity)   | `math.Inf(1)`             | Pozitif sonsuzluk oluşturur (+∞)                |
-| Sonsuzluk (-Infinity)   | `math.Inf(-1)`            | Negatif sonsuzluk oluşturur (-∞)                |
-| Sonsuzluk İşlemi        | `inf - inf`               | Sonsuzluk ile işlem yapar, NaN döner.           |
-| Logaritma (Negatif Sayı)| `math.Log(x)`             | Negatif bir sayının logaritması NaN döner.      |
-| Logaritma (0)           | `math.Log(0)`             | 0'ın logaritması negatif sonsuzluk (-∞) döner.   |
-| NaN Kontrolü            | `math.IsNaN(x)`           | Değerin NaN (Not-a-Number) olup olmadığını kontrol eder |
-| Infinity Kontrolü       | `math.IsInf(x, 0)`        | Değerin sonsuz olup olmadığını kontrol eder (pozitif ya da negatif) |
-
----
-
-## ❗ **Hata Yönetimi**
-
-- NaN (Not-a-Number) değerlerini tespit etmek için `math.IsNaN(x)` fonksiyonu kullanılır.
-- Infinity değerlerini tespit etmek için `math.IsInf(x, 0)` fonksiyonu kullanılır.
-- Kareköklü, logaritmalı veya infinity işlemleri ile oluşan NaN ve sonsuzluk değerleri kullanıcıya bildirir.
-
----
-
-## 📚 **Kullanılan Golang Kavramları**
-
-- **`fmt` Paketi**: Kullanıcıdan giriş almak ve ekrana çıktı vermek için kullanılır.
-- **`math` Paketi**: Logaritma, Infinity, NaN işlemleri için kullanılır.
-
----
-
-## 📜 **Lisans**
-
-Bu proje açık kaynaklıdır ve eğitim amaçlı serbestçe kullanılabilir.
+- **Kullanılan Temel Terimler:**
+  - **Paket Tanımlaması (Package Declaration):** Uygulamanın ana paketinin belirlenmesi.
+  - **Paket Dahil Etme (Package Import):** Gerekli kütüphanelerin programa eklenmesi.
+  - **Ana Fonksiyon (Main Function):** Programın çalışmaya başladığı giriş noktası.
+  - **IEEE 754 Standardı:** Floating point hesaplamalarda kullanılan standart; NaN ve Sonsuzluk gibi kavramları tanımlar.
+  - **NaN (Not-a-Number):** Tanımsız matematiksel işlemler sonucunda elde edilen özel değer.
+  - **Infinity (Sonsuzluk):** Belirli matematiksel işlemler sonucu ortaya çıkan özel durum.
