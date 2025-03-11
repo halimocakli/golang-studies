@@ -1,114 +1,133 @@
+# Proje Adı: Floating-Point Bölme İşlemleri ve Özel Durum Kontrolleri
 
-# Golang Uygulaması
+**(Floating-Point Division and Special Case Handling)**
 
-Bu proje, **Bölme İşlemleri** ve **Özel Durumlar (NaN, +Infinity, -Infinity, Runtime Error)** üzerine bir Golang uygulamasıdır. Uygulama, **floating-point** (ondalıklı) ve **integer** (tam sayı) bölme işlemlerinin farklarını açıklar ve özel durumların nasıl ortaya çıktığını gösterir.
+Bu proje, Go (Golang) dilinde, float64 veri tipiyle yapılan bölme işlemleri sırasında ortaya çıkabilecek özel durumları (NaN, +Inf, -Inf) tespit etmek ve yönetmek amacıyla hazırlanmıştır. Projede, iki farklı float64 dizisi kullanılarak paylar (numerators) ve paydalar (denominators) üzerinde yapılan bölme işlemlerinin sonucu, matematiksel durum kontrolleri ile birlikte ekrana yazdırılmaktadır. Ayrıca, yorum satırlarıyla çalışma zamanı hatası (RUNTIME ERROR) üretebilecek örnek bir kod parçası da yer almaktadır.
 
-## 📘 **Proje Genel Bakış**
-Bu uygulama, aşağıdaki işlemleri ele alır ve açıklar:
+### İçerik
 
-- **Floating-point Bölme**: Ondalıklı sayılarla yapılan bölme işlemleri. `0.0` ile bölme özel durumlar oluşturabilir.
-- **Tam Sayı Bölme**: Tam sayılarla yapılan bölme işlemleri. `0` ile bölme **Runtime Error** ile sonuçlanır.
-- **Özel Durumlar**: NaN (Not-a-Number), +Infinity (pozitif sonsuzluk) ve -Infinity (negatif sonsuzluk) durumlarının nasıl oluştuğunu gösterir.
-- **Kontroller**: NaN ve sonsuzluk değerlerinin nasıl kontrol edileceği gösterilir.
+- [Genel Bakış](#genel-bakış)
+- [Özellikler](#özellikler)
+- [Kullanım](#kullanım)
+- [Kod Açıklaması](#kod-açıklaması)
+  - [Paket İçe Aktarma (Import)](#paket-içe-aktarma-import)
+  - [Ana Fonksiyon (Main Function)](#ana-fonksiyon-main-function)
+  - [Veri Dizileri ve Döngü Kullanımı](#veri-dizileri-ve-döngü-kullanımı)
+  - [Özel Durum Kontrolleri (Special Case Handling)](#özel-durum-kontrolleri-special-case-handling)
+  - [Yorum Satırlarıyla Açıklama](#yorum-satırlarıyla-açıklama)
+- [Özet ve Teknik Notlar](#özet-ve-teknik-notlar)
 
----
+### Genel Bakış
 
-## 🚀 **Nasıl Çalıştırılır**
+Bu projede, Go dilinde yapılan floating-point (ondalık) bölme işlemleri sırasında aşağıdaki durumlar ele alınmaktadır:
 
-Bu uygulamayı çalıştırmak için şu adımları izleyin:
+- **NaN (Not a Number):**
+  - Hesaplama sonucu tanımsız ise, örneğin 0/0 gibi durumlarda.
+- **+Inf (Positive Infinity):**
+  - Sonucun pozitif sonsuzluk olması durumu.
+- **-Inf (Negative Infinity):**
+  - Sonucun negatif sonsuzluk olması durumu.
+- **Normal Bölme İşlemi:**
+  - Geçerli bölme işlemlerinin sonucu, yukarıdaki özel durumlara uymadığı durumlarda.
 
-1. **Golang'in yüklü olduğundan emin olun**. Doğrulamak için şu komutu çalıştırın:
-   ```bash
-   go version
-   ```
+Bu yapı, matematiksel hesaplamaların doğru kontrol edilmesi, hata yönetiminin sağlanması ve uygulama akışının güvenilir olması açısından örnek teşkil eder.
 
-2. **Uygulamayı çalıştırın**:
+### Özellikler
+
+- **Veri Dizileri (Data Arrays):**
+  - `numerators` dizisi, bölme işlemi için pay (numerator) değerlerini içerir.
+  - `denominators` dizisi, bölme işlemi için payda (denominator) değerlerini içerir.
+- **Floating-Point Bölme (Floating-Point Division):**
+  - `result := num / denom` ifadesiyle, her bir çift için bölme işlemi gerçekleştirilir.
+- **Özel Durum Kontrolleri (Special Case Handling):**
+  - `math.IsNaN(result)` ile NaN durumu kontrol edilir.
+  - `math.IsInf(result, 1)` ile pozitif sonsuzluk,  
+    `math.IsInf(result, -1)` ile negatif sonsuzluk tespit edilir.
+- **Hata ve Uyarı Mesajları (Error and Warning Messages):**
+  - Hesaplanan sonuçlara göre, özel durum mesajları ekrana yazdırılır.
+- **Runtime Error Örneği:**
+  - Yorum satırı içerisinde, sıfıra bölme sonucu çalışma zamanı hatası (RUNTIME ERROR) üretecek örnek kod parçası bulunmaktadır.
+
+### Kullanım
+
+Projeyi yerel ortamınızda çalıştırmak için şu adımları izleyebilirsiniz:
+
+1. **Go dilinin (Golang) kurulu olduğundan emin olun.**
+2. **Proje dosyasını klonlayın veya indirin.**
+3. **Terminal veya komut satırında proje dizinine gidin.**
+4. **Aşağıdaki komutu çalıştırın:**
+
    ```bash
    go run main.go
    ```
 
-3. **Sonuçları inceleyin**. Bölme işlemleri, NaN, Infinity ve Runtime Error durumlarının nasıl oluştuğunu göreceksiniz.
+5. **Program, her bölme işleminin sonucunu, özel durum kontrolleriyle birlikte ekrana yazdıracaktır.**
 
----
+### Kod Açıklaması
 
-## 🔧 **Gereksinimler**
+#### Paket İçe Aktarma (Import)
 
-- Golang (1.18 veya daha yüksek sürüm önerilir)
+- **fmt:**
+  - Formatlı giriş/çıkış işlemleri (Input/Output operations) için kullanılır.
+- **math:**
+  - Matematiksel işlemler ve özel durum kontrolleri (Mathematical operations and special case handling) için kullanılır.
 
----
+#### Ana Fonksiyon (Main Function)
 
-## 🛠️ **Kod Açıklaması**
+- **Amaç:**
+  - Programın giriş noktasıdır. Ana fonksiyonda, tanımlı iki float64 dizisindeki pay ve payda değerleri üzerinden döngü oluşturulur ve her bir işlem sonucu özel durum kontrolleriyle birlikte ekrana yazdırılır.
+- **İşleyiş:**
+  - `for` döngüsü kullanılarak, her iki dizinin elemanları sırasıyla işlenir.
+  - Her iterasyonda, `result := num / denom` işlemi yapılır ve elde edilen sonuç, matematiksel özel durum kontrolleriyle değerlendirilir.
 
-Uygulama şu adımları izler:
+#### Veri Dizileri ve Döngü Kullanımı
 
-1. **Floating-point Bölme İşlemi**:
-   - Numerator (pay) ve denominator (payda) listelerindeki her bir eleman için **num / denom** işlemi yapılır.
-   - Bölme işleminin sonucunda aşağıdaki özel durumlar kontrol edilir:
-     - **NaN**: Eğer pay ve payda sıfırsa `(0.0 / 0.0)`, sonuç NaN olur.
-     - **Pozitif Sonsuzluk**: Eğer pozitif bir sayı 0.0'a bölünürse `(10.0 / 0.0)`, sonuç +Infinity olur.
-     - **Negatif Sonsuzluk**: Eğer negatif bir sayı 0.0'a bölünürse `(-5.0 / 0.0)`, sonuç -Infinity olur.
-     - **Normal Sonuç**: Diğer durumlarda normal bir sonuç döner.
-   - Bu özel durumlar, `math.IsNaN()`, `math.IsInf(result, 1)` ve `math.IsInf(result, -1)` kullanılarak kontrol edilir.
+- **numerators (Paylar):**
+  - Bölme işlemi için üst kısım değerlerini içerir.
+- **denominators (Paydalar):**
+  - Bölme işlemi için alt kısım değerlerini içerir.
+- **Döngü (Loop):**
+  - `for i := 0; i < len(numerators); i++ { ... }` yapısı ile her bir çift üzerinde işlem gerçekleştirilir.
 
-2. **Tam Sayı Bölme İşlemi**:
-   - Eğer `10 / 0` gibi bir ifade çalıştırılırsa, **Runtime Error: integer divide by zero** hatası alınır.
-   - Bu hatanın önüne geçmek için `0` ile bölme yapmaktan kaçınılmalıdır.
+#### Özel Durum Kontrolleri (Special Case Handling)
 
----
+- **NaN Kontrolü:**
+  - `math.IsNaN(result)` ifadesi, hesaplama sonucunun NaN (Not a Number) olup olmadığını kontrol eder.
+- **Pozitif Sonsuzluk Kontrolü:**
+  - `math.IsInf(result, 1)` ifadesi, sonucun pozitif sonsuzluk (+Inf) olup olmadığını belirler.
+- **Negatif Sonsuzluk Kontrolü:**
+  - `math.IsInf(result, -1)` ifadesi, sonucun negatif sonsuzluk (-Inf) olup olmadığını belirler.
+- **Normal Sonuç Durumu:**
+  - Yukarıdaki özel durumların dışında kalan sonuç, formatlı biçimde ekrana yazdırılır.
 
-## 📂 **Proje Yapısı**
+#### Yorum Satırlarıyla Açıklama
 
-```
-├── main.go       # Ana Golang uygulama dosyası
-```
+- **Runtime Error Örneği:**
 
----
+  - Kod içerisinde yorum satırı olarak bulunan aşağıdaki parça, sıfıra bölme (division by zero) nedeniyle çalışma zamanı hatası (RUNTIME ERROR) üretecektir:
 
-## 📘 **Örnek Kullanım**
+    ```go
+    /*
+    		c := 10 / 0
+    		fmt.Println("c =", c)
+    */
+    ```
 
-```bash
-$ go run main.go
+  - Bu örnek, hatalı matematiksel işlemlerin nasıl bir hata üreteceğini göstermektedir.
 
-Floating-point division: 10.00 / 2.00 = 5.00
-Floating-point division: 0.00 / 0.00 = NaN (Not a Number)
-Floating-point division: -5.00 / 0.00 = -Inf (Negative Infinity)
-Floating-point division: 10.00 / 0.00 = +Inf (Positive Infinity)
-Floating-point division: 0.00 / 10.00 = 0.00
-```
+### Özet ve Teknik Notlar
 
----
+- **Kodun Amacı:**
 
-## 🔍 **Kullanılan Golang Matematik Fonksiyonları**
+  - Float64 veri tipiyle yapılan bölme işlemlerinde ortaya çıkabilecek matematiksel özel durumları (NaN, +Inf, -Inf) tespit etmek ve yönetmek.
+  - Floating-point işlemlerde, matematiksel hesaplamaların kontrolünün sağlanması, hata yönetiminin uygulanması ve doğru bilgilendirici çıktı verilmesi hedeflenmiştir.
 
-| **İşlem**                | **Kullanılan Fonksiyon**  | **Açıklama**                                      |
-|------------------------|--------------------------|-------------------------------------------------|
-| Bölme (Ondalıklı)       | `num / denom`             | Ondalıklı sayılarla bölme işlemi.                 |
-| NaN Kontrolü            | `math.IsNaN(x)`           | Değerin NaN (Not-a-Number) olup olmadığını kontrol eder |
-| Pozitif Sonsuzluk Kontrolü | `math.IsInf(x, 1)`      | Değerin +Infinity (sonsuz) olup olmadığını kontrol eder |
-| Negatif Sonsuzluk Kontrolü| `math.IsInf(x, -1)`     | Değerin -Infinity (sonsuz) olup olmadığını kontrol eder |
-| Bölme (Tam Sayı)        | `10 / 0`                  | Tam sayılarla bölme, **Runtime Error** üretir.     |
-
----
-
-## ❗ **Özel Durumlar ve Hatalar**
-
-| **İşlem**                | **Sonuç**               | **Açıklama**                                 |
-|------------------------|------------------------|---------------------------------------------|
-| **10 / 2**              | 5.00                   | Normal bölme işlemi.                        |
-| **0 / 0**               | NaN                    | 0'ın 0'a bölümü NaN olarak tanımlanır.      |
-| **-5 / 0**              | -Infinity              | Negatif bir sayının 0'a bölümü -∞ döner.    |
-| **10 / 0**              | +Infinity              | Pozitif bir sayının 0'a bölümü +∞ döner.    |
-| **10 / 0** (tam sayı)   | Runtime Error          | Tam sayılarda 0'a bölme **Runtime Error** üretir.|
-
----
-
-## 📚 **Kullanılan Golang Kavramları**
-
-- **`fmt` Paketi**: Çıktı işlemleri için kullanılır.
-- **`math` Paketi**: NaN, Infinity ve bölme işlemleri ile ilgili özel durumları kontrol etmek için kullanılır.
-
----
-
-## 📜 **Lisans**
-
-Bu proje açık kaynaklıdır ve eğitim amaçlı serbestçe kullanılabilir.
+- **Kullanılan Temel Terimler:**
+  - **Floating-Point Division (ondalık bölme)**
+  - **NaN (Not a Number)**
+  - **Infinity (Sonsuzluk)**
+  - **math.IsNaN (NaN kontrolü)**
+  - **math.IsInf (sonsuzluk kontrolü)**
+- **Örnek Kullanım Senaryosu:**
+  - İki farklı float64 dizisi üzerinden gerçekleştirilen bölme işlemleri, çeşitli durumları (geçerli bölme, sıfıra bölme, negatif ve pozitif sonsuzluk) simüle eder.
+  - Her durumda, ilgili özel durum kontrol fonksiyonları kullanılarak sonuç ekrana yazdırılır.
