@@ -2,7 +2,12 @@
 
 - **Döngüler (Loops – döngüler):**
 
+
   - Bir işin yinelenerek yapılmasını sağlayan kontrol yapılarıdır.
+	- Go'da yalnızca for döngü deyimi bulunur. 
+	- for döngüsünün çeşitli kullanım biçimleri vardır. 
+	- Go'da klasik while döngüsü ya da do-while döngüsü yoktur. 
+	- Bu anlamda for döngü deyiminin biçimlerinden biri ile while ihtiyacı da giderilmiş olur.
   - Tekrarlanan işlemler, kod tekrarını azaltır ve programın akışını daha düzenli hale getirir.
 
 - **Go'da For Döngüsü (for loop – for döngüsü):**
@@ -25,14 +30,16 @@
 
 - **Genel Yapı:**
   ```go
-  for [boolean expression] {
+  for [booleanExpression] {
       // Döngü gövdesi
   }
   ```
 - **Açıklama:**
+  - Bu yapı, diğer dillerdeki **while loop (while döngüsü – while döngüsü)** kullanımına denk gelir.
   - Döngüye girmeden önce koşul ifadesi kontrol edilir.
   - İfade `true` ise döngü çalışmaya başlar, aksi halde hiç girilmez.
-  - Bu yapı, diğer dillerdeki **while loop (while döngüsü – while döngüsü)** kullanımına denk gelir.
+  - _booleanExpression_ `true` olduğu sürece döngü devam eder.
+  
 - **Detaylı Bilgiler:**
 
   - Eğer ilk kontrol esnasında koşul `false` ise döngü gövdesi hiç çalıştırılmaz.
@@ -57,7 +64,38 @@
           i++ // Değişkenin güncellenmesi koşulun sağlıklı çalışmasını sağlar.
       }
       fmt.Println()
-      fmt.Println("Tekrar yapıyor musunuz?")
+  }
+  ```
+---
+
+- **Örnek Kod - Hata Durumu**
+
+  - `` Aşağıdaki döngü geçersizdir. Çünkü Go'da atama operatörü bir ifade belirtmez dolayısıyla ürettiği değer yoktur ``
+
+
+  ```go
+  package main
+
+  import "fmt"
+
+  func main() {
+    var val int
+    fmt.Print("Input a number:")
+
+    total := 0
+
+    for (val = readInt()) != 0 { //error
+      total += val
+    }
+
+    fmt.Println()
+  }
+
+  func readInt() int {
+    var a int
+    fmt.Scan(&a)
+
+    return a
   }
   ```
 

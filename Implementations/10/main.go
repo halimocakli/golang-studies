@@ -11,7 +11,11 @@ func main() {
 }
 
 func performIntegerOperations() {
-	var num1, num2 int
+	var (
+		num1 int
+		num2 int
+	)
+
 	fmt.Print("Input two integers (e.g., 3 5): ")
 	if _, err := fmt.Scan(&num1, &num2); err != nil {
 		fmt.Println("Invalid input. Please enter valid integers.")
