@@ -66,4 +66,3 @@ func sumThreeDigits(number int) int {
 func abs(value int) int {
 	return -value
 }
->>>>>>> 8cbb619f6c966f0115a47e2216b166d7a26155a8
