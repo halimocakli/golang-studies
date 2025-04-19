@@ -1,3 +1,3 @@
-module 04-DivideByZeroSituations
+module main.go
 
-go 1.23
+go 1.23.3
